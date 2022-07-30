@@ -95,13 +95,19 @@ export class UsersService {
   delete(id: number) {
     const productId = this.findIndex(id);
     if (productId === -1) {
-      throw new NotFoundException(
-        `Product ${id} not Found`,
-      );
+      throw new NotFoundException(`User ${id} not Found`);
     }
     this.users.slice(productId, 1);
   }
 
+  /**
+   * Obtain an User from by a given id
+   *
+   * @private
+   * @param {number} id - The id to find
+   * @return {Users} - the user found
+   * @memberof UsersService
+   */
   private findIndex(id: number) {
     return this.users.findIndex((item) => item.id === id);
   }
