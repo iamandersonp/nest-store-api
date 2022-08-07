@@ -5,8 +5,8 @@ import {
 import {
   CreateOrdersDto,
   UpdateOrdersDto,
-} from './orders-dto.interface';
-import { Orders } from './orders.interface';
+} from '../dtos/orders-dto.interface';
+import { Orders } from '../models/orders.interface';
 
 @Injectable()
 export class OrdersService {
