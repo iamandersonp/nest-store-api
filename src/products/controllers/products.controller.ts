@@ -8,11 +8,11 @@ import {
   Put,
   ParseIntPipe,
 } from '@nestjs/common';
-import { ProductsService } from './products.service';
+import { ProductsService } from '../services/products.service';
 import {
   CreateProductsDto,
   UpdateProductsDto,
-} from './products-dto.interface';
+} from '../dtos/products-dto.interface';
 
 @Controller('products')
 export class ProductsController {
