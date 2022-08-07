@@ -1,13 +1,24 @@
-export interface CreateUserDto {
+import { PartialType } from '@nestjs/mapped-types';
+import { IsString, IsNotEmpty } from 'class-validator';
+
+export class CreateUserDto {
+  @IsString()
+  @IsNotEmpty()
   readonly firstName: string;
+
+  @IsString()
+  @IsNotEmpty()
   readonly lastName: string;
+
+  @IsString()
+  @IsNotEmpty()
   readonly userName: string;
+
+  @IsString()
+  @IsNotEmpty()
   readonly password: string;
 }
 
-export interface UpdateUserDto {
-  readonly firstName?: string;
-  readonly lastName?: string;
-  readonly userName?: string;
-  readonly password?: string;
-}
+export class UpdateUserDto extends PartialType(
+  CreateUserDto,
+) {}
