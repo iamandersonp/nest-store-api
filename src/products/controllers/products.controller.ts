@@ -27,11 +27,24 @@ export class ProductsController {
   //   return this.productsService.findAll();
   // }
 
+  /**
+   * Get all products
+   *
+   * @return {*} Product[]
+   * @memberof ProductsController
+   */
   @Get()
   getProducts() {
     return this.productsService.findAll();
   }
 
+  /**
+   * Get one product
+   *
+   * @param {number} productId - Product id
+   * @return {*} Product
+   * @memberof ProductsController
+   */
   @Get(':productId')
   getOne(
     @Param('productId', ParseIntPipe) productId: number,
@@ -39,11 +52,26 @@ export class ProductsController {
     return this.productsService.findOne(productId);
   }
 
+  /**
+   * Create a product
+   *
+   * @param {CreateProductsDto} payload - Product data
+   * @return {*} Product
+   * @memberof ProductsController
+   */
   @Post()
   create(@Body() payload: CreateProductsDto) {
     return this.productsService.create(payload);
   }
 
+  /**
+   * Update a product
+   *
+   * @param {number} id - Product id to update
+   * @param {UpdateProductsDto} payload - Product data
+   * @return {*} Product
+   * @memberof ProductsController
+   */
   @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
@@ -52,6 +80,13 @@ export class ProductsController {
     return this.productsService.update(id, payload);
   }
 
+  /**
+   * Delete a product
+   *
+   * @param {number} id - Product id to delete
+   * @return {*} Product
+   * @memberof ProductsController
+   */
   @Delete()
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.productsService.delete(id);
