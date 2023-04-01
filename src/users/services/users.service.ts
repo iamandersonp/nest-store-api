@@ -7,6 +7,8 @@ import {
   CreateUserDto,
   UpdateUserDto,
 } from '../dtos/users-dto.interface';
+import { Orders } from '../models/orders.interface';
+import { ProductsService } from '../../products/services/products.service';
 
 /**
  * Users Service
@@ -16,6 +18,13 @@ import {
  */
 @Injectable()
 export class UsersService {
+  /**
+   * Creates an instance of UsersService.
+   * @param {ProductsService} productsService
+   * @memberof UsersService
+   */
+  constructor(private productsService: ProductsService) {}
+
   /**
    * Counter for the id
    *
@@ -118,6 +127,24 @@ export class UsersService {
       throw new NotFoundException(`User ${id} not Found`);
     }
     this.users.slice(productId, 1);
+  }
+
+  /**
+   * Obtain the orders of a user
+   *
+   * @param {number} id - The id of the user
+   * @return {*}  {Orders}
+   * @memberof UsersService
+   */
+  getOrdersByUser(id: number): Orders {
+    const order: Orders = {
+      id: 1,
+      date: new Date(),
+      user: this.findOne(id),
+      products: this.productsService.findAll(),
+      total: 0,
+    };
+    return order;
   }
 
   /**
