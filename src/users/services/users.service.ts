@@ -8,9 +8,28 @@ import {
   UpdateUserDto,
 } from '../dtos/users-dto.interface';
 
+/**
+ * Users Service
+ *
+ * @export
+ * @class UsersService
+ */
 @Injectable()
 export class UsersService {
+  /**
+   * Counter for the id
+   *
+   * @private
+   * @memberof UsersService
+   */
   private counterId = 1;
+  /**
+   * List of Users
+   *
+   * @private
+   * @type {Users[]}
+   * @memberof UsersService
+   */
   private users: Users[] = [
     {
       id: 1,

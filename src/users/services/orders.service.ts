@@ -10,7 +10,20 @@ import { Orders } from '../models/orders.interface';
 
 @Injectable()
 export class OrdersService {
+  /**
+   * Counter for the id
+   *
+   * @private
+   * @memberof OrdersService
+   */
   private counterId = 1;
+  /**
+   * List of Orders
+   *
+   * @private
+   * @type {Orders[]}
+   * @memberof OrdersService
+   */
   private orders: Orders[] = [
     {
       id: 1,
