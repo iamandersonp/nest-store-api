@@ -37,6 +37,7 @@ export class UsersService {
       lastName: 'Peñaloza',
       userName: 'admin',
       password: '123456',
+      role: 'admin',
     },
   ];
 
