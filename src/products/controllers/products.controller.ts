@@ -16,7 +16,7 @@ import {
 
 @Controller('products')
 export class ProductsController {
-  constructor(private productsService: ProductsService) {}
+  constructor(private service: ProductsService) {}
 
   // @Get()
   // getProducts(
@@ -24,7 +24,7 @@ export class ProductsController {
   //   @Query('offset') offset = 0,
   //   @Query('brand') brand: string,
   // ) {
-  //   return this.productsService.findAll();
+  //   return this.service.findAll();
   // }
 
   /**
@@ -34,8 +34,8 @@ export class ProductsController {
    * @memberof ProductsController
    */
   @Get()
-  getProducts() {
-    return this.productsService.findAll();
+  getAll() {
+    return this.service.findAll();
   }
 
   /**
@@ -49,7 +49,7 @@ export class ProductsController {
   getOne(
     @Param('productId', ParseIntPipe) productId: number,
   ) {
-    return this.productsService.findOne(productId);
+    return this.service.findOne(productId);
   }
 
   /**
@@ -61,7 +61,7 @@ export class ProductsController {
    */
   @Post()
   create(@Body() payload: CreateProductsDto) {
-    return this.productsService.create(payload);
+    return this.service.create(payload);
   }
 
   /**
@@ -77,7 +77,7 @@ export class ProductsController {
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateProductsDto,
   ) {
-    return this.productsService.update(id, payload);
+    return this.service.update(id, payload);
   }
 
   /**
@@ -89,6 +89,6 @@ export class ProductsController {
    */
   @Delete()
   delete(@Param('id', ParseIntPipe) id: number) {
-    return this.productsService.delete(id);
+    return this.service.delete(id);
   }
 }
