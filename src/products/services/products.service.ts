@@ -8,9 +8,29 @@ import {
   UpdateProductsDto,
 } from '../dtos/products-dto.interface';
 
+/**
+ * Injectable to Handle the Products
+ *
+ * @export
+ * @class ProductsService
+ */
 @Injectable()
 export class ProductsService {
+  /**
+   * Counter to generate the id
+   *
+   * @private
+   * @memberof ProductsService
+   */
   private counterId = 1;
+
+  /**
+   * List of Products
+   *
+   * @private
+   * @type {Products[]}
+   * @memberof ProductsService
+   */
   private products: Products[] = [
     {
       id: 1,
@@ -22,10 +42,21 @@ export class ProductsService {
     },
   ];
 
+  /**
+   * Find all the products
+   * @returns
+   */
   findAll() {
     return this.products;
   }
 
+  /**
+   * Find one product by id
+   *
+   * @param {number} id
+   * @return {*}
+   * @memberof ProductsService
+   */
   findOne(id: number) {
     const product = this.products.find(
       (item: Products) => item.id === id,
@@ -38,6 +69,13 @@ export class ProductsService {
     return product;
   }
 
+  /**
+   * Create a new product
+   *
+   * @param {CreateProductsDto} payload - Data to create a new product
+   * @return {*} {Product}
+   * @memberof ProductsService
+   */
   create(payload: CreateProductsDto) {
     this.counterId++;
     const newProduct: Products = {
@@ -48,6 +86,14 @@ export class ProductsService {
     return newProduct;
   }
 
+  /**
+   * Update a product
+   *
+   * @param {number} id - Id of the product to update
+   * @param {UpdateProductsDto} payload - Data to update
+   * @return {*} {Product}
+   * @memberof ProductsService
+   */
   update(id: number, payload: UpdateProductsDto) {
     const productId = this.findIndex(id);
     if (productId != 1) {
@@ -61,6 +107,12 @@ export class ProductsService {
     return null;
   }
 
+  /**
+   * Delete a product
+   *
+   * @param {number} id - Id of the product to delete
+   * @memberof ProductsService
+   */
   delete(id: number) {
     const productId = this.findIndex(id);
     if (productId === -1) {
@@ -71,6 +123,14 @@ export class ProductsService {
     this.products.slice(productId, 1);
   }
 
+  /**
+   * Find the index of the product
+   *
+   * @private
+   * @param {number} id - Id of the product
+   * @return {*} {number}
+   * @memberof ProductsService
+   */
   private findIndex(id: number) {
     return this.products.findIndex(
       (item) => item.id === id,
