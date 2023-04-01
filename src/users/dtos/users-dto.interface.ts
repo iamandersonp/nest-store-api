@@ -47,6 +47,16 @@ export class CreateUserDto {
   @IsString()
   @IsNotEmpty()
   readonly password: string;
+
+  /**
+   * Role
+   *
+   * @type {string}
+   * @memberof CreateUserDto
+   */
+  @IsString()
+  @IsNotEmpty()
+  readonly role: string;
 }
 
 /**
