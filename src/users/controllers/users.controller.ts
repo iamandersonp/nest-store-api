@@ -47,6 +47,11 @@ export class UsersController {
     return this.usersService.findOne(userId);
   }
 
+  @Get(':userId/orders')
+  getOrders(@Param('userId', ParseIntPipe) userId: number) {
+    return this.usersService.getOrdersByUser(userId);
+  }
+
   /**
    * Create a new user
    *
