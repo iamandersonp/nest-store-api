@@ -3,7 +3,10 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { Brand } from '../models/brand.interface';
-import { CreateBrandDto } from '../dtos/brands-dto.interface';
+import {
+  CreateBrandDto,
+  UpdateBrandDto,
+} from '../dtos/brands-dto.interface';
 
 @Injectable()
 export class BrandsService {
@@ -81,7 +84,7 @@ export class BrandsService {
    * @return {*}  {Brand}
    * @memberof CategoriesService
    */
-  update(id: number, payload: CreateBrandDto): Brand {
+  update(id: number, payload: UpdateBrandDto): Brand {
     const brandId = this.findIndex(id);
     if (brandId) {
       const brand = this.findOne(id);
