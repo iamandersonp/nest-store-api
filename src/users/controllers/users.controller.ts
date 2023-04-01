@@ -31,7 +31,7 @@ export class UsersController {
    * @memberof UsersController
    */
   @Get()
-  getProducts() {
+  getAll() {
     return this.usersService.findAll();
   }
 
