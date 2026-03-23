@@ -12,7 +12,7 @@ import { BrandsService } from '../services/brands.service';
 import {
   CreateBrandDto,
   UpdateBrandDto,
-} from '../dtos/brands-dto.interface';
+} from '../dtos/brands.dto';
 
 @Controller('brands')
 export class BrandsController {

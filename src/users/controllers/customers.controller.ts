@@ -12,7 +12,7 @@ import { CustomersService } from '../services/customers.service';
 import {
   CreateCustomerDto,
   UpdateCustomerDto,
-} from '../dtos/customers-dto.interface';
+} from '../dtos/customers.dto.';
 
 @Controller('customers')
 export class CustomersController {

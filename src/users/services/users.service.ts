@@ -2,12 +2,12 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Users } from '../models/users.interface';
+import { Users } from '../models/users.entity';
 import {
   CreateUserDto,
   UpdateUserDto,
-} from '../dtos/users-dto.interface';
-import { Orders } from '../models/orders.interface';
+} from '../dtos/users.dto';
+import { Orders } from '../models/orders.entity';
 import { ProductsService } from '../../products/services/products.service';
 
 /**

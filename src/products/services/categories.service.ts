@@ -2,11 +2,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Category } from '../models/category.interface';
+import { Category } from '../models/category.entity';
 import {
   CreateCategoryDto,
   UpdateCategoryDtoDto,
-} from '../dtos/categories-dto.interface';
+} from '../dtos/categories.dto';
 
 @Injectable()
 export class CategoriesService {
@@ -87,7 +87,7 @@ export class CategoriesService {
   update(
     id: number,
     payload: UpdateCategoryDtoDto,
-  ): Category {
+  ): Category | null {
     const categoryId = this.findIndex(id);
     if (categoryId) {
       const category = this.findOne(id);
@@ -97,6 +97,7 @@ export class CategoriesService {
       };
       return this.categories[id];
     }
+    return null;
   }
 
   /**

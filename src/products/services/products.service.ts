@@ -2,11 +2,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Products } from '../models/products.interface';
+import { Products } from '../models/products.entity';
 import {
   CreateProductsDto,
   UpdateProductsDto,
-} from '../dtos/products-dto.interface';
+} from '../dtos/products.dto';
 
 /**
  * Injectable to Handle the Products

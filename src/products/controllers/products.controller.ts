@@ -12,7 +12,7 @@ import { ProductsService } from '../services/products.service';
 import {
   CreateProductsDto,
   UpdateProductsDto,
-} from '../dtos/products-dto.interface';
+} from '../dtos/products.dto';
 
 @Controller('products')
 export class ProductsController {

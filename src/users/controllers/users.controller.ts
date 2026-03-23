@@ -12,7 +12,7 @@ import { UsersService } from '../services/users.service';
 import {
   CreateUserDto,
   UpdateUserDto,
-} from '../dtos/users-dto.interface';
+} from '../dtos/users.dto';
 
 /**
  * Users Controller

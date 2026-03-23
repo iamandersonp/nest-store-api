@@ -2,11 +2,11 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { Brand } from '../models/brand.interface';
+import { Brand } from '../models/brand.entity';
 import {
   CreateBrandDto,
   UpdateBrandDto,
-} from '../dtos/brands-dto.interface';
+} from '../dtos/brands.dto';
 
 @Injectable()
 export class BrandsService {
@@ -69,8 +69,8 @@ export class BrandsService {
   create(payload: CreateBrandDto): Brand {
     this.counterId++;
     const newBrand: Brand = {
-      id: this.counterId,
       ...payload,
+      id: this.counterId,
     };
     this.brands.push(newBrand);
     return newBrand;
@@ -84,7 +84,10 @@ export class BrandsService {
    * @return {*}  {Brand}
    * @memberof CategoriesService
    */
-  update(id: number, payload: UpdateBrandDto): Brand {
+  update(
+    id: number,
+    payload: UpdateBrandDto,
+  ): Brand | undefined {
     const brandId = this.findIndex(id);
     if (brandId) {
       const brand = this.findOne(id);

@@ -1,5 +1,5 @@
-import { Products } from '../../products/models/products.interface';
-import { Users } from './users.interface';
+import { Products } from '../../products/models/products.entity';
+import { Users } from './users.entity';
 
 /**
  * Orders Interface
