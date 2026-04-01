@@ -1,12 +1,6 @@
-import {
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Users } from '../models/users.entity';
-import {
-  CreateUserDto,
-  UpdateUserDto,
-} from '../dtos/users.dto';
+import { CreateUserDto, UpdateUserDto } from '../dtos/users.dto';
 import { Orders } from '../models/orders.entity';
 import { ProductsService } from '../../products/services/products.service';
 
@@ -68,9 +62,7 @@ export class UsersService {
    * @memberof UsersService
    */
   findOne(id: number) {
-    const user = this.users.find(
-      (item: Users) => item.id === id,
-    );
+    const user = this.users.find((item: Users) => item.id === id);
     if (!user) {
       throw new NotFoundException(`User ${id} not Found`);
     }

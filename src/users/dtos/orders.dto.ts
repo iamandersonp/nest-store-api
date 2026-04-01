@@ -1,9 +1,5 @@
 import { PartialType } from '@nestjs/swagger';
-import {
-  IsNumber,
-  IsPositive,
-  IsDate,
-} from 'class-validator';
+import { IsNumber, IsPositive, IsDate } from 'class-validator';
 
 export class CreateOrdersDto {
   /**
@@ -44,6 +40,4 @@ export class CreateOrdersDto {
  *   CreateOrdersDto,
  * )}
  */
-export class UpdateOrdersDto extends PartialType(
-  CreateOrdersDto,
-) {}
+export class UpdateOrdersDto extends PartialType(CreateOrdersDto) {}

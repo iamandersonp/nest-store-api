@@ -1,10 +1,4 @@
-import {
-  IsString,
-  IsNumber,
-  IsNotEmpty,
-  IsPositive,
-  IsUrl,
-} from 'class-validator';
+import { IsString, IsNumber, IsNotEmpty, IsPositive, IsUrl } from 'class-validator';
 import { PartialType } from '@nestjs/swagger';
 
 /**
@@ -73,6 +67,4 @@ export class CreateProductsDto {
  * @class UpdateProductsDto
  * @extends {PartialType(CreateProductsDto)}
  */
-export class UpdateProductsDto extends PartialType(
-  CreateProductsDto,
-) {}
+export class UpdateProductsDto extends PartialType(CreateProductsDto) {}

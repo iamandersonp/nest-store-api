@@ -1,18 +1,6 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CustomersService } from '../services/customers.service';
-import {
-  CreateCustomerDto,
-  UpdateCustomerDto,
-} from '../dtos/customers.dto.';
+import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto.';
 
 @Controller('customers')
 export class CustomersController {
@@ -37,9 +25,7 @@ export class CustomersController {
    * @memberof UsersController
    */
   @Get(':customerId')
-  getOne(
-    @Param('customerId', ParseIntPipe) customerId: number,
-  ) {
+  getOne(@Param('customerId', ParseIntPipe) customerId: number) {
     return this.service.findOne(customerId);
   }
 
@@ -64,10 +50,7 @@ export class CustomersController {
    * @memberof UsersController
    */
   @Put(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() payload: UpdateCustomerDto,
-  ) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateCustomerDto) {
     return this.service.update(id, payload);
   }
 

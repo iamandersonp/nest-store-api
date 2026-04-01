@@ -1,18 +1,6 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put,
-} from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
 import { CategoriesService } from '../services/categories.service';
-import {
-  CreateCategoryDto,
-  UpdateCategoryDtoDto,
-} from '../dtos/categories.dto';
+import { CreateCategoryDto, UpdateCategoryDtoDto } from '../dtos/categories.dto';
 
 @Controller('categories')
 export class CategoriesController {
@@ -46,9 +34,7 @@ export class CategoriesController {
    * @memberof CategoriesController
    */
   @Get(':categoryId')
-  getOne(
-    @Param('categoryId', ParseIntPipe) categoryId: number,
-  ) {
+  getOne(@Param('categoryId', ParseIntPipe) categoryId: number) {
     return this.service.findOne(categoryId);
   }
 
@@ -73,10 +59,7 @@ export class CategoriesController {
    * @memberof CategoriesController
    */
   @Put(':id')
-  update(
-    @Param('id', ParseIntPipe) id: number,
-    @Body() payload: UpdateCategoryDtoDto,
-  ) {
+  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateCategoryDtoDto) {
     return this.service.update(id, payload);
   }
 

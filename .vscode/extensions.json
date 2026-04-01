@@ -1,0 +1,15 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "firsttris.vscode-jest-runner",
+    "steoates.autoimport",
+    "dbaeumer.vscode-eslint",
+    "mhutchie.git-graph",
+    "donjayamanne.githistory",
+    "mohsen1.prettify-json",
+    "vivaxy.vscode-conventional-commits",
+    "sonarsource.sonarlint-vscode",
+    "pkief.material-icon-theme",
+    "EditorConfig.EditorConfig"
+  ]
+}

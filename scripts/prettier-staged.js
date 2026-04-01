@@ -1,10 +1,10 @@
-const { execSync } = require('child_process');
+const { execSync } = require('node:child_process');
 
 const extensions = /\.(html|ts|scss|css|json)$/;
 
 try {
   const output = execSync('git diff --name-only --cached --diff-filter=ACM', {
-    encoding: 'utf-8'
+    encoding: 'utf-8',
   });
 
   const files = output

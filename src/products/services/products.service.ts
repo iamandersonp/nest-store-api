@@ -1,12 +1,6 @@
-import {
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Products } from '../models/products.entity';
-import {
-  CreateProductsDto,
-  UpdateProductsDto,
-} from '../dtos/products.dto';
+import { CreateProductsDto, UpdateProductsDto } from '../dtos/products.dto';
 
 /**
  * Injectable to Handle the Products
@@ -58,13 +52,9 @@ export class ProductsService {
    * @memberof ProductsService
    */
   findOne(id: number) {
-    const product = this.products.find(
-      (item: Products) => item.id === id,
-    );
+    const product = this.products.find((item: Products) => item.id === id);
     if (!product) {
-      throw new NotFoundException(
-        `Product ${id} not Found`,
-      );
+      throw new NotFoundException(`Product ${id} not Found`);
     }
     return product;
   }
@@ -116,9 +106,7 @@ export class ProductsService {
   delete(id: number) {
     const productId = this.findIndex(id);
     if (productId === -1) {
-      throw new NotFoundException(
-        `Product ${id} not Found`,
-      );
+      throw new NotFoundException(`Product ${id} not Found`);
     }
     this.products.slice(productId, 1);
   }
@@ -132,8 +120,6 @@ export class ProductsService {
    * @memberof ProductsService
    */
   private findIndex(id: number) {
-    return this.products.findIndex(
-      (item) => item.id === id,
-    );
+    return this.products.findIndex((item) => item.id === id);
   }
 }

@@ -67,6 +67,4 @@ export class CreateUserDto {
  * @extends {PartialType(CreateUserDto,
 )}
  */
-export class UpdateUserDto extends PartialType(
-  CreateUserDto,
-) {}
+export class UpdateUserDto extends PartialType(CreateUserDto) {}

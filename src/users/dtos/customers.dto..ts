@@ -1,11 +1,5 @@
 import { PartialType } from '@nestjs/swagger';
-import {
-  IsNotEmpty,
-  IsString,
-  IsPhoneNumber,
-  IsNumber,
-  IsPositive,
-} from 'class-validator';
+import { IsNotEmpty, IsString, IsPhoneNumber, IsNumber, IsPositive } from 'class-validator';
 
 export class CreateCustomerDto {
   /**
@@ -40,6 +34,4 @@ export class CreateCustomerDto {
   readonly idUser: number;
 }
 
-export class UpdateCustomerDto extends PartialType(
-  CreateCustomerDto,
-) {}
+export class UpdateCustomerDto extends PartialType(CreateCustomerDto) {}

@@ -1,12 +1,6 @@
-import {
-  Injectable,
-  NotFoundException,
-} from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Customer } from '../models/customer.entity';
-import {
-  CreateCustomerDto,
-  UpdateCustomerDto,
-} from '../dtos/customers.dto.';
+import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto.';
 
 @Injectable()
 export class CustomersService {
@@ -45,13 +39,9 @@ export class CustomersService {
    * @memberof CustomersService
    */
   findOne(id: number): Customer {
-    const customer = this.customers.find(
-      (item) => item.id === id,
-    );
+    const customer = this.customers.find((item) => item.id === id);
     if (!customer) {
-      throw new NotFoundException(
-        `Customer #${id} not found`,
-      );
+      throw new NotFoundException(`Customer #${id} not found`);
     }
     return customer;
   }
@@ -81,10 +71,7 @@ export class CustomersService {
    * @return {*}  {Customer}
    * @memberof CustomersService
    */
-  update(
-    id: number,
-    payload: UpdateCustomerDto,
-  ): Customer | null {
+  update(id: number, payload: UpdateCustomerDto): Customer | null {
     const index = this.findIndex(id);
     if (index !== 1) {
       const updatedCustomer: Customer = {
@@ -107,9 +94,7 @@ export class CustomersService {
   delete(id: number) {
     const index = this.findIndex(id);
     if (index == -1) {
-      throw new NotFoundException(
-        `Customer ${id} not Found`,
-      );
+      throw new NotFoundException(`Customer ${id} not Found`);
     }
     this.customers.splice(index, 1);
   }
@@ -123,8 +108,6 @@ export class CustomersService {
    * @memberof CustomersService
    */
   private findIndex(id: number): number {
-    return this.customers.findIndex(
-      (item) => item.id === id,
-    );
+    return this.customers.findIndex((item) => item.id === id);
   }
 }
