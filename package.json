@@ -47,7 +47,7 @@
     "@compodoc/compodoc": "^1.2.1",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",
-    "@iamandersonp/prettier-staged": "^0.2.0",
+    "@iamandersonp/prettier-staged": "^0.3.1",
     "@nestjs/cli": "^11.0.16",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",
