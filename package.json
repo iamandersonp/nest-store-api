@@ -23,8 +23,9 @@
     "compodoc:build-and-serve": "compodoc -p tsconfig.doc.json -s --watch --open",
     "compodoc:serve": "compodoc -s",
     "setup:git-hooks": "git config core.hooksPath .git-hooks || true && chmod +x ./.git-hooks/*",
-    "prettier:staged": "node ./scripts/prettier-staged.js",
-    "prepare": "npm run setup:git-hooks"
+    "prettier:staged": "prettier-staged",
+    "prepare": "npm run setup:git-hooks",
+    "prettier-staged": "prettier-staged"
   },
   "dependencies": {
     "@nestjs/axios": "^4.0.1",
@@ -47,6 +48,7 @@
     "@compodoc/compodoc": "^1.2.1",
     "@eslint/eslintrc": "^3.2.0",
     "@eslint/js": "^9.18.0",
+    "@iamandersonp/prettier-staged": "^0.6.1",
     "@nestjs/cli": "^11.0.16",
     "@nestjs/schematics": "^11.0.0",
     "@nestjs/testing": "^11.0.1",

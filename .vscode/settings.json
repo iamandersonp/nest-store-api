@@ -1,6 +1,6 @@
 {
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "prettier.printWidth": 60,
+  "prettier.printWidth": 100,
   "editor.formatOnSave": true,
   "prettier.requireConfig": true,
   "files.exclude": {
@@ -8,5 +8,19 @@
     "**/.project": true,
     "**/.settings": true,
     "**/.factorypath": true
+  },
+  "git.autofetch": true,
+  "prettier.endOfLine": "lf",
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "always"
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
   }
 }
