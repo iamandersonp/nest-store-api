@@ -1,9 +1,14 @@
+import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCustomerDto, UpdateCustomerDto } from '../domain/dtos/customers.dto.';
-import { Customer } from '../domain/models/customer.entity';
+import { CreateCustomerDto, UpdateCustomerDto } from '../../domain/dtos/customers.dto.';
+import { Customer } from '../../domain/models/customer.entity';
 
 @Injectable()
-export class CustomersService {
+export class CustomersService implements BasseCrudService<
+  Customer,
+  CreateCustomerDto,
+  UpdateCustomerDto
+> {
   /**
    * Counter for the id
    *
@@ -88,12 +93,12 @@ export class CustomersService {
    * Delete a Customer
    *
    * @param {number} id - The id of the Customer to delete
-   * @return {*}  {boolean}
+   * @return {*}  {void}
    * @memberof CustomersService
    */
-  delete(id: number) {
+  delete(id: number): void {
     const index = this.findIndex(id);
-    if (index == -1) {
+    if (index === -1) {
       throw new NotFoundException(`Customer ${id} not Found`);
     }
     this.customers.splice(index, 1);

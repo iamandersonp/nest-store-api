@@ -5,18 +5,29 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Inject,
   Param,
   ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
+
+import type { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
+import { BRANDS_SERVICE_PORT } from '@products/domain/ports/brand.port';
 import { CreateBrandDto, UpdateBrandDto } from '../domain/dtos/brands.dto';
 import type { Brand } from '../domain/models/brand.entity';
-import { BrandsService } from '../infrastructure/brands.service';
 
 @Controller('brands')
 export class BrandsController {
-  constructor(private service: BrandsService) {}
+  /**
+   * Creates an instance of BrandsController.
+   * @param {BasseCrudService<Brand, CreateBrandDto, UpdateBrandDto>} service
+   * @memberof BrandsController
+   */
+  constructor(
+    @Inject(BRANDS_SERVICE_PORT)
+    private readonly service: BasseCrudService<Brand, CreateBrandDto, UpdateBrandDto>,
+  ) {}
 
   // @Get()
   // getAll(
@@ -34,7 +45,7 @@ export class BrandsController {
    * @memberof BrandsController
    */
   @Get()
-  getAll(): Brand[] {
+  getAll(): Brand[] | Promise<Brand[]> {
     return this.service.findAll();
   }
 
@@ -46,7 +57,7 @@ export class BrandsController {
    * @memberof BrandsService
    */
   @Get(':brandId')
-  getOne(@Param('brandId', ParseIntPipe) brandId: number): Brand {
+  getOne(@Param('brandId', ParseIntPipe) brandId: number): Brand | Promise<Brand> {
     return this.service.findOne(brandId);
   }
 
@@ -58,7 +69,7 @@ export class BrandsController {
    * @memberof BrandsService
    */
   @Post()
-  create(@Body() payload: CreateBrandDto): Brand {
+  create(@Body() payload: CreateBrandDto): Brand | Promise<Brand> {
     return this.service.create(payload);
   }
 
@@ -74,7 +85,7 @@ export class BrandsController {
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateBrandDto,
-  ): Brand | undefined {
+  ): Brand | Promise<Brand> {
     return this.service.update(id, payload);
   }
 
@@ -86,7 +97,7 @@ export class BrandsController {
    */
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@Param('id', ParseIntPipe) id: number) {
+  delete(@Param('id', ParseIntPipe) id: number): void | Promise<void> {
     return this.service.delete(id);
   }
 }

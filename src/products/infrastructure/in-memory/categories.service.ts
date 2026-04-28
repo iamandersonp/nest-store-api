@@ -1,9 +1,14 @@
+import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCategoryDto, UpdateCategoryDtoDto } from '../domain/dtos/categories.dto';
-import type { Category } from '../domain/models/category.entity';
+import { CreateCategoryDto, UpdateCategoryDtoDto } from '../../domain/dtos/categories.dto';
+import type { Category } from '../../domain/models/category.entity';
 
 @Injectable()
-export class CategoriesService {
+export class CategoriesService implements BasseCrudService<
+  Category,
+  CreateCategoryDto,
+  UpdateCategoryDtoDto
+> {
   /**
    * Counter to generate the id
    *
@@ -75,7 +80,7 @@ export class CategoriesService {
    * @return {*}  {category}
    * @memberof CategoriesService
    */
-  update(id: number, payload: UpdateCategoryDtoDto): Category | null {
+  update(id: number, payload: UpdateCategoryDtoDto): Category {
     const categoryId = this.findIndex(id);
     if (categoryId === -1) {
       throw new NotFoundException(`Category ${id} not Found`);

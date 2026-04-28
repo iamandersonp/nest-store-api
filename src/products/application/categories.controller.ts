@@ -5,18 +5,29 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Inject,
   Param,
   ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
+
+import type { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
+import { CATEGORIES_SERVICE_PORT } from '@products/domain/ports/category.port';
 import { CreateCategoryDto, UpdateCategoryDtoDto } from '../domain/dtos/categories.dto';
 import type { Category } from '../domain/models/category.entity';
-import { CategoriesService } from '../infrastructure/categories.service';
 
 @Controller('categories')
 export class CategoriesController {
-  constructor(private service: CategoriesService) {}
+  /**
+   * Creates an instance of CategoriesController.
+   * @param {BasseCrudService<Category, CreateCategoryDto, UpdateCategoryDtoDto>} service
+   * @memberof CategoriesController
+   */
+  constructor(
+    @Inject(CATEGORIES_SERVICE_PORT)
+    private readonly service: BasseCrudService<Category, CreateCategoryDto, UpdateCategoryDtoDto>,
+  ) {}
 
   // @Get()
   // getAll(
@@ -34,7 +45,7 @@ export class CategoriesController {
    * @memberof CategoriesController
    */
   @Get()
-  getAll(): Category[] {
+  getAll(): Category[] | Promise<Category[]> {
     return this.service.findAll();
   }
 
@@ -46,7 +57,7 @@ export class CategoriesController {
    * @memberof CategoriesController
    */
   @Get(':categoryId')
-  getOne(@Param('categoryId', ParseIntPipe) categoryId: number): Category {
+  getOne(@Param('categoryId', ParseIntPipe) categoryId: number): Category | Promise<Category> {
     return this.service.findOne(categoryId);
   }
 
@@ -58,7 +69,7 @@ export class CategoriesController {
    * @memberof CategoriesController
    */
   @Post()
-  create(@Body() payload: CreateCategoryDto): Category {
+  create(@Body() payload: CreateCategoryDto): Category | Promise<Category> {
     return this.service.create(payload);
   }
 
@@ -74,7 +85,7 @@ export class CategoriesController {
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateCategoryDtoDto,
-  ): Category | null {
+  ): Category | Promise<Category> {
     return this.service.update(id, payload);
   }
 
@@ -86,7 +97,7 @@ export class CategoriesController {
    */
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@Param('id', ParseIntPipe) id: number) {
+  delete(@Param('id', ParseIntPipe) id: number): void | Promise<void> {
     return this.service.delete(id);
   }
 }

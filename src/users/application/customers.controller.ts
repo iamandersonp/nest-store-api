@@ -1,56 +1,77 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
+
+import type { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
+import { CUSTOMERS_SERVICE_PORT } from '@users/domain/ports/customer.port';
 import { CreateCustomerDto, UpdateCustomerDto } from '../domain/dtos/customers.dto.';
-import { CustomersService } from '../infrastructure/customers.service';
+import type { Customer } from '../domain/models/customer.entity';
 
 @Controller('customers')
 export class CustomersController {
-  constructor(private service: CustomersService) {}
+  constructor(
+    @Inject(CUSTOMERS_SERVICE_PORT)
+    private readonly service: BasseCrudService<Customer, CreateCustomerDto, UpdateCustomerDto>,
+  ) {}
 
   /**
-   * Get all users
+   * Get all Customers
    *
-   * @return {*} {User[]}
-   * @memberof UsersController
+   * @return {*} {Customer[] | Promise<Customer[]>}
+   * @memberof CustomersController
    */
   @Get()
-  getAll() {
+  getAll(): Customer[] | Promise<Customer[]> {
     return this.service.findAll();
   }
 
   /**
-   * Get one user
+   * Get one Customer
    *
    * @param {number} userId
-   * @return {*} {User}
-   * @memberof UsersController
+   * @return {*} {Customer | Promise<Customer>}
+   * @memberof CustomersController
    */
   @Get(':customerId')
-  getOne(@Param('customerId', ParseIntPipe) customerId: number) {
+  getOne(@Param('customerId', ParseIntPipe) customerId: number): Customer | Promise<Customer> {
     return this.service.findOne(customerId);
   }
 
   /**
-   * Create a new user
+   * Create a new Customer
    *
    * @param {CreateUserDto} payload - User data
-   * @return {* } {User}
-   * @memberof UsersController
+   * @return {* } {Customer}
+   * @memberof CustomersController
    */
   @Post()
-  create(@Body() payload: CreateCustomerDto) {
+  create(@Body() payload: CreateCustomerDto): Customer | Promise<Customer> {
     return this.service.create(payload);
   }
 
   /**
-   * Update a user
+   * Update a Customer
    *
    * @param {number} id - User id
-   * @param {UpdateUserDto} payload - User data
-   * @return {*} {User}
-   * @memberof UsersController
+   * @param {UpdateCustomerDto} payload - User data
+   * @return {*} {Customer | Promise<Customer>}
+   * @memberof CustomersController
    */
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateCustomerDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateCustomerDto,
+  ): Customer | Promise<Customer> {
     return this.service.update(id, payload);
   }
 
@@ -58,11 +79,11 @@ export class CustomersController {
    * Delete a user
    *
    * @param {number} id - User id
-   * @return {*} {User}
-   * @memberof UsersController
+   * @memberof CustomersController
    */
   @Delete()
-  delete(@Param('id', ParseIntPipe) id: number) {
+  @HttpCode(HttpStatus.NO_CONTENT)
+  delete(@Param('id', ParseIntPipe) id: number): void | Promise<void> {
     return this.service.delete(id);
   }
 }

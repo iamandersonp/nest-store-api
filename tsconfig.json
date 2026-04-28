@@ -15,6 +15,11 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "baseUrl": "./",
+    "paths": {
+      "@common/*": ["src/common/*"],
+      "@products/*": ["src/products/*"],
+      "@users/*": ["src/users/*"]
+    },
     "ignoreDeprecations": "6.0",
     "incremental": true,
     "skipLibCheck": true,

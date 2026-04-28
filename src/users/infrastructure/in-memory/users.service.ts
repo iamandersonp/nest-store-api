@@ -1,8 +1,13 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
-import { ProductsService } from '../../products/infrastructure/products.service';
-import { CreateUserDto, UpdateUserDto } from '../domain/dtos/user.dto';
-import { Order } from '../domain/models/order.entity';
-import { User } from '../domain/models/user.entity';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+
+import type { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
+import { CreateProductsDto, UpdateProductsDto } from '@products/domain/dtos/products.dto';
+import { Product } from '@products/domain/models/product.entity';
+import { PRODUCTS_SERVICE_PORT } from '@products/domain/ports/product.port';
+import { UserRepository } from '@users/domain/ports/user.port';
+import { CreateUserDto, UpdateUserDto } from '../../domain/dtos/user.dto';
+import { Order } from '../../domain/models/order.entity';
+import { User } from '../../domain/models/user.entity';
 
 /**
  * Users Service
@@ -11,13 +16,24 @@ import { User } from '../domain/models/user.entity';
  * @class UsersService
  */
 @Injectable()
-export class UsersService {
+export class UsersService implements UserRepository {
   /**
    * Creates an instance of UsersService.
-   * @param {ProductsService} productsService
+   * @param {BasseCrudService<
+   *       Product,
+   *       CreateProductsDto,
+   *       UpdateProductsDto
+   *     >} productsService
    * @memberof UsersService
    */
-  constructor(private productsService: ProductsService) {}
+  constructor(
+    @Inject(PRODUCTS_SERVICE_PORT)
+    private readonly productsService: BasseCrudService<
+      Product,
+      CreateProductsDto,
+      UpdateProductsDto
+    >,
+  ) {}
 
   /**
    * Counter for the id
@@ -134,7 +150,7 @@ export class UsersService {
       id: 1,
       date: new Date(),
       user: this.findOne(id),
-      products: this.productsService.findAll(),
+      products: this.productsService.findAll() as Product[],
       total: 0,
     };
     return order;

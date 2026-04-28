@@ -5,18 +5,29 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  Inject,
   Param,
   ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
-import { CreateProductsDto, UpdateProductsDto } from '../domain/dtos/products.dto';
-import type { Product } from '../domain/models/product.entity';
-import { ProductsService } from '../infrastructure/products.service';
+
+import type { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
+import { CreateProductsDto, UpdateProductsDto } from '@products/domain/dtos/products.dto';
+import type { Product } from '@products/domain/models/product.entity';
+import { PRODUCTS_SERVICE_PORT } from '@products/domain/ports/product.port';
 
 @Controller('products')
 export class ProductsController {
-  constructor(private service: ProductsService) {}
+  /**
+   * Creates an instance of ProductsController.
+   * @param {BasseCrudService<Product, CreateProductsDto, UpdateProductsDto>} service
+   * @memberof ProductsController
+   */
+  constructor(
+    @Inject(PRODUCTS_SERVICE_PORT)
+    private readonly service: BasseCrudService<Product, CreateProductsDto, UpdateProductsDto>,
+  ) {}
 
   // @Get()
   // getProducts(
@@ -30,11 +41,11 @@ export class ProductsController {
   /**
    * Get all products
    *
-   * @return {*} Products[]
+   * @return {*} Products[] | Promise<Product[]>
    * @memberof ProductsController
    */
   @Get()
-  getAll(): Product[] {
+  getAll(): Product[] | Promise<Product[]> {
     return this.service.findAll();
   }
 
@@ -42,11 +53,11 @@ export class ProductsController {
    * Get one product
    *
    * @param {number} productId - Product id
-   * @return {*} Product
+   * @return {*} Product | Promise<Product>
    * @memberof ProductsController
    */
   @Get(':productId')
-  getOne(@Param('productId', ParseIntPipe) productId: number): Product {
+  getOne(@Param('productId', ParseIntPipe) productId: number): Product | Promise<Product> {
     return this.service.findOne(productId);
   }
 
@@ -54,11 +65,11 @@ export class ProductsController {
    * Create a product
    *
    * @param {CreateProductsDto} payload - Product data
-   * @return {*} {Product}
+   * @return {*} {Product | Promise<Product>}
    * @memberof ProductsController
    */
   @Post()
-  create(@Body() payload: CreateProductsDto): Product {
+  create(@Body() payload: CreateProductsDto): Product | Promise<Product> {
     return this.service.create(payload);
   }
 
@@ -67,14 +78,14 @@ export class ProductsController {
    *
    * @param {number} id - Product id to update
    * @param {UpdateProductsDto} payload - Product data
-   * @return {*} {Product | null}
+   * @return {*} {Product | Promise<Product>}
    * @memberof ProductsController
    */
   @Put(':id')
   update(
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateProductsDto,
-  ): Product | null {
+  ): Product | Promise<Product> {
     return this.service.update(id, payload);
   }
 
@@ -86,7 +97,7 @@ export class ProductsController {
    */
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@Param('id', ParseIntPipe) id: number): void {
+  delete(@Param('id', ParseIntPipe) id: number): void | Promise<void> {
     return this.service.delete(id);
   }
 }

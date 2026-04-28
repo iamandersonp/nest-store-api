@@ -1,7 +1,22 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Inject,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
+
+import { Order } from '@users/domain/models/order.entity';
+import type { UserRepository } from '@users/domain/ports/user.port';
+import { USERS_SERVICE_PORT } from '@users/domain/ports/user.port';
 import { CreateUserDto, UpdateUserDto } from '../domain/dtos/user.dto';
 import type { User } from '../domain/models/user.entity';
-import { UsersService } from '../infrastructure/users.service';
 
 /**
  * Users Controller
@@ -11,53 +26,61 @@ import { UsersService } from '../infrastructure/users.service';
  */
 @Controller('users')
 export class UsersController {
-  constructor(private usersService: UsersService) {}
+  /**
+   * Creates an instance of UsersController.
+   * @param {UsersService} service
+   * @memberof UsersController
+   */
+  constructor(
+    @Inject(USERS_SERVICE_PORT)
+    private readonly service: UserRepository,
+  ) {}
 
   /**
    * Get all users
    *
-   * @return {*} {User[]}
+   * @return {*} {User[] | Promise<User[]>}
    * @memberof UsersController
    */
   @Get()
-  getAll() {
-    return this.usersService.findAll();
+  getAll(): User[] | Promise<User[]> {
+    return this.service.findAll();
   }
 
   /**
    * Get one user
    *
    * @param {number} userId
-   * @return {*} {User}
+   * @return {*} {User | Promise<User>}
    * @memberof UsersController
    */
   @Get(':userId')
-  getOne(@Param('userId', ParseIntPipe) userId: number): User {
-    return this.usersService.findOne(userId);
+  getOne(@Param('userId', ParseIntPipe) userId: number): User | Promise<User> {
+    return this.service.findOne(userId);
   }
 
   /**
    * Get the list of orders from a user
    *
    * @param {number} userId
-   * @return {*}
+   * @return {*} {Order | Promise<Order>}
    * @memberof UsersController
    */
   @Get(':userId/orders')
-  getOrders(@Param('userId', ParseIntPipe) userId: number) {
-    return this.usersService.getOrdersByUser(userId);
+  getOrders(@Param('userId', ParseIntPipe) userId: number): Order | Promise<Order> {
+    return this.service.getOrdersByUser(userId);
   }
 
   /**
    * Create a new user
    *
    * @param {CreateUserDto} payload - User data
-   * @return {* } {User}
+   * @return {* } {User | Promise<User>}
    * @memberof UsersController
    */
   @Post()
-  create(@Body() payload: CreateUserDto) {
-    return this.usersService.create(payload);
+  create(@Body() payload: CreateUserDto): User | Promise<User> {
+    return this.service.create(payload);
   }
 
   /**
@@ -65,12 +88,15 @@ export class UsersController {
    *
    * @param {number} id - User id
    * @param {UpdateUserDto} payload - User data
-   * @return {*} {User}
+   * @return {*} {User | Promise<User>}
    * @memberof UsersController
    */
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateUserDto) {
-    return this.usersService.update(id, payload);
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateUserDto,
+  ): User | Promise<User> {
+    return this.service.update(id, payload);
   }
 
   /**
@@ -80,7 +106,8 @@ export class UsersController {
    * @memberof UsersController
    */
   @Delete()
-  delete(@Param('id', ParseIntPipe) id: number) {
-    return this.usersService.delete(id);
+  @HttpCode(HttpStatus.NO_CONTENT)
+  delete(@Param('id', ParseIntPipe) id: number): void | Promise<void> {
+    return this.service.delete(id);
   }
 }

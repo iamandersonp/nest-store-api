@@ -1,9 +1,10 @@
+import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBrandDto, UpdateBrandDto } from '../domain/dtos/brands.dto';
 import type { Brand } from '../domain/models/brand.entity';
 
 @Injectable()
-export class BrandsService {
+export class BrandsService implements BasseCrudService<Brand, CreateBrandDto, UpdateBrandDto> {
   /**
    * Counter to generate the id
    *
@@ -77,13 +78,13 @@ export class BrandsService {
    * @return {*} {Brand}
    * @memberof CategoriesService
    */
-  update(id: number, payload: UpdateBrandDto): Brand | undefined {
-    const brandId = this.findIndex(id);
-    if (brandId === -1) {
+  update(id: number, payload: UpdateBrandDto): Brand {
+    const idx = this.findIndex(id);
+    if (idx === -1) {
       throw new NotFoundException(`brand ${id} not Found`);
     }
     const brand = this.findOne(id);
-    this.brands[brandId] = {
+    this.brands[idx] = {
       ...brand,
       ...payload,
     };
@@ -97,11 +98,11 @@ export class BrandsService {
    * @memberof CategoriesService
    */
   delete(id: number): void {
-    const brandId = this.findIndex(id);
-    if (brandId === -1) {
+    const idx = this.findIndex(id);
+    if (idx === -1) {
       throw new NotFoundException(`brand ${id} not Found`);
     }
-    this.brands.splice(brandId, 1);
+    this.brands.splice(idx, 1);
   }
 
   /**

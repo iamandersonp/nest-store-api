@@ -1,6 +1,7 @@
+import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateProductsDto, UpdateProductsDto } from '../domain/dtos/products.dto';
-import type { Product } from '../domain/models/product.entity';
+import { CreateProductsDto, UpdateProductsDto } from '../../domain/dtos/products.dto';
+import type { Product } from '../../domain/models/product.entity';
 
 /**
  * Injectable to Handle the Products
@@ -9,7 +10,11 @@ import type { Product } from '../domain/models/product.entity';
  * @class ProductsService
  */
 @Injectable()
-export class ProductsService {
+export class ProductsService implements BasseCrudService<
+  Product,
+  CreateProductsDto,
+  UpdateProductsDto
+> {
   /**
    * Counter to generate the id
    *
@@ -82,20 +87,21 @@ export class ProductsService {
    *
    * @param {number} id - Id of the product to update
    * @param {UpdateProductsDto} payload - Data to update
-   * @return {*} {Product | null}
+   * @return {*} {Product}
    * @memberof ProductsService
    */
-  update(id: number, payload: UpdateProductsDto): Product | null {
-    const productId = this.findIndex(id);
-    if (productId != 1) {
-      const product = this.findOne(id);
-      this.products[productId] = {
-        ...product,
-        ...payload,
-      };
-      return this.products[id];
+  update(id: number, payload: UpdateProductsDto): Product {
+    const idx = this.findIndex(id);
+    if (idx === -1) {
+      throw new NotFoundException(`Product ${id} not Found`);
     }
-    return null;
+
+    const product = this.findOne(id);
+    this.products[idx] = {
+      ...product,
+      ...payload,
+    };
+    return this.products[id];
   }
 
   /**
@@ -105,11 +111,11 @@ export class ProductsService {
    * @memberof ProductsService
    */
   delete(id: number): void {
-    const productId = this.findIndex(id);
-    if (productId === -1) {
+    const idx = this.findIndex(id);
+    if (idx === -1) {
       throw new NotFoundException(`Product ${id} not Found`);
     }
-    this.products.slice(productId, 1);
+    this.products.slice(idx, 1);
   }
 
   /**
