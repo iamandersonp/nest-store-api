@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/swagger';
-import { IsNumber, IsPositive, IsDate } from 'class-validator';
+import { IsDate, IsNumber, IsPositive } from 'class-validator';
 
 export class CreateOrdersDto {
   /**
@@ -10,7 +10,7 @@ export class CreateOrdersDto {
    */
   @IsNumber()
   @IsPositive()
-  readonly customerId: number;
+  readonly customerId!: number;
   /**
    * Date
    *
@@ -18,7 +18,7 @@ export class CreateOrdersDto {
    * @memberof CreateOrdersDto
    */
   @IsDate()
-  readonly date: string;
+  readonly date!: string;
 
   /**
    *
@@ -28,7 +28,7 @@ export class CreateOrdersDto {
    */
   @IsNumber()
   @IsPositive()
-  readonly total: number;
+  readonly total!: number;
 }
 
 /**

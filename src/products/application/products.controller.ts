@@ -1,6 +1,18 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, ParseIntPipe } from '@nestjs/common';
-import { ProductsService } from '../services/products.service';
-import { CreateProductsDto, UpdateProductsDto } from '../dtos/products.dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { CreateProductsDto, UpdateProductsDto } from '../domain/dtos/products.dto';
+import type { Product } from '../domain/models/product.entity';
+import { ProductsService } from '../infrastructure/products.service';
 
 @Controller('products')
 export class ProductsController {
@@ -18,11 +30,11 @@ export class ProductsController {
   /**
    * Get all products
    *
-   * @return {*} Product[]
+   * @return {*} Products[]
    * @memberof ProductsController
    */
   @Get()
-  getAll() {
+  getAll(): Product[] {
     return this.service.findAll();
   }
 
@@ -34,7 +46,7 @@ export class ProductsController {
    * @memberof ProductsController
    */
   @Get(':productId')
-  getOne(@Param('productId', ParseIntPipe) productId: number) {
+  getOne(@Param('productId', ParseIntPipe) productId: number): Product {
     return this.service.findOne(productId);
   }
 
@@ -42,11 +54,11 @@ export class ProductsController {
    * Create a product
    *
    * @param {CreateProductsDto} payload - Product data
-   * @return {*} Product
+   * @return {*} {Product}
    * @memberof ProductsController
    */
   @Post()
-  create(@Body() payload: CreateProductsDto) {
+  create(@Body() payload: CreateProductsDto): Product {
     return this.service.create(payload);
   }
 
@@ -55,11 +67,14 @@ export class ProductsController {
    *
    * @param {number} id - Product id to update
    * @param {UpdateProductsDto} payload - Product data
-   * @return {*} Product
+   * @return {*} {Product | null}
    * @memberof ProductsController
    */
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateProductsDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateProductsDto,
+  ): Product | null {
     return this.service.update(id, payload);
   }
 
@@ -67,11 +82,11 @@ export class ProductsController {
    * Delete a product
    *
    * @param {number} id - Product id to delete
-   * @return {*} Product
    * @memberof ProductsController
    */
   @Delete()
-  delete(@Param('id', ParseIntPipe) id: number) {
+  @HttpCode(HttpStatus.NO_CONTENT)
+  delete(@Param('id', ParseIntPipe) id: number): void {
     return this.service.delete(id);
   }
 }

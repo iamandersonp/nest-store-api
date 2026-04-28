@@ -1,6 +1,18 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { CategoriesService } from '../services/categories.service';
-import { CreateCategoryDto, UpdateCategoryDtoDto } from '../dtos/categories.dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { CreateCategoryDto, UpdateCategoryDtoDto } from '../domain/dtos/categories.dto';
+import type { Category } from '../domain/models/category.entity';
+import { CategoriesService } from '../infrastructure/categories.service';
 
 @Controller('categories')
 export class CategoriesController {
@@ -18,11 +30,11 @@ export class CategoriesController {
   /**
    * Get all Categories
    *
-   * @return {*} Category[]
+   * @return {*} {Category[]}
    * @memberof CategoriesController
    */
   @Get()
-  getAll() {
+  getAll(): Category[] {
     return this.service.findAll();
   }
 
@@ -30,11 +42,11 @@ export class CategoriesController {
    * Get one Category
    *
    * @param {number} categoryId - Category id
-   * @return {*} Category
+   * @return {*} {Category}
    * @memberof CategoriesController
    */
   @Get(':categoryId')
-  getOne(@Param('categoryId', ParseIntPipe) categoryId: number) {
+  getOne(@Param('categoryId', ParseIntPipe) categoryId: number): Category {
     return this.service.findOne(categoryId);
   }
 
@@ -42,11 +54,11 @@ export class CategoriesController {
    * Create a Category
    *
    * @param {CreateCategoryDto} payload - Category data
-   * @return {*} Category
+   * @return {*} {Category}
    * @memberof CategoriesController
    */
   @Post()
-  create(@Body() payload: CreateCategoryDto) {
+  create(@Body() payload: CreateCategoryDto): Category {
     return this.service.create(payload);
   }
 
@@ -55,11 +67,14 @@ export class CategoriesController {
    *
    * @param {number} id - Category id
    * @param {UpdateCategoryDtoDto} payload - Category data
-   * @return {*} Category
+   * @return {*} {Category | null}
    * @memberof CategoriesController
    */
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateCategoryDtoDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateCategoryDtoDto,
+  ): Category | null {
     return this.service.update(id, payload);
   }
 
@@ -67,10 +82,10 @@ export class CategoriesController {
    * Delete a Category
    *
    * @param {number} id - Category id
-   * @return {*} Category
    * @memberof CategoriesController
    */
   @Delete()
+  @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.service.delete(id);
   }

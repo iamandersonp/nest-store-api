@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Category } from '../models/category.entity';
-import { CreateCategoryDto, UpdateCategoryDtoDto } from '../dtos/categories.dto';
+import { CreateCategoryDto, UpdateCategoryDtoDto } from '../domain/dtos/categories.dto';
+import type { Category } from '../domain/models/category.entity';
 
 @Injectable()
 export class CategoriesService {
@@ -11,6 +11,7 @@ export class CategoriesService {
    * @memberof CategoriesService
    */
   private counterId = 1;
+
   /**
    * List of Categories
    *
@@ -30,7 +31,7 @@ export class CategoriesService {
    * @return {*} {Category[]} List of categories
    * @memberof CategoriesService
    */
-  findAll() {
+  findAll(): Category[] {
     return this.categories;
   }
 
@@ -38,7 +39,7 @@ export class CategoriesService {
    * Find one category by id
    *
    * @param {number} id - category id
-   * @return {*}  {category}
+   * @return {*} {category}
    * @memberof CategoriesService
    */
   findOne(id: number): Category {
@@ -76,15 +77,16 @@ export class CategoriesService {
    */
   update(id: number, payload: UpdateCategoryDtoDto): Category | null {
     const categoryId = this.findIndex(id);
-    if (categoryId) {
-      const category = this.findOne(id);
-      this.categories[categoryId] = {
-        ...category,
-        ...payload,
-      };
-      return this.categories[id];
+    if (categoryId === -1) {
+      throw new NotFoundException(`Category ${id} not Found`);
     }
-    return null;
+
+    const category = this.findOne(id);
+    this.categories[categoryId] = {
+      ...category,
+      ...payload,
+    };
+    return this.categories[id];
   }
 
   /**
@@ -96,7 +98,7 @@ export class CategoriesService {
   delete(id: number): void {
     const categoryId = this.findIndex(id);
     if (categoryId === -1) {
-      throw new NotFoundException(`category ${id} not Found`);
+      throw new NotFoundException(`Category ${id} not Found`);
     }
     this.categories.splice(categoryId, 1);
   }

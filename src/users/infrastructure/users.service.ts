@@ -1,8 +1,8 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Users } from '../models/users.entity';
-import { CreateUserDto, UpdateUserDto } from '../dtos/users.dto';
-import { Orders } from '../models/orders.entity';
-import { ProductsService } from '../../products/services/products.service';
+import { ProductsService } from '../../products/infrastructure/products.service';
+import { CreateUserDto, UpdateUserDto } from '../domain/dtos/user.dto';
+import { Order } from '../domain/models/order.entity';
+import { User } from '../domain/models/user.entity';
 
 /**
  * Users Service
@@ -26,14 +26,15 @@ export class UsersService {
    * @memberof UsersService
    */
   private counterId = 1;
+
   /**
    * List of Users
    *
    * @private
-   * @type {Users[]}
+   * @type {User[]}
    * @memberof UsersService
    */
-  private users: Users[] = [
+  private users: User[] = [
     {
       id: 1,
       firstName: 'Anderson',
@@ -47,10 +48,10 @@ export class UsersService {
   /**
    * Return all Users
    *
-   * @return {Users[]}
+   * @return {User[]}
    * @memberof UsersService
    */
-  findAll() {
+  findAll(): User[] {
     return this.users;
   }
 
@@ -58,11 +59,11 @@ export class UsersService {
    * Return a user specified by id
    *
    * @param {number} id -  The User id to return
-   * @return {Users} the entity Users corresponding
+   * @return {*} {User} the entity Users corresponding
    * @memberof UsersService
    */
-  findOne(id: number) {
-    const user = this.users.find((item: Users) => item.id === id);
+  findOne(id: number): User {
+    const user = this.users.find((item: User) => item.id === id);
     if (!user) {
       throw new NotFoundException(`User ${id} not Found`);
     }
@@ -73,12 +74,12 @@ export class UsersService {
    * Create a new User with the specified payload data
    *
    * @param {CreateUserDto} payload - The Paypload with the user info
-   * @return {User} - The new Created user
+   * @return {*} {User} - The new Created user
    * @memberof UsersService
    */
-  create(payload: CreateUserDto) {
+  create(payload: CreateUserDto): User {
     this.counterId++;
-    const newUser: Users = {
+    const newUser: User = {
       id: this.counterId,
       ...payload,
     };
@@ -91,20 +92,20 @@ export class UsersService {
    *
    * @param {number} id - The id of the user to update
    * @param {UpdateUserDto} payload - The payload data with the new information
-   * @return {Users} - The updated user
+   * @return {*} {User} - The updated user
    * @memberof UsersService
    */
-  update(id: number, payload: UpdateUserDto) {
-    const productId = this.findIndex(id);
-    if (productId != 1) {
-      const product = this.findOne(id);
-      this.users[productId] = {
-        ...product,
-        ...payload,
-      };
-      return this.users[id];
+  update(id: number, payload: UpdateUserDto): User {
+    const userId = this.findIndex(id);
+    if (userId === -1) {
+      throw new NotFoundException(`User #${id} not found`);
     }
-    return null;
+    const product = this.findOne(id);
+    this.users[userId] = {
+      ...product,
+      ...payload,
+    };
+    return this.users[id];
   }
 
   /**
@@ -113,12 +114,12 @@ export class UsersService {
    * @param {number} id - the id of the user to delete
    * @memberof UsersService
    */
-  delete(id: number) {
-    const productId = this.findIndex(id);
-    if (productId === -1) {
-      throw new NotFoundException(`User ${id} not Found`);
+  delete(id: number): void {
+    const userId = this.findIndex(id);
+    if (userId === -1) {
+      throw new NotFoundException(`User #${id} not found`);
     }
-    this.users.slice(productId, 1);
+    this.users.slice(userId, 1);
   }
 
   /**
@@ -128,8 +129,8 @@ export class UsersService {
    * @return {*}  {Orders}
    * @memberof UsersService
    */
-  getOrdersByUser(id: number): Orders {
-    const order: Orders = {
+  getOrdersByUser(id: number): Order {
+    const order: Order = {
       id: 1,
       date: new Date(),
       user: this.findOne(id),
@@ -140,14 +141,14 @@ export class UsersService {
   }
 
   /**
-   * Obtain an User from by a given id
+   * Obtain the usser index
    *
    * @private
    * @param {number} id - The id to find
-   * @return {Users} - the user found
+   * @return {*} {number} - the userr index on the array
    * @memberof UsersService
    */
-  private findIndex(id: number) {
+  private findIndex(id: number): number {
     return this.users.findIndex((item) => item.id === id);
   }
 }

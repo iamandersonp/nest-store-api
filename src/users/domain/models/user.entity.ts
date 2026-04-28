@@ -2,9 +2,9 @@
  * Interface for Users
  *
  * @export
- * @interface Users
+ * @interface User
  */
-export interface Users {
+export interface User {
   /**
    * Id of the user
    *

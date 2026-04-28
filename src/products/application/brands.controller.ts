@@ -1,6 +1,18 @@
-import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
-import { BrandsService } from '../services/brands.service';
-import { CreateBrandDto, UpdateBrandDto } from '../dtos/brands.dto';
+import {
+  Body,
+  Controller,
+  Delete,
+  Get,
+  HttpCode,
+  HttpStatus,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+} from '@nestjs/common';
+import { CreateBrandDto, UpdateBrandDto } from '../domain/dtos/brands.dto';
+import type { Brand } from '../domain/models/brand.entity';
+import { BrandsService } from '../infrastructure/brands.service';
 
 @Controller('brands')
 export class BrandsController {
@@ -18,11 +30,11 @@ export class BrandsController {
   /**
    * Get all Brands
    *
-   * @return {*} Brand[]
+   * @return {*} {Brand[]}
    * @memberof BrandsController
    */
   @Get()
-  getAll() {
+  getAll(): Brand[] {
     return this.service.findAll();
   }
 
@@ -30,11 +42,11 @@ export class BrandsController {
    * Get one Brand
    *
    * @param {number} categoryId - brand id
-   * @return {*} Brand
+   * @return {*} {Brand}
    * @memberof BrandsService
    */
   @Get(':brandId')
-  getOne(@Param('brandId', ParseIntPipe) brandId: number) {
+  getOne(@Param('brandId', ParseIntPipe) brandId: number): Brand {
     return this.service.findOne(brandId);
   }
 
@@ -42,11 +54,11 @@ export class BrandsController {
    * Create a Brand
    *
    * @param {CreateBrandDto} payload - Brand data
-   * @return {*} Brand
+   * @return {*} {Brand}
    * @memberof BrandsService
    */
   @Post()
-  create(@Body() payload: CreateBrandDto) {
+  create(@Body() payload: CreateBrandDto): Brand {
     return this.service.create(payload);
   }
 
@@ -55,11 +67,14 @@ export class BrandsController {
    *
    * @param {number} id - Brand id
    * @param {UpdateBrandDto} payload - Brand data
-   * @return {*} Category
+   * @return {*} {Brand | undefined}
    * @memberof BrandsService
    */
   @Put(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() payload: UpdateBrandDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() payload: UpdateBrandDto,
+  ): Brand | undefined {
     return this.service.update(id, payload);
   }
 
@@ -67,10 +82,10 @@ export class BrandsController {
    * Delete a Category
    *
    * @param {number} id - Category id
-   * @return {*} Category
    * @memberof BrandsService
    */
   @Delete()
+  @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id', ParseIntPipe) id: number) {
     return this.service.delete(id);
   }

@@ -16,7 +16,7 @@ export class CreateBrandDto {
    */
   @IsNumber()
   @IsPositive()
-  id: number;
+  id!: number;
   /**
    * Brand name
    *
@@ -25,7 +25,7 @@ export class CreateBrandDto {
    */
   @IsString()
   @IsNotEmpty()
-  name: string;
+  name!: string;
   /**
    * Brand image
    *
@@ -35,7 +35,7 @@ export class CreateBrandDto {
   @IsString()
   @IsNotEmpty()
   @IsUrl()
-  image: string;
+  image!: string;
 }
 
 export class UpdateBrandDto extends PartialType(CreateBrandDto) {}

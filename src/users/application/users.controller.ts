@@ -1,6 +1,7 @@
-import { Body, Controller, Delete, Get, Param, Post, Put, ParseIntPipe } from '@nestjs/common';
-import { UsersService } from '../services/users.service';
-import { CreateUserDto, UpdateUserDto } from '../dtos/users.dto';
+import { Body, Controller, Delete, Get, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { CreateUserDto, UpdateUserDto } from '../domain/dtos/user.dto';
+import type { User } from '../domain/models/user.entity';
+import { UsersService } from '../infrastructure/users.service';
 
 /**
  * Users Controller
@@ -31,10 +32,17 @@ export class UsersController {
    * @memberof UsersController
    */
   @Get(':userId')
-  getOne(@Param('userId', ParseIntPipe) userId: number) {
+  getOne(@Param('userId', ParseIntPipe) userId: number): User {
     return this.usersService.findOne(userId);
   }
 
+  /**
+   * Get the list of orders from a user
+   *
+   * @param {number} userId
+   * @return {*}
+   * @memberof UsersController
+   */
   @Get(':userId/orders')
   getOrders(@Param('userId', ParseIntPipe) userId: number) {
     return this.usersService.getOrdersByUser(userId);
@@ -69,7 +77,6 @@ export class UsersController {
    * Delete a user
    *
    * @param {number} id - User id
-   * @return {*} {User}
    * @memberof UsersController
    */
   @Delete()

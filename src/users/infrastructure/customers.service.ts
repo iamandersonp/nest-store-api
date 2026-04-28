@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Customer } from '../models/customer.entity';
-import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto.';
+import { CreateCustomerDto, UpdateCustomerDto } from '../domain/dtos/customers.dto.';
+import { Customer } from '../domain/models/customer.entity';
 
 @Injectable()
 export class CustomersService {
@@ -71,17 +71,17 @@ export class CustomersService {
    * @return {*}  {Customer}
    * @memberof CustomersService
    */
-  update(id: number, payload: UpdateCustomerDto): Customer | null {
+  update(id: number, payload: UpdateCustomerDto): Customer {
     const index = this.findIndex(id);
-    if (index !== 1) {
-      const updatedCustomer: Customer = {
-        ...this.customers[index],
-        ...payload,
-      };
-      this.customers[index] = updatedCustomer;
-      return updatedCustomer;
+    if (index === -1) {
+      throw new NotFoundException(`Customer #${id} not found`);
     }
-    return null;
+    const updatedCustomer: Customer = {
+      ...this.customers[index],
+      ...payload,
+    };
+    this.customers[index] = updatedCustomer;
+    return updatedCustomer;
   }
 
   /**

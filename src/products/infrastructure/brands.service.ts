@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Brand } from '../models/brand.entity';
-import { CreateBrandDto, UpdateBrandDto } from '../dtos/brands.dto';
+import { CreateBrandDto, UpdateBrandDto } from '../domain/dtos/brands.dto';
+import type { Brand } from '../domain/models/brand.entity';
 
 @Injectable()
 export class BrandsService {
@@ -11,6 +11,7 @@ export class BrandsService {
    * @memberof CategoriesService
    */
   private counterId = 1;
+
   /**
    * List of Brands
    *
@@ -73,19 +74,20 @@ export class BrandsService {
    *
    * @param {number} id - Brand ID
    * @param {CreateBrandDto} payload - Brand data
-   * @return {*}  {Brand}
+   * @return {*} {Brand}
    * @memberof CategoriesService
    */
   update(id: number, payload: UpdateBrandDto): Brand | undefined {
     const brandId = this.findIndex(id);
-    if (brandId) {
-      const brand = this.findOne(id);
-      this.brands[brandId] = {
-        ...brand,
-        ...payload,
-      };
-      return this.brands[id];
+    if (brandId === -1) {
+      throw new NotFoundException(`brand ${id} not Found`);
     }
+    const brand = this.findOne(id);
+    this.brands[brandId] = {
+      ...brand,
+      ...payload,
+    };
+    return this.brands[id];
   }
 
   /**

@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { Products } from '../models/products.entity';
-import { CreateProductsDto, UpdateProductsDto } from '../dtos/products.dto';
+import { CreateProductsDto, UpdateProductsDto } from '../domain/dtos/products.dto';
+import type { Product } from '../domain/models/product.entity';
 
 /**
  * Injectable to Handle the Products
@@ -22,10 +22,10 @@ export class ProductsService {
    * List of Products
    *
    * @private
-   * @type {Products[]}
+   * @type {Product[]}
    * @memberof ProductsService
    */
-  private products: Products[] = [
+  private products: Product[] = [
     {
       id: 1,
       name: 'Product 1',
@@ -38,9 +38,10 @@ export class ProductsService {
 
   /**
    * Find all the products
-   * @returns
+   *
+   * @returns {*} {Product[]}
    */
-  findAll() {
+  findAll(): Product[] {
     return this.products;
   }
 
@@ -48,11 +49,11 @@ export class ProductsService {
    * Find one product by id
    *
    * @param {number} id
-   * @return {*}
+   * @return {*} {Product}
    * @memberof ProductsService
    */
-  findOne(id: number) {
-    const product = this.products.find((item: Products) => item.id === id);
+  findOne(id: number): Product {
+    const product = this.products.find((item: Product) => item.id === id);
     if (!product) {
       throw new NotFoundException(`Product ${id} not Found`);
     }
@@ -66,9 +67,9 @@ export class ProductsService {
    * @return {*} {Product}
    * @memberof ProductsService
    */
-  create(payload: CreateProductsDto) {
+  create(payload: CreateProductsDto): Product {
     this.counterId++;
-    const newProduct: Products = {
+    const newProduct: Product = {
       id: this.counterId,
       ...payload,
     };
@@ -81,10 +82,10 @@ export class ProductsService {
    *
    * @param {number} id - Id of the product to update
    * @param {UpdateProductsDto} payload - Data to update
-   * @return {*} {Product}
+   * @return {*} {Product | null}
    * @memberof ProductsService
    */
-  update(id: number, payload: UpdateProductsDto) {
+  update(id: number, payload: UpdateProductsDto): Product | null {
     const productId = this.findIndex(id);
     if (productId != 1) {
       const product = this.findOne(id);
@@ -103,7 +104,7 @@ export class ProductsService {
    * @param {number} id - Id of the product to delete
    * @memberof ProductsService
    */
-  delete(id: number) {
+  delete(id: number): void {
     const productId = this.findIndex(id);
     if (productId === -1) {
       throw new NotFoundException(`Product ${id} not Found`);
@@ -119,7 +120,7 @@ export class ProductsService {
    * @return {*} {number}
    * @memberof ProductsService
    */
-  private findIndex(id: number) {
+  private findIndex(id: number): number {
     return this.products.findIndex((item) => item.id === id);
   }
 }

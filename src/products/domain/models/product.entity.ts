@@ -4,7 +4,7 @@
  * @export
  * @interface Products
  */
-export interface Products {
+export interface Product {
   /**
    * Product id
    *

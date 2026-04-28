@@ -1,63 +1,63 @@
-import { IsString, IsNumber, IsNotEmpty, IsPositive, IsUrl } from 'class-validator';
 import { PartialType } from '@nestjs/swagger';
+import { IsNotEmpty, IsNumber, IsPositive, IsString, IsUrl } from 'class-validator';
 
 /**
  * Create Products DTO
  *
  * @export
- * @class CreateCategoryDto
+ * @class CreateProductsDto
  */
-export class CreateCategoryDto {
+export class CreateProductsDto {
   /**
    * Name
    *
    * @type {string}
-   * @memberof CreateCategoryDto
+   * @memberof CreateProductsDto
    */
   @IsString()
   @IsNotEmpty()
-  readonly name: string;
+  readonly name!: string;
 
   /**
    * Description
    *
    * @type {string}
-   * @memberof CreateCategoryDto
+   * @memberof CreateProductsDto
    */
   @IsString()
   @IsNotEmpty()
-  readonly description: string;
+  readonly description!: string;
 
   /**
    * Price
    *
    * @type {number}
-   * @memberof CreateCategoryDto
+   * @memberof CreateProductsDto
    */
   @IsNumber()
   @IsPositive()
-  readonly price: number;
+  readonly price!: number;
 
   /**
    * Stock
    *
    * @type {number}
-   * @memberof CreateCategoryDto
+   * @memberof CreateProductsDto
    */
   @IsNumber()
   @IsPositive()
-  readonly stock: number;
+  readonly stock!: number;
 
   /**
    * Image
    *
    * @type {string}
-   * @memberof CreateCategoryDto
+   * @memberof CreateProductsDto
    */
   @IsString()
   @IsNotEmpty()
   @IsUrl()
-  readonly image: string;
+  readonly image!: string;
 }
 
 /**
@@ -65,6 +65,6 @@ export class CreateCategoryDto {
  *
  * @export
  * @class UpdateProductsDto
- * @extends {PartialType(CreateCategoryDto)}
+ * @extends {PartialType(CreateProductsDto)}
  */
-export class UpdateCategoryDtoDto extends PartialType(CreateCategoryDto) {}
+export class UpdateProductsDto extends PartialType(CreateProductsDto) {}
