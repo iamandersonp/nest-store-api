@@ -1,13 +1,11 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
-import type { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
-import { CreateProductsDto, UpdateProductsDto } from '@products/domain/dtos/products.dto';
+import { ProductUseCaseService } from '@products/application/product-use-case.service';
 import { Product } from '@products/domain/models/product.entity';
-import { PRODUCTS_SERVICE_PORT } from '@products/domain/ports/product.port';
+import { Order } from '@users/domain/models/order.entity';
+import { User } from '@users/domain/models/user.entity';
 import { UserRepository } from '@users/domain/ports/user.port';
-import { CreateUserDto, UpdateUserDto } from '../../domain/dtos/user.dto';
-import { Order } from '../../domain/models/order.entity';
-import { User } from '../../domain/models/user.entity';
+import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 
 /**
  * Users Service
@@ -19,21 +17,10 @@ import { User } from '../../domain/models/user.entity';
 export class UsersService implements UserRepository {
   /**
    * Creates an instance of UsersService.
-   * @param {BasseCrudService<
-   *       Product,
-   *       CreateProductsDto,
-   *       UpdateProductsDto
-   *     >} productsService
+   * @param {ProductUseCaseService} productsService
    * @memberof UsersService
    */
-  constructor(
-    @Inject(PRODUCTS_SERVICE_PORT)
-    private readonly productsService: BasseCrudService<
-      Product,
-      CreateProductsDto,
-      UpdateProductsDto
-    >,
-  ) {}
+  constructor(private readonly productsService: ProductUseCaseService) {}
 
   /**
    * Counter for the id

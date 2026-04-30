@@ -5,29 +5,27 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Inject,
   Param,
   ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
 
-import type { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
-import { BRANDS_SERVICE_PORT } from '@products/domain/ports/brand.port';
-import { CreateBrandDto, UpdateBrandDto } from '../domain/dtos/brands.dto';
-import type { Brand } from '../domain/models/brand.entity';
+import { BrandUseCaseService } from '@products/application/brand-use-case.service';
+import type { Brand } from '../../../../../domain/models/brand.entity';
+import { CreateBrandDto, UpdateBrandDto } from '../dtos/brands.dto';
 
-@Controller('brands')
+@Controller({
+  path: 'brands',
+  version: '1',
+})
 export class BrandsController {
   /**
    * Creates an instance of BrandsController.
-   * @param {BasseCrudService<Brand, CreateBrandDto, UpdateBrandDto>} service
+   * @param {BrandUseCaseService} service
    * @memberof BrandsController
    */
-  constructor(
-    @Inject(BRANDS_SERVICE_PORT)
-    private readonly service: BasseCrudService<Brand, CreateBrandDto, UpdateBrandDto>,
-  ) {}
+  constructor(private readonly service: BrandUseCaseService) {}
 
   // @Get()
   // getAll(

@@ -1,6 +1,6 @@
 import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import { InjectionToken } from '@nestjs/common';
-import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
+import { CreateUserDto, UpdateUserDto } from '../../infrastructure/adapters/in/v1/dtos/user.dto';
 import { Order } from '../models/order.entity';
 import { User } from '../models/user.entity';
 

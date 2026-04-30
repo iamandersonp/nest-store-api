@@ -5,29 +5,27 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Inject,
   Param,
   ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
 
-import type { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
-import { CATEGORIES_SERVICE_PORT } from '@products/domain/ports/category.port';
-import { CreateCategoryDto, UpdateCategoryDtoDto } from '../domain/dtos/categories.dto';
-import type { Category } from '../domain/models/category.entity';
+import { CategoryUseCaseService } from '@products/application/category-use-case.service';
+import type { Category } from '../../../../../domain/models/category.entity';
+import { CreateCategoryDto, UpdateCategoryDtoDto } from '../dtos/categories.dto';
 
-@Controller('categories')
+@Controller({
+  path: 'categories',
+  version: '1',
+})
 export class CategoriesController {
   /**
    * Creates an instance of CategoriesController.
-   * @param {BasseCrudService<Category, CreateCategoryDto, UpdateCategoryDtoDto>} service
+   * @param {CategoryUseCaseService} service
    * @memberof CategoriesController
    */
-  constructor(
-    @Inject(CATEGORIES_SERVICE_PORT)
-    private readonly service: BasseCrudService<Category, CreateCategoryDto, UpdateCategoryDtoDto>,
-  ) {}
+  constructor(private readonly service: CategoryUseCaseService) {}
 
   // @Get()
   // getAll(
