@@ -1,10 +1,13 @@
+import { EnvConfig } from '@common/domain/interfaces/env-config';
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  const configService = app.get(ConfigService<EnvConfig>);
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -20,7 +23,8 @@ async function bootstrap() {
   SwaggerModule.setup('api', app, documentFactory, {
     jsonDocumentUrl: 'api/json',
   });
+  const port = configService.get('PORT', { infer: true }) || 3000;
 
-  await app.listen(process.env.PORT || 3000);
+  await app.listen(port);
 }
 bootstrap();
