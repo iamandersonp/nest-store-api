@@ -12,16 +12,19 @@ import {
   Put,
 } from '@nestjs/common';
 
-import type { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
+import { CustomerUseCaseService } from '@users/application/customer-use-case.service';
 import { CUSTOMERS_SERVICE_PORT } from '@users/domain/ports/customer.port';
-import { CreateCustomerDto, UpdateCustomerDto } from '../domain/dtos/customers.dto.';
-import type { Customer } from '../domain/models/customer.entity';
+import type { Customer } from '../../../../../domain/models/customer.entity';
+import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto.';
 
-@Controller('customers')
+@Controller({
+  path: 'customers',
+  version: '1',
+})
 export class CustomersController {
   constructor(
     @Inject(CUSTOMERS_SERVICE_PORT)
-    private readonly service: BasseCrudService<Customer, CreateCustomerDto, UpdateCustomerDto>,
+    private readonly service: CustomerUseCaseService,
   ) {}
 
   /**

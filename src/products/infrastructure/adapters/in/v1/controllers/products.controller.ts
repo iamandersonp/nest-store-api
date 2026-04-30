@@ -5,29 +5,30 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Inject,
   Param,
   ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
 
-import type { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
-import { CreateProductsDto, UpdateProductsDto } from '@products/domain/dtos/products.dto';
+import { ProductUseCaseService } from '@products/application/product-use-case.service';
 import type { Product } from '@products/domain/models/product.entity';
-import { PRODUCTS_SERVICE_PORT } from '@products/domain/ports/product.port';
+import {
+  CreateProductsDto,
+  UpdateProductsDto,
+} from '@products/infrastructure/adapters/in/v1/dtos/products.dto';
 
-@Controller('products')
+@Controller({
+  path: 'products',
+  version: '1',
+})
 export class ProductsController {
   /**
    * Creates an instance of ProductsController.
    * @param {BasseCrudService<Product, CreateProductsDto, UpdateProductsDto>} service
    * @memberof ProductsController
    */
-  constructor(
-    @Inject(PRODUCTS_SERVICE_PORT)
-    private readonly service: BasseCrudService<Product, CreateProductsDto, UpdateProductsDto>,
-  ) {}
+  constructor(private readonly service: ProductUseCaseService) {}
 
   // @Get()
   // getProducts(

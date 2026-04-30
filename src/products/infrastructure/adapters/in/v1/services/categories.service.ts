@@ -1,7 +1,8 @@
-import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCategoryDto, UpdateCategoryDtoDto } from '../../domain/dtos/categories.dto';
-import type { Category } from '../../domain/models/category.entity';
+
+import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
+import type { Category } from '@products/domain/models/category.entity';
+import { CreateCategoryDto, UpdateCategoryDtoDto } from '../dtos/categories.dto';
 
 @Injectable()
 export class CategoriesService implements BasseCrudService<

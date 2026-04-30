@@ -5,18 +5,16 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Inject,
   Param,
   ParseIntPipe,
   Post,
   Put,
 } from '@nestjs/common';
 
+import { UserUseCaseService } from '@users/application/user-use-case.service';
 import { Order } from '@users/domain/models/order.entity';
-import type { UserRepository } from '@users/domain/ports/user.port';
-import { USERS_SERVICE_PORT } from '@users/domain/ports/user.port';
-import { CreateUserDto, UpdateUserDto } from '../domain/dtos/user.dto';
-import type { User } from '../domain/models/user.entity';
+import type { User } from '../../../../../domain/models/user.entity';
+import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 
 /**
  * Users Controller
@@ -24,17 +22,17 @@ import type { User } from '../domain/models/user.entity';
  * @export
  * @class UsersController
  */
-@Controller('users')
+@Controller({
+  path: 'users',
+  version: '1',
+})
 export class UsersController {
   /**
    * Creates an instance of UsersController.
-   * @param {UsersService} service
+   * @param {UserUseCaseService} service
    * @memberof UsersController
    */
-  constructor(
-    @Inject(USERS_SERVICE_PORT)
-    private readonly service: UserRepository,
-  ) {}
+  constructor(private readonly useCase: UserUseCaseService) {}
 
   /**
    * Get all users
@@ -44,7 +42,7 @@ export class UsersController {
    */
   @Get()
   getAll(): User[] | Promise<User[]> {
-    return this.service.findAll();
+    return this.useCase.findAll();
   }
 
   /**
@@ -56,7 +54,7 @@ export class UsersController {
    */
   @Get(':userId')
   getOne(@Param('userId', ParseIntPipe) userId: number): User | Promise<User> {
-    return this.service.findOne(userId);
+    return this.useCase.findOne(userId);
   }
 
   /**
@@ -68,7 +66,7 @@ export class UsersController {
    */
   @Get(':userId/orders')
   getOrders(@Param('userId', ParseIntPipe) userId: number): Order | Promise<Order> {
-    return this.service.getOrdersByUser(userId);
+    return this.useCase.getOrdersByUser(userId);
   }
 
   /**
@@ -80,7 +78,7 @@ export class UsersController {
    */
   @Post()
   create(@Body() payload: CreateUserDto): User | Promise<User> {
-    return this.service.create(payload);
+    return this.useCase.create(payload);
   }
 
   /**
@@ -96,7 +94,7 @@ export class UsersController {
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateUserDto,
   ): User | Promise<User> {
-    return this.service.update(id, payload);
+    return this.useCase.update(id, payload);
   }
 
   /**
@@ -108,6 +106,6 @@ export class UsersController {
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id', ParseIntPipe) id: number): void | Promise<void> {
-    return this.service.delete(id);
+    return this.useCase.delete(id);
   }
 }

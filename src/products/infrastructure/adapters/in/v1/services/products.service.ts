@@ -1,7 +1,8 @@
-import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateProductsDto, UpdateProductsDto } from '../../domain/dtos/products.dto';
-import type { Product } from '../../domain/models/product.entity';
+
+import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
+import type { Product } from '@products/domain/models/product.entity';
+import { CreateProductsDto, UpdateProductsDto } from '../dtos/products.dto';
 
 /**
  * Injectable to Handle the Products

@@ -1,5 +1,5 @@
 import { EnvConfig } from '@common/domain/interfaces/env-config';
-import { ValidationPipe } from '@nestjs/common';
+import { ValidationPipe, VersioningType } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
@@ -14,6 +14,11 @@ async function bootstrap() {
       forbidNonWhitelisted: true,
     }),
   );
+  app.enableVersioning({
+    type: VersioningType.URI,
+    prefix: 'v',
+    defaultVersion: '1',
+  });
   const config = new DocumentBuilder()
     .setTitle('Store example')
     .setDescription('A store created with NestJs')

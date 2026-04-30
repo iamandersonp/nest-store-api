@@ -1,7 +1,7 @@
 import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateCustomerDto, UpdateCustomerDto } from '../../domain/dtos/customers.dto.';
-import { Customer } from '../../domain/models/customer.entity';
+import { Customer } from '../../../../../domain/models/customer.entity';
+import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto.';
 
 @Injectable()
 export class CustomersService implements BasseCrudService<
