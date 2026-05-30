@@ -5,7 +5,6 @@ import {
   Get,
   HttpCode,
   HttpStatus,
-  Inject,
   Param,
   ParseIntPipe,
   Post,
@@ -13,7 +12,6 @@ import {
 } from '@nestjs/common';
 
 import { CustomerUseCaseService } from '@users/application/customer-use-case.service';
-import { CUSTOMERS_SERVICE_PORT } from '@users/domain/ports/customer.port';
 import type { Customer } from '../../../../../domain/models/customer.entity';
 import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto.';
 
@@ -22,10 +20,12 @@ import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto.';
   version: '1',
 })
 export class CustomersController {
-  constructor(
-    @Inject(CUSTOMERS_SERVICE_PORT)
-    private readonly service: CustomerUseCaseService,
-  ) {}
+  /**
+   * Creates an instance of CustomersController.
+   * @param {CustomerUseCaseService} service
+   * @memberof CustomersController
+   */
+  constructor(private readonly service: CustomerUseCaseService) {}
 
   /**
    * Get all Customers
