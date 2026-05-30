@@ -22,10 +22,16 @@ get_extensions_from_env() {
   fi
 }
 
+
 if git ls-files -u | grep -q .; then
   echo "⚠️  Merge in progress. Skipping Prettier to avoid issues."
   exit 0
 fi
+
+# ======== GGA START ========
+# Gentleman Guardian Angel - Code Review
+gga run || exit 1
+# ======== GGA END ========
 
 find src -name .DS_Store -exec rm {} \;
 

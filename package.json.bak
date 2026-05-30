@@ -86,7 +86,7 @@
     "rootDir": "src",
     "testRegex": ".*\\.spec\\.ts$",
     "transform": {
-      "^.+\\.(t|j)s$": ["ts-jest", { "tsconfig": { "removeComments": false } }]
+      "^.+\\.(t|j)s$": "ts-jest"
     },
     "moduleNameMapper": {
       "^@common/(.*)$": "<rootDir>/common/$1",
@@ -101,17 +101,6 @@
       "!**/*.controller.ts"
     ],
     "coverageDirectory": "../coverage",
-    "testEnvironment": "node",
-    "coverageThreshold": {
-      "global": {
-        "branches": 97,
-        "functions": 100,
-        "lines": 100,
-        "statements": 100
-      },
-      "./src/users/infrastructure/adapters/in/v1/services/users.service.ts": {
-        "branches": 88
-      }
-    }
+    "testEnvironment": "node"
   }
 }

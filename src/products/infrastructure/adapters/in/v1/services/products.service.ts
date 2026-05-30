@@ -102,7 +102,7 @@ export class ProductsService implements BasseCrudService<
       ...product,
       ...payload,
     };
-    return this.products[id];
+    return this.products[idx];
   }
 
   /**
@@ -116,7 +116,7 @@ export class ProductsService implements BasseCrudService<
     if (idx === -1) {
       throw new NotFoundException(`Product ${id} not Found`);
     }
-    this.products.slice(idx, 1);
+    this.products.splice(idx, 1);
   }
 
   /**

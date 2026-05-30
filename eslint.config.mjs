@@ -35,7 +35,7 @@ export default tseslint.config(
   },
   /* REGLAS ESPECÍFICAS PARA TESTS */
   {
-    files: ['**/*.spec.ts', '**/*.test.ts'],
+    files: ['**/*.spec.ts', '**/*.test.ts', '**/*.e2e-spec.ts'],
     plugins: {
       jest: jestPlugin,
     },

@@ -13,7 +13,7 @@ import {
 
 import { CustomerUseCaseService } from '@users/application/customer-use-case.service';
 import type { Customer } from '../../../../../domain/models/customer.entity';
-import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto.';
+import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto';
 
 @Controller({
   path: 'customers',
