@@ -34,9 +34,17 @@ La organización del código se divide por módulos de dominio y una capa común
 src/
 ├── common/                                                   # 🌍 Kernel Compartido (Shared Kernel)
 │   ├── domain/
-│   │   └── interfaces/
-│   │       └── base-crud.interface.ts                        # Interfaz genérica BaseCrud
+│   │   ├── interfaces/
+│   │   │    └── base-crud.interface.ts                        # Interfaz genérica BaseCrud
+│   │   └── ports/
+│   │   │    └── logger.port.ts          # Token + contrato logging transversal
+│   │   │    └── email.port.ts           # Token + contrato email transversal
+│   │   │    └── metrics.port.ts         # Token + contrato métricas transversal
 │   └── infrastructure/
+│       └── adapters/
+│       │    └── logger.service.ts        # Dummy logger adapter (in-memory/console)
+│       │    └── email-dummy.service.ts   # Dummy email adapter (console)
+│       │    └── metrics-dummy.service.ts # Dummy metrics adapter (console)
 │       └── filters/                                          # Filtros de excepción globales
 │
 ├── products/                                                 # 📦 Módulo de Dominio (ej. Productos)
