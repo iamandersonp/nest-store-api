@@ -92,7 +92,7 @@ export class CategoriesService implements BasseCrudService<
       ...category,
       ...payload,
     };
-    return this.categories[id];
+    return this.categories[categoryId];
   }
 
   /**

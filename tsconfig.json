@@ -28,6 +28,6 @@
     "noFallthroughCasesInSwitch": false,
     "types": ["node", "jest"]
   },
-  "include": ["src/**/*", "scripts/**/*.js"],
+  "include": ["src/**/*", "scripts/**/*.js", "test/**/*"],
   "exclude": ["node_modules", "dist"]
 }

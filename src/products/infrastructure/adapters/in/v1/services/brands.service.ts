@@ -92,7 +92,7 @@ export class BrandsService implements BasseCrudService<Brand, CreateBrandDto, Up
       ...brand,
       ...payload,
     };
-    return this.brands[id];
+    return this.brands[idx];
   }
 
   /**

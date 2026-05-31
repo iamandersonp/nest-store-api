@@ -5,7 +5,7 @@ import { CUSTOMERS_SERVICE_PORT } from '@users/domain/ports/customer.port';
 import {
   CreateCustomerDto,
   UpdateCustomerDto,
-} from '@users/infrastructure/adapters/in/v1/dtos/customers.dto.';
+} from '@users/infrastructure/adapters/in/v1/dtos/customers.dto';
 
 @Injectable()
 export class CustomerUseCaseService {
