@@ -6,7 +6,19 @@ describe('productsService dependency', () => {
       'productsService dependency not provided',
     );
   });
+
+  it('constructor can be called with and without productsService', () => {
+    const mockDep: Partial<ProductUseCaseService> = {
+      findAll: jest.fn(),
+      findOne: jest.fn(),
+    };
+    const withDep = new UsersService(mockDep as ProductUseCaseService);
+    const withoutDep = new UsersService();
+    expect(withDep).toBeDefined();
+    expect(withoutDep).toBeDefined();
+  });
 });
+
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductUseCaseService } from '@products/application/product-use-case.service';
@@ -126,10 +138,17 @@ describe('UsersService', () => {
   // --- Cobertura de branches: lista vacía ---
   describe('branches: empty users list', () => {
     beforeEach(() => {
-      // Borrar el usuario inicial
+      // Borra el usuario inicial y deja lista vacía
       try {
         service.delete(1);
-      } catch {}
+      } catch {
+        // expected if user does not exist; safe to ignore
+      }
+    });
+
+    it('findOne should throw NotFoundException when list is empty', () => {
+      expect(service.findAll()).toHaveLength(0);
+      expect(() => service.findOne(1)).toThrow(NotFoundException);
     });
 
     it('should throw NotFoundException when updating in empty list', () => {

@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { CategoryNotFoundError } from '@products/domain/errors/category-not-found.error';
 
 import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import type { Category } from '@products/domain/models/category.entity';
@@ -51,7 +52,7 @@ export class CategoriesService implements BasseCrudService<
   findOne(id: number): Category {
     const category = this.categories.find((item) => item.id === id);
     if (!category) {
-      throw new NotFoundException(`category ${id} not Found`);
+      throw new CategoryNotFoundError(id);
     }
     return category;
   }
@@ -84,7 +85,7 @@ export class CategoriesService implements BasseCrudService<
   update(id: number, payload: UpdateCategoryDtoDto): Category {
     const categoryId = this.findIndex(id);
     if (categoryId === -1) {
-      throw new NotFoundException(`Category ${id} not Found`);
+      throw new CategoryNotFoundError(id);
     }
 
     const category = this.findOne(id);
@@ -104,7 +105,7 @@ export class CategoriesService implements BasseCrudService<
   delete(id: number): void {
     const categoryId = this.findIndex(id);
     if (categoryId === -1) {
-      throw new NotFoundException(`Category ${id} not Found`);
+      throw new CategoryNotFoundError(id);
     }
     this.categories.splice(categoryId, 1);
   }

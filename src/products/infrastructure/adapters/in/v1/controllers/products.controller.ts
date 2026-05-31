@@ -9,7 +9,9 @@ import {
   ParseIntPipe,
   Post,
   Put,
+  NotFoundException,
 } from '@nestjs/common';
+import { ProductNotFoundError } from '@products/domain/errors/product-not-found.error';
 
 import { ProductUseCaseService } from '@products/application/product-use-case.service';
 import type { Product } from '@products/domain/models/product.entity';
@@ -17,6 +19,7 @@ import {
   CreateProductsDto,
   UpdateProductsDto,
 } from '@products/infrastructure/adapters/in/v1/dtos/products.dto';
+import { ProductMapper } from '@products/infrastructure/adapters/in/v1/mappers/product.mapper';
 
 @Controller({
   path: 'products',
@@ -46,8 +49,10 @@ export class ProductsController {
    * @memberof ProductsController
    */
   @Get()
-  getAll(): Product[] | Promise<Product[]> {
-    return this.service.findAll();
+  async getAll(): Promise<Product[]> {
+    const products = await this.service.findAll();
+    // Podrías mapear a un DTO de respuesta diferenciado aquí
+    return Array.isArray(products) ? products.map((x) => ProductMapper.toDto(x)) : products;
   }
 
   /**
@@ -58,8 +63,16 @@ export class ProductsController {
    * @memberof ProductsController
    */
   @Get(':productId')
-  getOne(@Param('productId', ParseIntPipe) productId: number): Product | Promise<Product> {
-    return this.service.findOne(productId);
+  async getOne(@Param('productId', ParseIntPipe) productId: number): Promise<Product> {
+    try {
+      const product = await this.service.findOne(productId);
+      return ProductMapper.toDto(product);
+    } catch (error) {
+      if (error instanceof ProductNotFoundError) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
   }
 
   /**
@@ -70,8 +83,11 @@ export class ProductsController {
    * @memberof ProductsController
    */
   @Post()
-  create(@Body() payload: CreateProductsDto): Product | Promise<Product> {
-    return this.service.create(payload);
+  async create(@Body() payload: CreateProductsDto): Promise<Product> {
+    // Convertir DTO a modelo antes de pasar a la capa de aplicación
+    const modelPayload = ProductMapper.fromCreateDto(payload);
+    const created = await this.service.create(modelPayload);
+    return ProductMapper.toDto(created);
   }
 
   /**
@@ -83,11 +99,21 @@ export class ProductsController {
    * @memberof ProductsController
    */
   @Put(':id')
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateProductsDto,
-  ): Product | Promise<Product> {
-    return this.service.update(id, payload);
+  ): Promise<Product> {
+    try {
+      // Convertir DTO a modelo parcial
+      const modelPayload = ProductMapper.fromUpdateDto(payload);
+      const updated = await this.service.update(id, modelPayload);
+      return ProductMapper.toDto(updated);
+    } catch (error) {
+      if (error instanceof ProductNotFoundError) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
   }
 
   /**
@@ -98,7 +124,14 @@ export class ProductsController {
    */
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@Param('id', ParseIntPipe) id: number): void | Promise<void> {
-    return this.service.delete(id);
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    try {
+      await this.service.delete(id);
+    } catch (error) {
+      if (error instanceof ProductNotFoundError) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
   }
 }

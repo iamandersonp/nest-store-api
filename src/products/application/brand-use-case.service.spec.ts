@@ -2,10 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { Brand } from '@products/domain/models/brand.entity';
 import { BRANDS_SERVICE_PORT } from '@products/domain/ports/brand.port';
-import {
-  CreateBrandDto,
-  UpdateBrandDto,
-} from '@products/infrastructure/adapters/in/v1/dtos/brands.dto';
+import { UpdateBrandDto } from '@products/infrastructure/adapters/in/v1/dtos/brands.dto';
 
 import { BrandUseCaseService } from './brand-use-case.service';
 
@@ -54,7 +51,7 @@ describe('BrandUseCaseService', () => {
   });
 
   it('create delegates to the port', async () => {
-    const payload = { name: 'B', image: 'img' } as CreateBrandDto;
+    const payload = { name: 'B', image: 'img' };
     port.create.mockResolvedValue(brand);
     await expect(useCase.create(payload)).resolves.toEqual(brand);
     expect(port.create).toHaveBeenCalledWith(payload);

@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { NotFoundException } from '@nestjs/common';
+import { CategoryNotFoundError } from '@products/domain/errors/category-not-found.error';
 import { CategoriesService } from './categories.service';
 import { CreateCategoryDto } from '../dtos/categories.dto';
 
@@ -37,8 +37,7 @@ describe('CategoriesService', () => {
     });
 
     it('should throw a NotFoundException if category not found', () => {
-      expect(() => service.findOne(999)).toThrow(NotFoundException);
-      expect(() => service.findOne(999)).toThrow('category 999 not Found');
+      expect(() => service.findOne(999)).toThrow(CategoryNotFoundError);
     });
   });
 
@@ -71,7 +70,7 @@ describe('CategoriesService', () => {
     });
 
     it('should throw a NotFoundException if category to update does not exist', () => {
-      expect(() => service.update(999, { name: 'Non-existent' })).toThrow(NotFoundException);
+      expect(() => service.update(999, { name: 'Non-existent' })).toThrow(CategoryNotFoundError);
     });
   });
 
@@ -81,11 +80,11 @@ describe('CategoriesService', () => {
       service.delete(1);
       const allCategories = service.findAll();
       expect(allCategories).toHaveLength(initialCount - 1);
-      expect(() => service.findOne(1)).toThrow(NotFoundException);
+      expect(() => service.findOne(1)).toThrow(CategoryNotFoundError);
     });
 
     it('should throw a NotFoundException if category to delete does not exist', () => {
-      expect(() => service.delete(999)).toThrow(NotFoundException);
+      expect(() => service.delete(999)).toThrow(CategoryNotFoundError);
     });
   });
 });

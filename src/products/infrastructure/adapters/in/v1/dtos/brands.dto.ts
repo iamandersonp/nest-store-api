@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsPositive, IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsString, IsUrl } from 'class-validator';
 
 /**
  * Create Brand DTO
@@ -8,15 +8,6 @@ import { IsNotEmpty, IsNumber, IsPositive, IsString, IsUrl } from 'class-validat
  * @class CreateBrandDto
  */
 export class CreateBrandDto {
-  /**
-   * Brand id
-   *
-   * @type {number}
-   * @memberof Brand
-   */
-  @IsNumber()
-  @IsPositive()
-  id!: number;
   /**
    * Brand name
    *

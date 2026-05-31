@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { NotFoundException } from '@nestjs/common';
+import { ProductNotFoundError } from '@products/domain/errors/product-not-found.error';
 import { ProductsService } from './products.service';
 import { CreateProductsDto } from '../dtos/products.dto';
 
@@ -37,8 +37,7 @@ describe('ProductsService', () => {
     });
 
     it('should throw a NotFoundException if product not found', () => {
-      expect(() => service.findOne(999)).toThrow(NotFoundException);
-      expect(() => service.findOne(999)).toThrow('Product 999 not Found');
+      expect(() => service.findOne(999)).toThrow(ProductNotFoundError);
     });
   });
 
@@ -81,7 +80,7 @@ describe('ProductsService', () => {
     });
 
     it('should throw a NotFoundException if product to update does not exist', () => {
-      expect(() => service.update(999, { name: 'Non-existent' })).toThrow(NotFoundException);
+      expect(() => service.update(999, { name: 'Non-existent' })).toThrow(ProductNotFoundError);
     });
   });
 
@@ -91,11 +90,11 @@ describe('ProductsService', () => {
       service.delete(1);
       const allProducts = service.findAll();
       expect(allProducts).toHaveLength(initialCount - 1);
-      expect(() => service.findOne(1)).toThrow(NotFoundException);
+      expect(() => service.findOne(1)).toThrow(ProductNotFoundError);
     });
 
     it('should throw a NotFoundException if product to delete does not exist', () => {
-      expect(() => service.delete(999)).toThrow(NotFoundException);
+      expect(() => service.delete(999)).toThrow(ProductNotFoundError);
     });
   });
 });

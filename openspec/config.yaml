@@ -1,0 +1,63 @@
+strict_tdd: true
+context: |
+  nest-store-v2 is a Node.js/TypeScript project.
+  Detected markers: package.json, tsconfig.json, npm package manager.
+  Package managers: npm.
+  Additional evidence: Test-like files detected (18); examples: src/products/application/brand-use-case.service.spec.ts, src/products/application/category-use-case.service.spec.ts, src/products/application/product-use-case.service.spec.ts, src/products/infrastructure/adapters/in/v1/controllers/brands.controller.spec.ts, src/products/infrastructure/adapters/in/v1/controllers/categories.controller.spec.ts.
+  Primary test command: npm test.
+  Unit tests: Jest (npm test).
+  Integration tests: Supertest (npm test).
+  E2E tests: Playwright (npm run test:e2e).
+rules:
+  proposal:
+    require_problem_statement: true
+  spec:
+    require_acceptance_criteria: true
+  design:
+    require_tradeoffs: true
+  tasks:
+    protect_review_workload: true
+  apply:
+    test_command: "npm test"
+  verify:
+    test_command: "npm test"
+testing:
+  detected: "2026-05-31"
+  runner:
+    command: "npm test"
+    framework: "Jest"
+  layers:
+    unit: "Jest"
+    integration: "Supertest"
+    e2e: "Playwright"
+  commands:
+    unit:
+      - scope: "."
+        command: "npm test"
+        framework: "Jest"
+    integration:
+      - scope: "."
+        command: "npm test"
+        framework: "Supertest"
+    e2e:
+      - scope: "."
+        command: "npm run test:e2e"
+        framework: "Playwright"
+  coverage:
+    command: ""
+    commands:
+      []
+quality:
+  lint: "npm run lint"
+  lint_commands:
+    - scope: "."
+      command: "npm run lint"
+      framework: "linter"
+  typecheck: ""
+  typecheck_commands:
+    []
+  format: "npm run format"
+  format_commands:
+    - scope: "."
+      command: "npm run format"
+      framework: "formatter"

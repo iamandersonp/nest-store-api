@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { ProductNotFoundError } from '@products/domain/errors/product-not-found.error';
 
 import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import type { Product } from '@products/domain/models/product.entity';
@@ -61,7 +62,7 @@ export class ProductsService implements BasseCrudService<
   findOne(id: number): Product {
     const product = this.products.find((item: Product) => item.id === id);
     if (!product) {
-      throw new NotFoundException(`Product ${id} not Found`);
+      throw new ProductNotFoundError(id);
     }
     return product;
   }
@@ -94,7 +95,7 @@ export class ProductsService implements BasseCrudService<
   update(id: number, payload: UpdateProductsDto): Product {
     const idx = this.findIndex(id);
     if (idx === -1) {
-      throw new NotFoundException(`Product ${id} not Found`);
+      throw new ProductNotFoundError(id);
     }
 
     const product = this.findOne(id);
@@ -114,7 +115,7 @@ export class ProductsService implements BasseCrudService<
   delete(id: number): void {
     const idx = this.findIndex(id);
     if (idx === -1) {
-      throw new NotFoundException(`Product ${id} not Found`);
+      throw new ProductNotFoundError(id);
     }
     this.products.splice(idx, 1);
   }

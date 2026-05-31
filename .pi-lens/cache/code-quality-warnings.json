@@ -1,0 +1,38 @@
+{
+  "generatedAt": "2026-05-31T18:17:23.464Z",
+  "scope": "turn_delta",
+  "sessionId": "lens-mpu05zrf-a428c6bc",
+  "turnIndex": 205,
+  "projectSeqStart": 91,
+  "projectSeqEnd": 92,
+  "deltaOnly": true,
+  "files": [
+    {
+      "filePath": "/mnt/Almacenamiento/nest-store-api/README.md",
+      "displayPath": "README.md",
+      "fileSeq": 1,
+      "warnings": [
+        {
+          "id": "cq:b162492649",
+          "filePath": "/mnt/Almacenamiento/nest-store-api/README.md",
+          "displayPath": "README.md",
+          "severity": "warning",
+          "tool": "pi-lens",
+          "message": "Pi-lens analysis unavailable. Tools for markdown not installed.",
+          "category": "other",
+          "origin": "dispatch"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "warnings": 1,
+    "files": 1,
+    "topRules": [
+      {
+        "rule": "pi-lens",
+        "count": 1
+      }
+    ]
+  }
+}
