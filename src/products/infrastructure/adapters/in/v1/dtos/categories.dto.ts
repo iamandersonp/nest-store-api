@@ -1,5 +1,5 @@
 import { PartialType } from '@nestjs/swagger';
-import { IsNotEmpty, IsNumber, IsPositive, IsString, IsUrl } from 'class-validator';
+import { IsNotEmpty, IsString } from 'class-validator';
 
 /**
  * Create Products DTO
@@ -8,56 +8,9 @@ import { IsNotEmpty, IsNumber, IsPositive, IsString, IsUrl } from 'class-validat
  * @class CreateCategoryDto
  */
 export class CreateCategoryDto {
-  /**
-   * Name
-   *
-   * @type {string}
-   * @memberof CreateCategoryDto
-   */
   @IsString()
   @IsNotEmpty()
   readonly name!: string;
-
-  /**
-   * Description
-   *
-   * @type {string}
-   * @memberof CreateCategoryDto
-   */
-  @IsString()
-  @IsNotEmpty()
-  readonly description!: string;
-
-  /**
-   * Price
-   *
-   * @type {number}
-   * @memberof CreateCategoryDto
-   */
-  @IsNumber()
-  @IsPositive()
-  readonly price!: number;
-
-  /**
-   * Stock
-   *
-   * @type {number}
-   * @memberof CreateCategoryDto
-   */
-  @IsNumber()
-  @IsPositive()
-  readonly stock!: number;
-
-  /**
-   * Image
-   *
-   * @type {string}
-   * @memberof CreateCategoryDto
-   */
-  @IsString()
-  @IsNotEmpty()
-  @IsUrl()
-  readonly image!: string;
 }
 
 /**

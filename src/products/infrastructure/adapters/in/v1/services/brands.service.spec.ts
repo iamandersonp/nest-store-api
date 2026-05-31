@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { NotFoundException } from '@nestjs/common';
+import { BrandNotFoundError } from '@products/domain/errors/brand-not-found.error';
 import { BrandsService } from './brands.service';
 import { CreateBrandDto, UpdateBrandDto } from '../dtos/brands.dto';
 
@@ -37,8 +37,7 @@ describe('BrandsService', () => {
     });
 
     it('should throw a NotFoundException if brand not found', () => {
-      expect(() => service.findOne(999)).toThrow(NotFoundException);
-      expect(() => service.findOne(999)).toThrow('Brand 999 not Found');
+      expect(() => service.findOne(999)).toThrow(BrandNotFoundError);
     });
   });
 
@@ -73,7 +72,7 @@ describe('BrandsService', () => {
     });
 
     it('should throw a NotFoundException if brand to update does not exist', () => {
-      expect(() => service.update(999, { name: 'Non-existent' })).toThrow(NotFoundException);
+      expect(() => service.update(999, { name: 'Non-existent' })).toThrow(BrandNotFoundError);
     });
   });
 
@@ -83,11 +82,11 @@ describe('BrandsService', () => {
       service.delete(1);
       const allBrands = service.findAll();
       expect(allBrands).toHaveLength(initialCount - 1);
-      expect(() => service.findOne(1)).toThrow(NotFoundException);
+      expect(() => service.findOne(1)).toThrow(BrandNotFoundError);
     });
 
     it('should throw a NotFoundException if brand to delete does not exist', () => {
-      expect(() => service.delete(999)).toThrow(NotFoundException);
+      expect(() => service.delete(999)).toThrow(BrandNotFoundError);
     });
   });
 });

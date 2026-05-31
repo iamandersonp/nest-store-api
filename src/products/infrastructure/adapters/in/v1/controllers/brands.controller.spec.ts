@@ -2,10 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 
 import { BrandUseCaseService } from '@products/application/brand-use-case.service';
 import { Brand } from '@products/domain/models/brand.entity';
-import {
-  CreateBrandDto,
-  UpdateBrandDto,
-} from '@products/infrastructure/adapters/in/v1/dtos/brands.dto';
+import { UpdateBrandDto } from '@products/infrastructure/adapters/in/v1/dtos/brands.dto';
 
 import { BrandsController } from './brands.controller';
 
@@ -55,7 +52,7 @@ describe('BrandsController', () => {
   });
 
   it('create delegates to the use-case', async () => {
-    const payload = { name: 'B', image: 'img' } as CreateBrandDto;
+    const payload = { name: 'B', image: 'img' };
     useCase.create.mockResolvedValue(brand);
     await expect(controller.create(payload)).resolves.toEqual(brand);
     expect(useCase.create).toHaveBeenCalledWith(payload);

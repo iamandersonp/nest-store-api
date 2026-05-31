@@ -1,0 +1,731 @@
+{
+  "version": 1,
+  "files": {
+    "src/common/infrastructure/adapters/logger.service.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T16:51:42.030Z",
+        "mi": 63.8,
+        "cognitive": 12,
+        "nesting": 2,
+        "lines": 19,
+        "maxCyclomatic": 2,
+        "entropy": 4.23
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T16:51:42.030Z",
+          "mi": 63.8,
+          "cognitive": 12,
+          "nesting": 2,
+          "lines": 19,
+          "maxCyclomatic": 2,
+          "entropy": 4.23
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/common/infrastructure/adapters/email-dummy.service.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T16:51:42.058Z",
+        "mi": 74.7,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 11,
+        "maxCyclomatic": 1,
+        "entropy": 4.1
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T16:51:42.058Z",
+          "mi": 74.7,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 11,
+          "maxCyclomatic": 1,
+          "entropy": 4.1
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/app.module.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T16:51:42.153Z",
+        "mi": 61.1,
+        "cognitive": 0,
+        "nesting": 1,
+        "lines": 15,
+        "maxCyclomatic": 1,
+        "entropy": 3.68
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T16:51:42.153Z",
+          "mi": 61.1,
+          "cognitive": 0,
+          "nesting": 1,
+          "lines": 15,
+          "maxCyclomatic": 1,
+          "entropy": 3.68
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/dtos/products.dto.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T16:56:48.454Z",
+        "mi": 55.6,
+        "cognitive": 0,
+        "nesting": 1,
+        "lines": 64,
+        "maxCyclomatic": 1,
+        "entropy": 4.58
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T16:56:48.454Z",
+          "mi": 55.6,
+          "cognitive": 0,
+          "nesting": 1,
+          "lines": 64,
+          "maxCyclomatic": 1,
+          "entropy": 4.58
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/domain/models/product.entity.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T16:56:51.969Z",
+        "mi": 63.7,
+        "cognitive": 0,
+        "nesting": 0,
+        "lines": 50,
+        "maxCyclomatic": 1,
+        "entropy": 3.27
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T16:56:51.969Z",
+          "mi": 63.7,
+          "cognitive": 0,
+          "nesting": 0,
+          "lines": 50,
+          "maxCyclomatic": 1,
+          "entropy": 3.27
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/controllers/products.controller.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T16:56:55.636Z",
+        "mi": 48.9,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 88,
+        "maxCyclomatic": 1,
+        "entropy": 5.25
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T16:56:55.636Z",
+          "mi": 48.9,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 88,
+          "maxCyclomatic": 1,
+          "entropy": 5.25
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/mappers/product.mapper.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T16:58:19.749Z",
+        "mi": 57.6,
+        "cognitive": 15,
+        "nesting": 3,
+        "lines": 36,
+        "maxCyclomatic": 15,
+        "entropy": 5.01
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T16:58:19.749Z",
+          "mi": 57.6,
+          "cognitive": 15,
+          "nesting": 3,
+          "lines": 36,
+          "maxCyclomatic": 15,
+          "entropy": 5.01
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/dtos/brands.dto.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:02:01.735Z",
+        "mi": 61.3,
+        "cognitive": 0,
+        "nesting": 1,
+        "lines": 39,
+        "maxCyclomatic": 1,
+        "entropy": 4.5
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:02:01.735Z",
+          "mi": 61.3,
+          "cognitive": 0,
+          "nesting": 1,
+          "lines": 39,
+          "maxCyclomatic": 1,
+          "entropy": 4.5
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/dtos/categories.dto.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:02:01.759Z",
+        "mi": 55.6,
+        "cognitive": 0,
+        "nesting": 1,
+        "lines": 64,
+        "maxCyclomatic": 1,
+        "entropy": 4.58
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:02:01.759Z",
+          "mi": 55.6,
+          "cognitive": 0,
+          "nesting": 1,
+          "lines": 64,
+          "maxCyclomatic": 1,
+          "entropy": 4.58
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/domain/models/brand.entity.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:02:01.782Z",
+        "mi": 71.6,
+        "cognitive": 0,
+        "nesting": 0,
+        "lines": 29,
+        "maxCyclomatic": 1,
+        "entropy": 2.95
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:02:01.782Z",
+          "mi": 71.6,
+          "cognitive": 0,
+          "nesting": 0,
+          "lines": 29,
+          "maxCyclomatic": 1,
+          "entropy": 2.95
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/domain/models/category.entity.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:02:01.804Z",
+        "mi": 75.8,
+        "cognitive": 0,
+        "nesting": 0,
+        "lines": 22,
+        "maxCyclomatic": 1,
+        "entropy": 2.81
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:02:01.804Z",
+          "mi": 75.8,
+          "cognitive": 0,
+          "nesting": 0,
+          "lines": 22,
+          "maxCyclomatic": 1,
+          "entropy": 2.81
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/controllers/brands.controller.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:02:22.240Z",
+        "mi": 49.2,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 85,
+        "maxCyclomatic": 1,
+        "entropy": 5.25
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:02:22.240Z",
+          "mi": 49.2,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 85,
+          "maxCyclomatic": 1,
+          "entropy": 5.25
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/controllers/categories.controller.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:02:22.267Z",
+        "mi": 49.2,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 85,
+        "maxCyclomatic": 1,
+        "entropy": 5.25
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:02:22.267Z",
+          "mi": 49.2,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 85,
+          "maxCyclomatic": 1,
+          "entropy": 5.25
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/application/product-use-case.service.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:08:56.966Z",
+        "mi": 52.7,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 70,
+        "maxCyclomatic": 1,
+        "entropy": 4.78
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:08:56.966Z",
+          "mi": 52.7,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 70,
+          "maxCyclomatic": 1,
+          "entropy": 4.78
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/services/products.service.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:08:59.236Z",
+        "mi": 44.8,
+        "cognitive": 9,
+        "nesting": 3,
+        "lines": 123,
+        "maxCyclomatic": 3,
+        "entropy": 5.29
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:08:59.236Z",
+          "mi": 44.8,
+          "cognitive": 9,
+          "nesting": 3,
+          "lines": 123,
+          "maxCyclomatic": 3,
+          "entropy": 5.29
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/services/brands.service.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:12:03.866Z",
+        "mi": 45.9,
+        "cognitive": 9,
+        "nesting": 3,
+        "lines": 114,
+        "maxCyclomatic": 3,
+        "entropy": 5.22
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:12:03.866Z",
+          "mi": 45.9,
+          "cognitive": 9,
+          "nesting": 3,
+          "lines": 114,
+          "maxCyclomatic": 3,
+          "entropy": 5.22
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/services/categories.service.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:12:03.893Z",
+        "mi": 46.1,
+        "cognitive": 9,
+        "nesting": 3,
+        "lines": 113,
+        "maxCyclomatic": 3,
+        "entropy": 5.23
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:12:03.893Z",
+          "mi": 46.1,
+          "cognitive": 9,
+          "nesting": 3,
+          "lines": 113,
+          "maxCyclomatic": 3,
+          "entropy": 5.23
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/services/products.service.spec.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:16:05.694Z",
+        "mi": 37.6,
+        "cognitive": 0,
+        "nesting": 4,
+        "lines": 85,
+        "maxCyclomatic": 2,
+        "entropy": 4.96
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:16:05.694Z",
+          "mi": 37.6,
+          "cognitive": 0,
+          "nesting": 4,
+          "lines": 85,
+          "maxCyclomatic": 2,
+          "entropy": 4.96
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/services/brands.service.spec.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:16:05.729Z",
+        "mi": 39.3,
+        "cognitive": 0,
+        "nesting": 4,
+        "lines": 77,
+        "maxCyclomatic": 2,
+        "entropy": 4.92
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:16:05.729Z",
+          "mi": 39.3,
+          "cognitive": 0,
+          "nesting": 4,
+          "lines": 77,
+          "maxCyclomatic": 2,
+          "entropy": 4.92
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/services/categories.service.spec.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:16:05.761Z",
+        "mi": 38.4,
+        "cognitive": 0,
+        "nesting": 4,
+        "lines": 75,
+        "maxCyclomatic": 2,
+        "entropy": 4.88
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:16:05.761Z",
+          "mi": 38.4,
+          "cognitive": 0,
+          "nesting": 4,
+          "lines": 75,
+          "maxCyclomatic": 2,
+          "entropy": 4.88
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/application/brand-use-case.service.spec.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:21:25.097Z",
+        "mi": 39.7,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 62,
+        "maxCyclomatic": 2,
+        "entropy": 5.37
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:21:25.097Z",
+          "mi": 39.7,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 62,
+          "maxCyclomatic": 2,
+          "entropy": 5.37
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/controllers/brands.controller.spec.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:21:25.130Z",
+        "mi": 39.4,
+        "cognitive": 0,
+        "nesting": 2,
+        "lines": 63,
+        "maxCyclomatic": 2,
+        "entropy": 5.39
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:21:25.130Z",
+          "mi": 39.4,
+          "cognitive": 0,
+          "nesting": 2,
+          "lines": 63,
+          "maxCyclomatic": 2,
+          "entropy": 5.39
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/users/infrastructure/adapters/in/v1/services/users.service.spec.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:21:25.281Z",
+        "mi": 33,
+        "cognitive": 5,
+        "nesting": 5,
+        "lines": 121,
+        "maxCyclomatic": 3,
+        "entropy": 5.21
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:21:25.281Z",
+          "mi": 33,
+          "cognitive": 5,
+          "nesting": 5,
+          "lines": 121,
+          "maxCyclomatic": 3,
+          "entropy": 5.21
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/users/infrastructure/adapters/in/v1/services/users.service.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:31:37.964Z",
+        "mi": 41.3,
+        "cognitive": 12,
+        "nesting": 3,
+        "lines": 162,
+        "maxCyclomatic": 3,
+        "entropy": 5.54
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:31:37.964Z",
+          "mi": 41.3,
+          "cognitive": 12,
+          "nesting": 3,
+          "lines": 162,
+          "maxCyclomatic": 3,
+          "entropy": 5.54
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/common/domain/ports/email.port.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:35:26.173Z",
+        "mi": 72.3,
+        "cognitive": 0,
+        "nesting": 0,
+        "lines": 18,
+        "maxCyclomatic": 1,
+        "entropy": 3.69
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:35:26.173Z",
+          "mi": 72.3,
+          "cognitive": 0,
+          "nesting": 0,
+          "lines": 18,
+          "maxCyclomatic": 1,
+          "entropy": 3.69
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/common/domain/ports/logger.port.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:35:26.200Z",
+        "mi": 65.1,
+        "cognitive": 0,
+        "nesting": 0,
+        "lines": 30,
+        "maxCyclomatic": 1,
+        "entropy": 3.52
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:35:26.200Z",
+          "mi": 65.1,
+          "cognitive": 0,
+          "nesting": 0,
+          "lines": 30,
+          "maxCyclomatic": 1,
+          "entropy": 3.52
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/mappers/product.mapper.spec.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:45:47.285Z",
+        "mi": 44.1,
+        "cognitive": 0,
+        "nesting": 3,
+        "lines": 59,
+        "maxCyclomatic": 1,
+        "entropy": 4.21
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:45:47.285Z",
+          "mi": 44.1,
+          "cognitive": 0,
+          "nesting": 3,
+          "lines": 59,
+          "maxCyclomatic": 1,
+          "entropy": 4.21
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/mappers/brand.mapper.spec.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:45:47.315Z",
+        "mi": 47.9,
+        "cognitive": 0,
+        "nesting": 3,
+        "lines": 47,
+        "maxCyclomatic": 1,
+        "entropy": 3.95
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:45:47.315Z",
+          "mi": 47.9,
+          "cognitive": 0,
+          "nesting": 3,
+          "lines": 47,
+          "maxCyclomatic": 1,
+          "entropy": 3.95
+        }
+      ],
+      "trend": "stable"
+    },
+    "src/products/infrastructure/adapters/in/v1/mappers/category.mapper.spec.ts": {
+      "latest": {
+        "commit": "2d431bb",
+        "timestamp": "2026-05-31T17:45:47.351Z",
+        "mi": 48,
+        "cognitive": 0,
+        "nesting": 3,
+        "lines": 40,
+        "maxCyclomatic": 1,
+        "entropy": 4.01
+      },
+      "history": [
+        {
+          "commit": "2d431bb",
+          "timestamp": "2026-05-31T17:45:47.351Z",
+          "mi": 48,
+          "cognitive": 0,
+          "nesting": 3,
+          "lines": 40,
+          "maxCyclomatic": 1,
+          "entropy": 4.01
+        }
+      ],
+      "trend": "stable"
+    }
+  },
+  "capturedAt": "2026-05-31T17:45:52.394Z"
+}

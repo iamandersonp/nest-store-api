@@ -14,6 +14,9 @@ import {
 import { BrandUseCaseService } from '@products/application/brand-use-case.service';
 import type { Brand } from '../../../../../domain/models/brand.entity';
 import { CreateBrandDto, UpdateBrandDto } from '../dtos/brands.dto';
+import { BrandMapper } from '../mappers/brand.mapper';
+import { BrandNotFoundError } from '@products/domain/errors/brand-not-found.error';
+import { NotFoundException } from '@nestjs/common';
 
 @Controller({
   path: 'brands',
@@ -43,8 +46,9 @@ export class BrandsController {
    * @memberof BrandsController
    */
   @Get()
-  getAll(): Brand[] | Promise<Brand[]> {
-    return this.service.findAll();
+  async getAll(): Promise<Brand[]> {
+    const brands = await this.service.findAll();
+    return Array.isArray(brands) ? brands.map((x) => BrandMapper.toDto(x)) : brands;
   }
 
   /**
@@ -55,8 +59,16 @@ export class BrandsController {
    * @memberof BrandsService
    */
   @Get(':brandId')
-  getOne(@Param('brandId', ParseIntPipe) brandId: number): Brand | Promise<Brand> {
-    return this.service.findOne(brandId);
+  async getOne(@Param('brandId', ParseIntPipe) brandId: number): Promise<Brand> {
+    try {
+      const brand = await this.service.findOne(brandId);
+      return BrandMapper.toDto(brand);
+    } catch (error) {
+      if (error instanceof BrandNotFoundError) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
   }
 
   /**
@@ -67,8 +79,10 @@ export class BrandsController {
    * @memberof BrandsService
    */
   @Post()
-  create(@Body() payload: CreateBrandDto): Brand | Promise<Brand> {
-    return this.service.create(payload);
+  async create(@Body() payload: CreateBrandDto): Promise<Brand> {
+    const modelPayload = BrandMapper.fromCreateDto(payload);
+    const created = await this.service.create(modelPayload);
+    return BrandMapper.toDto(created);
   }
 
   /**
@@ -80,11 +94,20 @@ export class BrandsController {
    * @memberof BrandsService
    */
   @Put(':id')
-  update(
+  async update(
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateBrandDto,
-  ): Brand | Promise<Brand> {
-    return this.service.update(id, payload);
+  ): Promise<Brand> {
+    try {
+      const modelPayload = BrandMapper.fromUpdateDto(payload);
+      const updated = await this.service.update(id, modelPayload);
+      return BrandMapper.toDto(updated);
+    } catch (error) {
+      if (error instanceof BrandNotFoundError) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
   }
 
   /**
@@ -95,7 +118,14 @@ export class BrandsController {
    */
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
-  delete(@Param('id', ParseIntPipe) id: number): void | Promise<void> {
-    return this.service.delete(id);
+  async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
+    try {
+      await this.service.delete(id);
+    } catch (error) {
+      if (error instanceof BrandNotFoundError) {
+        throw new NotFoundException(error.message);
+      }
+      throw error;
+    }
   }
 }

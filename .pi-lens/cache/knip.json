@@ -1,0 +1,130 @@
+{
+  "success": true,
+  "issues": [
+    {
+      "type": "file",
+      "name": "test/app.e2e-spec.ts",
+      "file": "test/app.e2e-spec.ts"
+    },
+    {
+      "type": "dependency",
+      "name": "@nestjs/axios",
+      "file": "package.json",
+      "line": 31
+    },
+    {
+      "type": "dependency",
+      "name": "axios",
+      "file": "package.json",
+      "line": 37
+    },
+    {
+      "type": "devDependency",
+      "name": "@eslint/eslintrc",
+      "file": "package.json",
+      "line": 50
+    },
+    {
+      "type": "devDependency",
+      "name": "@types/express",
+      "file": "package.json",
+      "line": 56
+    },
+    {
+      "type": "devDependency",
+      "name": "@types/supertest",
+      "file": "package.json",
+      "line": 59
+    },
+    {
+      "type": "devDependency",
+      "name": "lint-staged",
+      "file": "package.json",
+      "line": 66
+    },
+    {
+      "type": "devDependency",
+      "name": "source-map-support",
+      "file": "package.json",
+      "line": 68
+    },
+    {
+      "type": "devDependency",
+      "name": "supertest",
+      "file": "package.json",
+      "line": 69
+    },
+    {
+      "type": "devDependency",
+      "name": "ts-loader",
+      "file": "package.json",
+      "line": 71
+    }
+  ],
+  "unusedExports": [],
+  "unusedFiles": [
+    {
+      "type": "file",
+      "name": "test/app.e2e-spec.ts",
+      "file": "test/app.e2e-spec.ts"
+    }
+  ],
+  "unusedDeps": [
+    {
+      "type": "dependency",
+      "name": "@nestjs/axios",
+      "file": "package.json",
+      "line": 31
+    },
+    {
+      "type": "dependency",
+      "name": "axios",
+      "file": "package.json",
+      "line": 37
+    },
+    {
+      "type": "devDependency",
+      "name": "@eslint/eslintrc",
+      "file": "package.json",
+      "line": 50
+    },
+    {
+      "type": "devDependency",
+      "name": "@types/express",
+      "file": "package.json",
+      "line": 56
+    },
+    {
+      "type": "devDependency",
+      "name": "@types/supertest",
+      "file": "package.json",
+      "line": 59
+    },
+    {
+      "type": "devDependency",
+      "name": "lint-staged",
+      "file": "package.json",
+      "line": 66
+    },
+    {
+      "type": "devDependency",
+      "name": "source-map-support",
+      "file": "package.json",
+      "line": 68
+    },
+    {
+      "type": "devDependency",
+      "name": "supertest",
+      "file": "package.json",
+      "line": 69
+    },
+    {
+      "type": "devDependency",
+      "name": "ts-loader",
+      "file": "package.json",
+      "line": 71
+    }
+  ],
+  "unlistedDeps": [],
+  "summary": "Found 10 issues"
+}

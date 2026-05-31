@@ -1,4 +1,5 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
+import { BrandNotFoundError } from '@products/domain/errors/brand-not-found.error';
 
 import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import { Brand } from '@products/domain/models/brand.entity';
@@ -52,7 +53,7 @@ export class BrandsService implements BasseCrudService<Brand, CreateBrandDto, Up
   findOne(id: number): Brand {
     const brand = this.brands.find((item) => item.id === id);
     if (!brand) {
-      throw new NotFoundException(`Brand ${id} not Found`);
+      throw new BrandNotFoundError(id);
     }
     return brand;
   }
@@ -85,7 +86,7 @@ export class BrandsService implements BasseCrudService<Brand, CreateBrandDto, Up
   update(id: number, payload: UpdateBrandDto): Brand {
     const idx = this.findIndex(id);
     if (idx === -1) {
-      throw new NotFoundException(`brand ${id} not Found`);
+      throw new BrandNotFoundError(id);
     }
     const brand = this.findOne(id);
     this.brands[idx] = {
@@ -104,7 +105,7 @@ export class BrandsService implements BasseCrudService<Brand, CreateBrandDto, Up
   delete(id: number): void {
     const idx = this.findIndex(id);
     if (idx === -1) {
-      throw new NotFoundException(`brand ${id} not Found`);
+      throw new BrandNotFoundError(id);
     }
     this.brands.splice(idx, 1);
   }
