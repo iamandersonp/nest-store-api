@@ -11,7 +11,11 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { BrandUseCaseService } from '@products/application/brand-use-case.service';
+import { CreateBrandUseCase } from '@products/application/create-brand.use-case';
+import { FindAllBrandsUseCase } from '@products/application/find-all-brands.use-case';
+import { FindOneBrandUseCase } from '@products/application/find-one-brand.use-case';
+import { UpdateBrandUseCase } from '@products/application/update-brand.use-case';
+import { DeleteBrandUseCase } from '@products/application/delete-brand.use-case';
 import type { Brand } from '../../../../../domain/models/brand.entity';
 import { CreateBrandDto, UpdateBrandDto } from '../dtos/brands.dto';
 import { BrandMapper } from '../mappers/brand.mapper';
@@ -23,12 +27,13 @@ import { NotFoundException } from '@nestjs/common';
   version: '1',
 })
 export class BrandsController {
-  /**
-   * Creates an instance of BrandsController.
-   * @param {BrandUseCaseService} service
-   * @memberof BrandsController
-   */
-  constructor(private readonly service: BrandUseCaseService) {}
+  constructor(
+    private readonly createBrandUseCase: CreateBrandUseCase,
+    private readonly findAllBrandsUseCase: FindAllBrandsUseCase,
+    private readonly findOneBrandUseCase: FindOneBrandUseCase,
+    private readonly updateBrandUseCase: UpdateBrandUseCase,
+    private readonly deleteBrandUseCase: DeleteBrandUseCase,
+  ) {}
 
   // @Get()
   // getAll(
@@ -47,7 +52,7 @@ export class BrandsController {
    */
   @Get()
   async getAll(): Promise<Brand[]> {
-    const brands = await this.service.findAll();
+    const brands = await this.findAllBrandsUseCase.execute();
     return Array.isArray(brands) ? brands.map((x) => BrandMapper.toDto(x)) : brands;
   }
 
@@ -61,7 +66,7 @@ export class BrandsController {
   @Get(':brandId')
   async getOne(@Param('brandId', ParseIntPipe) brandId: number): Promise<Brand> {
     try {
-      const brand = await this.service.findOne(brandId);
+      const brand = await this.findOneBrandUseCase.execute(brandId);
       return BrandMapper.toDto(brand);
     } catch (error) {
       if (error instanceof BrandNotFoundError) {
@@ -81,7 +86,7 @@ export class BrandsController {
   @Post()
   async create(@Body() payload: CreateBrandDto): Promise<Brand> {
     const modelPayload = BrandMapper.fromCreateDto(payload);
-    const created = await this.service.create(modelPayload);
+    const created = await this.createBrandUseCase.execute(modelPayload);
     return BrandMapper.toDto(created);
   }
 
@@ -100,7 +105,7 @@ export class BrandsController {
   ): Promise<Brand> {
     try {
       const modelPayload = BrandMapper.fromUpdateDto(payload);
-      const updated = await this.service.update(id, modelPayload);
+      const updated = await this.updateBrandUseCase.execute(id, modelPayload);
       return BrandMapper.toDto(updated);
     } catch (error) {
       if (error instanceof BrandNotFoundError) {
@@ -120,7 +125,7 @@ export class BrandsController {
   @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
     try {
-      await this.service.delete(id);
+      await this.deleteBrandUseCase.execute(id);
     } catch (error) {
       if (error instanceof BrandNotFoundError) {
         throw new NotFoundException(error.message);
