@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
@@ -20,7 +21,6 @@ import type { Category } from '../../../../../domain/models/category.entity';
 import { CreateCategoryDto, UpdateCategoryDtoDto } from '../dtos/categories.dto';
 import { CategoryMapper } from '../mappers/category.mapper';
 import { CategoryNotFoundError } from '@products/domain/errors/category-not-found.error';
-import { NotFoundException } from '@nestjs/common';
 
 @Controller({
   path: 'categories',

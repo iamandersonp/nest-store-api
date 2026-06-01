@@ -13,21 +13,6 @@ import {
 } from '@nestjs/common';
 import { ProductNotFoundError } from '@products/domain/errors/product-not-found.error';
 
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Param,
-  ParseIntPipe,
-  Post,
-  Put,
-  NotFoundException,
-} from '@nestjs/common';
-import { ProductNotFoundError } from '@products/domain/errors/product-not-found.error';
-
 import { CreateProductUseCase } from '@products/application/create-product.use-case';
 import { FindAllProductsUseCase } from '@products/application/find-all-products.use-case';
 import { FindOneProductUseCase } from '@products/application/find-one-product.use-case';
