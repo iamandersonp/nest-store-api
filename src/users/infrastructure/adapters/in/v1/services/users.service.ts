@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { ProductUseCaseService } from '@products/application/product-use-case.service';
+import { FindAllProductsUseCase } from '@products/application/find-all-products.use-case';
 import { Product } from '@products/domain/models/product.entity';
 import { Order } from '@users/domain/models/order.entity';
 import { User } from '@users/domain/models/user.entity';
@@ -33,7 +33,7 @@ export class UsersService implements UserRepository {
    * La cobertura de branches puede no llegar a 100% por una limitación de Istanbul/Jest
    * con decoradores y DI en TypeScript. Todos los caminos lógicos están cubiertos por tests.
    */
-  constructor(public productsService?: ProductUseCaseService) {}
+  constructor(public productsService?: FindAllProductsUseCase) {}
 
   /**
    * Counter for the id
@@ -153,7 +153,7 @@ export class UsersService implements UserRepository {
       id: 1,
       date: new Date(),
       user: this.findOne(id),
-      products: this.productsService.findAll() as Product[],
+      products: this.productsService.execute() as Product[],
       total: 0,
     };
     return order;

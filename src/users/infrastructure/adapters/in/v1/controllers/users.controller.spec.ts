@@ -1,6 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { UserUseCaseService } from '@users/application/user-use-case.service';
+import { CreateUserUseCase } from '@users/application/create-user.use-case';
+import { FindAllUsersUseCase } from '@users/application/find-all-users.use-case';
+import { FindOneUserUseCase } from '@users/application/find-one-user.use-case';
+import { UpdateUserUseCase } from '@users/application/update-user.use-case';
+import { DeleteUserUseCase } from '@users/application/delete-user.use-case';
+import { GetOrdersByUserUseCase } from '@users/application/get-orders-by-user.use-case';
 import { Order } from '@users/domain/models/order.entity';
 import { User } from '@users/domain/models/user.entity';
 import { CreateUserDto, UpdateUserDto } from '@users/infrastructure/adapters/in/v1/dtos/user.dto';
@@ -9,14 +14,12 @@ import { UsersController } from './users.controller';
 
 describe('UsersController', () => {
   let controller: UsersController;
-  let useCase: {
-    findAll: jest.Mock;
-    findOne: jest.Mock;
-    create: jest.Mock;
-    update: jest.Mock;
-    delete: jest.Mock;
-    getOrdersByUser: jest.Mock;
-  };
+  let createUserUseCase: { execute: jest.Mock };
+  let findAllUsersUseCase: { execute: jest.Mock };
+  let findOneUserUseCase: { execute: jest.Mock };
+  let updateUserUseCase: { execute: jest.Mock };
+  let deleteUserUseCase: { execute: jest.Mock };
+  let getOrdersByUserUseCase: { execute: jest.Mock };
 
   const user: User = {
     id: 1,
@@ -36,18 +39,23 @@ describe('UsersController', () => {
   };
 
   beforeEach(async () => {
-    useCase = {
-      findAll: jest.fn(),
-      findOne: jest.fn(),
-      create: jest.fn(),
-      update: jest.fn(),
-      delete: jest.fn(),
-      getOrdersByUser: jest.fn(),
-    };
+    createUserUseCase = { execute: jest.fn() };
+    findAllUsersUseCase = { execute: jest.fn() };
+    findOneUserUseCase = { execute: jest.fn() };
+    updateUserUseCase = { execute: jest.fn() };
+    deleteUserUseCase = { execute: jest.fn() };
+    getOrdersByUserUseCase = { execute: jest.fn() };
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [UsersController],
-      providers: [{ provide: UserUseCaseService, useValue: useCase }],
+      providers: [
+        { provide: CreateUserUseCase, useValue: createUserUseCase },
+        { provide: FindAllUsersUseCase, useValue: findAllUsersUseCase },
+        { provide: FindOneUserUseCase, useValue: findOneUserUseCase },
+        { provide: UpdateUserUseCase, useValue: updateUserUseCase },
+        { provide: DeleteUserUseCase, useValue: deleteUserUseCase },
+        { provide: GetOrdersByUserUseCase, useValue: getOrdersByUserUseCase },
+      ],
     }).compile();
 
     controller = module.get<UsersController>(UsersController);
@@ -58,21 +66,21 @@ describe('UsersController', () => {
   });
 
   it('getAll delegates to the use-case', async () => {
-    useCase.findAll.mockResolvedValue([user]);
+    findAllUsersUseCase.execute.mockResolvedValue([user]);
     await expect(controller.getAll()).resolves.toEqual([user]);
-    expect(useCase.findAll).toHaveBeenCalledWith();
+    expect(findAllUsersUseCase.execute).toHaveBeenCalledWith();
   });
 
   it('getOne delegates to the use-case', async () => {
-    useCase.findOne.mockResolvedValue(user);
+    findOneUserUseCase.execute.mockResolvedValue(user);
     await expect(controller.getOne(1)).resolves.toEqual(user);
-    expect(useCase.findOne).toHaveBeenCalledWith(1);
+    expect(findOneUserUseCase.execute).toHaveBeenCalledWith(1);
   });
 
   it('getOrders delegates to the use-case', async () => {
-    useCase.getOrdersByUser.mockResolvedValue(order);
+    getOrdersByUserUseCase.execute.mockResolvedValue(order);
     await expect(controller.getOrders(1)).resolves.toEqual(order);
-    expect(useCase.getOrdersByUser).toHaveBeenCalledWith(1);
+    expect(getOrdersByUserUseCase.execute).toHaveBeenCalledWith(1);
   });
 
   it('create delegates to the use-case', async () => {
@@ -83,21 +91,21 @@ describe('UsersController', () => {
       password: 'p',
       role: 'admin',
     };
-    useCase.create.mockResolvedValue(user);
+    createUserUseCase.execute.mockResolvedValue(user);
     await expect(controller.create(payload)).resolves.toEqual(user);
-    expect(useCase.create).toHaveBeenCalledWith(payload);
+    expect(createUserUseCase.execute).toHaveBeenCalledWith(payload);
   });
 
   it('update delegates to the use-case', async () => {
     const payload = { firstName: 'New' } as UpdateUserDto;
-    useCase.update.mockResolvedValue(user);
+    updateUserUseCase.execute.mockResolvedValue(user);
     await expect(controller.update(1, payload)).resolves.toEqual(user);
-    expect(useCase.update).toHaveBeenCalledWith(1, payload);
+    expect(updateUserUseCase.execute).toHaveBeenCalledWith(1, payload);
   });
 
   it('delete delegates to the use-case', async () => {
-    useCase.delete.mockResolvedValue(undefined);
+    deleteUserUseCase.execute.mockResolvedValue(undefined);
     await expect(controller.delete(1)).resolves.toBeUndefined();
-    expect(useCase.delete).toHaveBeenCalledWith(1);
+    expect(deleteUserUseCase.execute).toHaveBeenCalledWith(1);
   });
 });
