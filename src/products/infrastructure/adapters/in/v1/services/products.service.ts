@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { ProductNotFoundError } from '@products/domain/errors/product-not-found.error';
 
-import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
+import { BaseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import type { Product } from '@products/domain/models/product.entity';
 import { CreateProductsDto, UpdateProductsDto } from '../dtos/products.dto';
 
@@ -12,7 +12,7 @@ import { CreateProductsDto, UpdateProductsDto } from '../dtos/products.dto';
  * @class ProductsService
  */
 @Injectable()
-export class ProductsService implements BasseCrudService<
+export class ProductsService implements BaseCrudService<
   Product,
   CreateProductsDto,
   UpdateProductsDto

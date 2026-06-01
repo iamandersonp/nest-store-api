@@ -5,10 +5,19 @@
 ```text
 src/
 ├── common/                      # Shared kernel
-│   └── domain/
-│       └── interfaces/
-│           ├── base-crud.interface.ts   # Contrato genérico CRUD
-│           └── env-config.ts            # Tipado de variables de entorno
+│   ├── domain/
+│   │   ├── interfaces/
+│   │   │   ├── base-crud.interface.ts   # Contrato genérico CRUD
+│   │   │   └── env-config.ts            # Tipado de variables de entorno
+│   │   └── ports/                       # Puertos cross-cutting
+│   │       ├── email.port.ts            # Envío de emails
+│   │       ├── logger.port.ts           # Logging
+│   │       └── metrics.port.ts          # Métricas
+│   └── infrastructure/
+│       └── adapters/                    # Implementaciones dummy
+│           ├── email-dummy.service.ts
+│           ├── logger.service.ts
+│           └── metrics-dummy.service.ts
 │
 ├── products/                    # Módulo de dominio
 │   ├── application/             # Casos de uso (lógica de negocio)
@@ -74,7 +83,7 @@ export class ProductsModule {}
 
 ```ts
 // src/common/domain/interfaces/base-crud.interface.ts
-export interface BasseCrudService<T, C extends object, U extends object> {
+export interface BaseCrudService<T, C extends object, U extends object> {
   findAll(): T[] | Promise<T[]>;
   findOne(id: number): T | Promise<T>;
   create(payload: C): T | Promise<T>;

@@ -28,7 +28,7 @@ import { ProductMapper } from '@products/infrastructure/adapters/in/v1/mappers/p
 export class ProductsController {
   /**
    * Creates an instance of ProductsController.
-   * @param {BasseCrudService<Product, CreateProductsDto, UpdateProductsDto>} service
+   * @param {BaseCrudService<Product, CreateProductsDto, UpdateProductsDto>} service
    * @memberof ProductsController
    */
   constructor(private readonly service: ProductUseCaseService) {}
