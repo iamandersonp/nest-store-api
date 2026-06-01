@@ -1,6 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { ProductUseCaseService } from '@products/application/product-use-case.service';
+import { CreateProductUseCase } from '@products/application/create-product.use-case';
+import { FindAllProductsUseCase } from '@products/application/find-all-products.use-case';
+import { FindOneProductUseCase } from '@products/application/find-one-product.use-case';
+import { UpdateProductUseCase } from '@products/application/update-product.use-case';
+import { DeleteProductUseCase } from '@products/application/delete-product.use-case';
 import { Product } from '@products/domain/models/product.entity';
 import {
   CreateProductsDto,
@@ -11,13 +15,11 @@ import { ProductsController } from './products.controller';
 
 describe('ProductsController', () => {
   let controller: ProductsController;
-  let useCase: {
-    findAll: jest.Mock;
-    findOne: jest.Mock;
-    create: jest.Mock;
-    update: jest.Mock;
-    delete: jest.Mock;
-  };
+  let createProductUseCase: { execute: jest.Mock };
+  let findAllProductsUseCase: { execute: jest.Mock };
+  let findOneProductUseCase: { execute: jest.Mock };
+  let updateProductUseCase: { execute: jest.Mock };
+  let deleteProductUseCase: { execute: jest.Mock };
 
   const product: Product = {
     id: 1,
@@ -29,17 +31,21 @@ describe('ProductsController', () => {
   };
 
   beforeEach(async () => {
-    useCase = {
-      findAll: jest.fn(),
-      findOne: jest.fn(),
-      create: jest.fn(),
-      update: jest.fn(),
-      delete: jest.fn(),
-    };
+    createProductUseCase = { execute: jest.fn() };
+    findAllProductsUseCase = { execute: jest.fn() };
+    findOneProductUseCase = { execute: jest.fn() };
+    updateProductUseCase = { execute: jest.fn() };
+    deleteProductUseCase = { execute: jest.fn() };
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [ProductsController],
-      providers: [{ provide: ProductUseCaseService, useValue: useCase }],
+      providers: [
+        { provide: CreateProductUseCase, useValue: createProductUseCase },
+        { provide: FindAllProductsUseCase, useValue: findAllProductsUseCase },
+        { provide: FindOneProductUseCase, useValue: findOneProductUseCase },
+        { provide: UpdateProductUseCase, useValue: updateProductUseCase },
+        { provide: DeleteProductUseCase, useValue: deleteProductUseCase },
+      ],
     }).compile();
 
     controller = module.get<ProductsController>(ProductsController);
@@ -50,15 +56,15 @@ describe('ProductsController', () => {
   });
 
   it('getAll delegates to the use-case', async () => {
-    useCase.findAll.mockResolvedValue([product]);
+    findAllProductsUseCase.execute.mockResolvedValue([product]);
     await expect(controller.getAll()).resolves.toEqual([product]);
-    expect(useCase.findAll).toHaveBeenCalledWith();
+    expect(findAllProductsUseCase.execute).toHaveBeenCalledWith();
   });
 
   it('getOne delegates to the use-case', async () => {
-    useCase.findOne.mockResolvedValue(product);
+    findOneProductUseCase.execute.mockResolvedValue(product);
     await expect(controller.getOne(1)).resolves.toEqual(product);
-    expect(useCase.findOne).toHaveBeenCalledWith(1);
+    expect(findOneProductUseCase.execute).toHaveBeenCalledWith(1);
   });
 
   it('create delegates to the use-case', async () => {
@@ -69,21 +75,21 @@ describe('ProductsController', () => {
       stock: 5,
       image: 'img',
     } as CreateProductsDto;
-    useCase.create.mockResolvedValue(product);
+    createProductUseCase.execute.mockResolvedValue(product);
     await expect(controller.create(payload)).resolves.toEqual(product);
-    expect(useCase.create).toHaveBeenCalledWith(payload);
+    expect(createProductUseCase.execute).toHaveBeenCalled();
   });
 
   it('update delegates to the use-case', async () => {
     const payload = { name: 'New' } as UpdateProductsDto;
-    useCase.update.mockResolvedValue(product);
+    updateProductUseCase.execute.mockResolvedValue(product);
     await expect(controller.update(1, payload)).resolves.toEqual(product);
-    expect(useCase.update).toHaveBeenCalledWith(1, payload);
+    expect(updateProductUseCase.execute).toHaveBeenCalledWith(1, payload);
   });
 
   it('delete delegates to the use-case', async () => {
-    useCase.delete.mockResolvedValue(undefined);
+    deleteProductUseCase.execute.mockResolvedValue(undefined);
     await expect(controller.delete(1)).resolves.toBeUndefined();
-    expect(useCase.delete).toHaveBeenCalledWith(1);
+    expect(deleteProductUseCase.execute).toHaveBeenCalledWith(1);
   });
 });

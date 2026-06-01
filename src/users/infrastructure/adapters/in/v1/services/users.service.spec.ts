@@ -8,11 +8,10 @@ describe('productsService dependency', () => {
   });
 
   it('constructor can be called with and without productsService', () => {
-    const mockDep: Partial<ProductUseCaseService> = {
-      findAll: jest.fn(),
-      findOne: jest.fn(),
+    const mockDep: Partial<FindAllProductsUseCase> = {
+      execute: jest.fn(),
     };
-    const withDep = new UsersService(mockDep as ProductUseCaseService);
+    const withDep = new UsersService(mockDep as FindAllProductsUseCase);
     const withoutDep = new UsersService();
     expect(withDep).toBeDefined();
     expect(withoutDep).toBeDefined();
@@ -21,24 +20,23 @@ describe('productsService dependency', () => {
 
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { ProductUseCaseService } from '@products/application/product-use-case.service';
+import { FindAllProductsUseCase } from '@products/application/find-all-products.use-case';
 import { CreateUserDto } from '../dtos/user.dto';
 import { UsersService } from './users.service';
 
 describe('UsersService', () => {
   let service: UsersService;
-  let mockProductUseCaseService: jest.Mocked<any>;
+  let mockFindAllProductsUseCase: jest.Mocked<any>;
 
   beforeEach(async () => {
-    mockProductUseCaseService = {
-      findAll: jest.fn().mockReturnValue([{ id: 1, name: 'Product 1', price: 1000 }]),
-      findOne: jest.fn(),
+    mockFindAllProductsUseCase = {
+      execute: jest.fn().mockReturnValue([{ id: 1, name: 'Product 1', price: 1000 }]),
     };
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
         UsersService,
-        { provide: ProductUseCaseService, useValue: mockProductUseCaseService },
+        { provide: FindAllProductsUseCase, useValue: mockFindAllProductsUseCase },
       ],
     }).compile();
 
@@ -129,7 +127,7 @@ describe('UsersService', () => {
       expect(order).toBeDefined();
       expect(order.id).toBe(1);
       expect(order.user.id).toBe(1);
-      expect(mockProductUseCaseService.findAll).toHaveBeenCalled();
+      expect(mockFindAllProductsUseCase.execute).toHaveBeenCalled();
       expect(order.products).toHaveLength(1);
       expect(order.products[0].name).toBe('Product 1');
     });
