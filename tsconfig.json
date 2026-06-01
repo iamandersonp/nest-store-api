@@ -15,9 +15,15 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "paths": {
-      "@common/*": ["./src/common/*"],
-      "@products/*": ["./src/products/*"],
-      "@users/*": ["./src/users/*"]
+      "@common/*": [
+        "./src/common/*"
+      ],
+      "@products/*": [
+        "./src/products/*"
+      ],
+      "@users/*": [
+        "./src/users/*"
+      ]
     },
     "incremental": true,
     "skipLibCheck": true,
@@ -26,8 +32,18 @@
     "noImplicitAny": false,
     "strictBindCallApply": false,
     "noFallthroughCasesInSwitch": false,
-    "types": ["node", "jest"]
+    "types": [
+      "node",
+      "jest"
+    ]
   },
-  "include": ["src/**/*", "scripts/**/*.js", "test/**/*"],
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "src/**/*",
+    "scripts/**/*.js",
+    "test/**/*"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist"
+  ]
 }
