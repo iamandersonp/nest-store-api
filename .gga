@@ -38,13 +38,13 @@ PROVIDER="gemini"
 
 # Examples:
 
-# FILE*PATTERNS="*.ts,\_.tsx"
+# FILE_PATTERNS="*.ts,\_.tsx"
 
 # FILE_PATTERNS="\*.py"
 
-# FILE*PATTERNS="*.go,\_.mod"
+# FILE_PATTERNS="*.go,\_.mod"
 
-FILE*PATTERNS="*.ts"
+FILE_PATTERNS="*.ts"
 
 # File patterns to exclude from review (comma-separated)
 
@@ -52,11 +52,11 @@ FILE*PATTERNS="*.ts"
 
 # Examples:
 
-# EXCLUDE*PATTERNS="*.test.ts,\_.spec.ts"
+# EXCLUDE_PATTERNS="*.test.ts,\_.spec.ts"
 
-# EXCLUDE*PATTERNS="*\_test.go,\_.mock.ts"
+# EXCLUDE_PATTERNS="*\_test.go,\_.mock.ts"
 
-EXCLUDE*PATTERNS="*.test.ts,_.spec.ts,_.test.tsx,\_.spec.tsx,\*.d.ts"
+EXCLUDE_PATTERNS="*.test.ts,_.spec.ts,_.test.tsx,\_.spec.tsx,\*.d.ts"
 
 # File containing code review rules
 
