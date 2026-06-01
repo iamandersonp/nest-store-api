@@ -1,7 +1,15 @@
 import { Module } from '@nestjs/common';
 
-import { BrandUseCaseService } from './application/brand-use-case.service';
-import { CategoryUseCaseService } from './application/category-use-case.service';
+import { CreateBrandUseCase } from './application/create-brand.use-case';
+import { FindAllBrandsUseCase } from './application/find-all-brands.use-case';
+import { FindOneBrandUseCase } from './application/find-one-brand.use-case';
+import { UpdateBrandUseCase } from './application/update-brand.use-case';
+import { DeleteBrandUseCase } from './application/delete-brand.use-case';
+import { CreateCategoryUseCase } from './application/create-category.use-case';
+import { FindAllCategoriesUseCase } from './application/find-all-categories.use-case';
+import { FindOneCategoryUseCase } from './application/find-one-category.use-case';
+import { UpdateCategoryUseCase } from './application/update-category.use-case';
+import { DeleteCategoryUseCase } from './application/delete-category.use-case';
 import { CreateProductUseCase } from './application/create-product.use-case';
 import { FindAllProductsUseCase } from './application/find-all-products.use-case';
 import { FindOneProductUseCase } from './application/find-one-product.use-case';
@@ -20,8 +28,16 @@ import { ProductsService } from './infrastructure/adapters/in/v1/services/produc
 @Module({
   controllers: [ProductsController, BrandsController, CategoriesController],
   providers: [
-    BrandUseCaseService,
-    CategoryUseCaseService,
+    CreateBrandUseCase,
+    FindAllBrandsUseCase,
+    FindOneBrandUseCase,
+    UpdateBrandUseCase,
+    DeleteBrandUseCase,
+    CreateCategoryUseCase,
+    FindAllCategoriesUseCase,
+    FindOneCategoryUseCase,
+    UpdateCategoryUseCase,
+    DeleteCategoryUseCase,
     CreateProductUseCase,
     FindAllProductsUseCase,
     FindOneProductUseCase,
@@ -40,6 +56,18 @@ import { ProductsService } from './infrastructure/adapters/in/v1/services/produc
       useClass: CategoriesService,
     },
   ],
-  exports: [BrandUseCaseService, CategoryUseCaseService, FindAllProductsUseCase],
+  exports: [
+    CreateBrandUseCase,
+    FindAllBrandsUseCase,
+    FindOneBrandUseCase,
+    UpdateBrandUseCase,
+    DeleteBrandUseCase,
+    CreateCategoryUseCase,
+    FindAllCategoriesUseCase,
+    FindOneCategoryUseCase,
+    UpdateCategoryUseCase,
+    DeleteCategoryUseCase,
+    FindAllProductsUseCase,
+  ],
 })
 export class ProductsModule {}

@@ -11,7 +11,11 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { CategoryUseCaseService } from '@products/application/category-use-case.service';
+import { CreateCategoryUseCase } from '@products/application/create-category.use-case';
+import { FindAllCategoriesUseCase } from '@products/application/find-all-categories.use-case';
+import { FindOneCategoryUseCase } from '@products/application/find-one-category.use-case';
+import { UpdateCategoryUseCase } from '@products/application/update-category.use-case';
+import { DeleteCategoryUseCase } from '@products/application/delete-category.use-case';
 import type { Category } from '../../../../../domain/models/category.entity';
 import { CreateCategoryDto, UpdateCategoryDtoDto } from '../dtos/categories.dto';
 import { CategoryMapper } from '../mappers/category.mapper';
@@ -23,12 +27,13 @@ import { NotFoundException } from '@nestjs/common';
   version: '1',
 })
 export class CategoriesController {
-  /**
-   * Creates an instance of CategoriesController.
-   * @param {CategoryUseCaseService} service
-   * @memberof CategoriesController
-   */
-  constructor(private readonly service: CategoryUseCaseService) {}
+  constructor(
+    private readonly createCategoryUseCase: CreateCategoryUseCase,
+    private readonly findAllCategoriesUseCase: FindAllCategoriesUseCase,
+    private readonly findOneCategoryUseCase: FindOneCategoryUseCase,
+    private readonly updateCategoryUseCase: UpdateCategoryUseCase,
+    private readonly deleteCategoryUseCase: DeleteCategoryUseCase,
+  ) {}
 
   // @Get()
   // getAll(
@@ -47,7 +52,7 @@ export class CategoriesController {
    */
   @Get()
   async getAll(): Promise<Category[]> {
-    const categories = await this.service.findAll();
+    const categories = await this.findAllCategoriesUseCase.execute();
     return Array.isArray(categories) ? categories.map((x) => CategoryMapper.toDto(x)) : categories;
   }
 
@@ -61,7 +66,7 @@ export class CategoriesController {
   @Get(':categoryId')
   async getOne(@Param('categoryId', ParseIntPipe) categoryId: number): Promise<Category> {
     try {
-      const category = await this.service.findOne(categoryId);
+      const category = await this.findOneCategoryUseCase.execute(categoryId);
       return CategoryMapper.toDto(category);
     } catch (error) {
       if (error instanceof CategoryNotFoundError) {
@@ -81,7 +86,7 @@ export class CategoriesController {
   @Post()
   async create(@Body() payload: CreateCategoryDto): Promise<Category> {
     const modelPayload = CategoryMapper.fromCreateDto(payload);
-    const created = await this.service.create(modelPayload);
+    const created = await this.createCategoryUseCase.execute(modelPayload);
     return CategoryMapper.toDto(created);
   }
 
@@ -100,7 +105,7 @@ export class CategoriesController {
   ): Promise<Category> {
     try {
       const modelPayload = CategoryMapper.fromUpdateDto(payload);
-      const updated = await this.service.update(id, modelPayload);
+      const updated = await this.updateCategoryUseCase.execute(id, modelPayload);
       return CategoryMapper.toDto(updated);
     } catch (error) {
       if (error instanceof CategoryNotFoundError) {
@@ -120,7 +125,7 @@ export class CategoriesController {
   @HttpCode(HttpStatus.NO_CONTENT)
   async delete(@Param('id', ParseIntPipe) id: number): Promise<void> {
     try {
-      await this.service.delete(id);
+      await this.deleteCategoryUseCase.execute(id);
     } catch (error) {
       if (error instanceof CategoryNotFoundError) {
         throw new NotFoundException(error.message);

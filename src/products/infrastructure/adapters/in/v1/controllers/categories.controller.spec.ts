@@ -1,6 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { CategoryUseCaseService } from '@products/application/category-use-case.service';
+import { CreateCategoryUseCase } from '@products/application/create-category.use-case';
+import { FindAllCategoriesUseCase } from '@products/application/find-all-categories.use-case';
+import { FindOneCategoryUseCase } from '@products/application/find-one-category.use-case';
+import { UpdateCategoryUseCase } from '@products/application/update-category.use-case';
+import { DeleteCategoryUseCase } from '@products/application/delete-category.use-case';
 import { Category } from '@products/domain/models/category.entity';
 import {
   CreateCategoryDto,
@@ -11,28 +15,30 @@ import { CategoriesController } from './categories.controller';
 
 describe('CategoriesController', () => {
   let controller: CategoriesController;
-  let useCase: {
-    findAll: jest.Mock;
-    findOne: jest.Mock;
-    create: jest.Mock;
-    update: jest.Mock;
-    delete: jest.Mock;
-  };
+  let createCategoryUseCase: { execute: jest.Mock };
+  let findAllCategoriesUseCase: { execute: jest.Mock };
+  let findOneCategoryUseCase: { execute: jest.Mock };
+  let updateCategoryUseCase: { execute: jest.Mock };
+  let deleteCategoryUseCase: { execute: jest.Mock };
 
   const category: Category = { id: 1, name: 'C' };
 
   beforeEach(async () => {
-    useCase = {
-      findAll: jest.fn(),
-      findOne: jest.fn(),
-      create: jest.fn(),
-      update: jest.fn(),
-      delete: jest.fn(),
-    };
+    createCategoryUseCase = { execute: jest.fn() };
+    findAllCategoriesUseCase = { execute: jest.fn() };
+    findOneCategoryUseCase = { execute: jest.fn() };
+    updateCategoryUseCase = { execute: jest.fn() };
+    deleteCategoryUseCase = { execute: jest.fn() };
 
     const module: TestingModule = await Test.createTestingModule({
       controllers: [CategoriesController],
-      providers: [{ provide: CategoryUseCaseService, useValue: useCase }],
+      providers: [
+        { provide: CreateCategoryUseCase, useValue: createCategoryUseCase },
+        { provide: FindAllCategoriesUseCase, useValue: findAllCategoriesUseCase },
+        { provide: FindOneCategoryUseCase, useValue: findOneCategoryUseCase },
+        { provide: UpdateCategoryUseCase, useValue: updateCategoryUseCase },
+        { provide: DeleteCategoryUseCase, useValue: deleteCategoryUseCase },
+      ],
     }).compile();
 
     controller = module.get<CategoriesController>(CategoriesController);
@@ -43,34 +49,34 @@ describe('CategoriesController', () => {
   });
 
   it('getAll delegates to the use-case', async () => {
-    useCase.findAll.mockResolvedValue([category]);
+    findAllCategoriesUseCase.execute.mockResolvedValue([category]);
     await expect(controller.getAll()).resolves.toEqual([category]);
-    expect(useCase.findAll).toHaveBeenCalledWith();
+    expect(findAllCategoriesUseCase.execute).toHaveBeenCalledWith();
   });
 
   it('getOne delegates to the use-case', async () => {
-    useCase.findOne.mockResolvedValue(category);
+    findOneCategoryUseCase.execute.mockResolvedValue(category);
     await expect(controller.getOne(1)).resolves.toEqual(category);
-    expect(useCase.findOne).toHaveBeenCalledWith(1);
+    expect(findOneCategoryUseCase.execute).toHaveBeenCalledWith(1);
   });
 
   it('create delegates to the use-case', async () => {
     const payload = { name: 'C' } as CreateCategoryDto;
-    useCase.create.mockResolvedValue(category);
+    createCategoryUseCase.execute.mockResolvedValue(category);
     await expect(controller.create(payload)).resolves.toEqual(category);
-    expect(useCase.create).toHaveBeenCalledWith(payload);
+    expect(createCategoryUseCase.execute).toHaveBeenCalledWith(payload);
   });
 
   it('update delegates to the use-case', async () => {
     const payload = { name: 'New' } as UpdateCategoryDtoDto;
-    useCase.update.mockResolvedValue(category);
+    updateCategoryUseCase.execute.mockResolvedValue(category);
     await expect(controller.update(1, payload)).resolves.toEqual(category);
-    expect(useCase.update).toHaveBeenCalledWith(1, payload);
+    expect(updateCategoryUseCase.execute).toHaveBeenCalledWith(1, payload);
   });
 
   it('delete delegates to the use-case', async () => {
-    useCase.delete.mockResolvedValue(undefined);
+    deleteCategoryUseCase.execute.mockResolvedValue(undefined);
     await expect(controller.delete(1)).resolves.toBeUndefined();
-    expect(useCase.delete).toHaveBeenCalledWith(1);
+    expect(deleteCategoryUseCase.execute).toHaveBeenCalledWith(1);
   });
 });
