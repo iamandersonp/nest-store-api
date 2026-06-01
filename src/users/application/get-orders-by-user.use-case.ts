@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import type { UserRepository } from '@users/domain/ports/user.port';
-import { USERS_SERVICE_PORT } from '@users/domain/ports/user.port';
+import { USERS_SERVICE_PORT, type UserRepository } from '@users/domain/ports/user.port';
 import type { Order } from '@users/domain/models/order.entity';
 
 @Injectable()

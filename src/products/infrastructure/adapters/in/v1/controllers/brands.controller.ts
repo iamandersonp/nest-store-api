@@ -5,6 +5,7 @@ import {
   Get,
   HttpCode,
   HttpStatus,
+  NotFoundException,
   Param,
   ParseIntPipe,
   Post,
@@ -20,7 +21,6 @@ import type { Brand } from '../../../../../domain/models/brand.entity';
 import { CreateBrandDto, UpdateBrandDto } from '../dtos/brands.dto';
 import { BrandMapper } from '../mappers/brand.mapper';
 import { BrandNotFoundError } from '@products/domain/errors/brand-not-found.error';
-import { NotFoundException } from '@nestjs/common';
 
 @Controller({
   path: 'brands',
