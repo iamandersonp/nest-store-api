@@ -49,9 +49,21 @@ src/
 │
 ├── products/                                                 # 📦 Módulo de Dominio (ej. Productos)
 │   ├── application/                                          # 🔌 logica de Negocio
-│   │   └── brand-use-case.service.ts                         # Case de Uso (Depende de Puertos)
-│   │   └── category-use-case.service.ts                      # Case de Uso (Depende de Puertos)
-│   │   └── product-use-case.service.ts                       # Case de Uso (Depende de Puertos)
+│   │   ├── create-product.use-case.ts                         # Create
+│   │   ├── find-all-products.use-case.ts                      # Read all
+│   │   ├── find-one-product.use-case.ts                       # Read one
+│   │   ├── update-product.use-case.ts                         # Update
+│   │   ├── delete-product.use-case.ts                         # Delete
+│   │   ├── create-brand.use-case.ts                           # (mismo patrón x entidad)
+│   │   ├── find-all-brands.use-case.ts
+│   │   ├── find-one-brand.use-case.ts
+│   │   ├── update-brand.use-case.ts
+│   │   ├── delete-brand.use-case.ts
+│   │   ├── create-category.use-case.ts
+│   │   ├── find-all-categories.use-case.ts
+│   │   ├── find-one-category.use-case.ts
+│   │   ├── update-category.use-case.ts
+│   │   └── delete-category.use-case.ts                        # (cada uno con su .spec.ts)
 │   │
 │   ├── domain/                                               # 🧠 Corazón del Negocio (Puro TS)
 │   │   ├── ports/
@@ -84,8 +96,17 @@ src/
 │   │
 ├── users/                                                    # 📦 Módulo de Dominio (ej. Productos)
 │   ├── application/                                          # 🔌 logica de Negocio
-│   │   └── customer-use-case.service.ts                      # Case de Uso (Depende de Puertos)
-│   │   └── user-use-case.service.ts                          # Case de Uso (Depende de Puertos)
+│   │   ├── create-user.use-case.ts                            # Create
+│   │   ├── find-all-users.use-case.ts                         # Read all
+│   │   ├── find-one-user.use-case.ts                          # Read one
+│   │   ├── update-user.use-case.ts                            # Update
+│   │   ├── delete-user.use-case.ts                            # Delete
+│   │   ├── get-orders-by-user.use-case.ts                     # Query especializada
+│   │   ├── create-customer.use-case.ts                        # (mismo patrón x entidad)
+│   │   ├── find-all-customers.use-case.ts
+│   │   ├── find-one-customer.use-case.ts
+│   │   ├── update-customer.use-case.ts
+│   │   └── delete-customer.use-case.ts                        # (cada uno con su .spec.ts)
 │   │
 │   ├── domain/                                               # 🧠 Corazón del Negocio (Puro TS)
 │   │   ├── ports/

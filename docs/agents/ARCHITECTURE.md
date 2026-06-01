@@ -21,9 +21,21 @@ src/
 │
 ├── products/                    # Módulo de dominio
 │   ├── application/             # Casos de uso (lógica de negocio)
-│   │   ├── brand-use-case.service.ts
-│   │   ├── category-use-case.service.ts
-│   │   └── product-use-case.service.ts
+│   │   ├── create-product.use-case.ts
+│   │   ├── find-all-products.use-case.ts
+│   │   ├── find-one-product.use-case.ts
+│   │   ├── update-product.use-case.ts
+│   │   ├── delete-product.use-case.ts
+│   │   ├── create-brand.use-case.ts
+│   │   ├── find-all-brands.use-case.ts
+│   │   ├── find-one-brand.use-case.ts
+│   │   ├── update-brand.use-case.ts
+│   │   ├── delete-brand.use-case.ts
+│   │   ├── create-category.use-case.ts
+│   │   ├── find-all-categories.use-case.ts
+│   │   ├── find-one-category.use-case.ts
+│   │   ├── update-category.use-case.ts
+│   │   └── delete-category.use-case.ts
 │   ├── domain/                  # Núcleo puro
 │   │   ├── models/              # Entidades de dominio (interfaces TS)
 │   │   └── ports/               # Tokens DI (Symbol) + contratos
@@ -51,8 +63,8 @@ docs/<module>/<feature>.md       # Especificación OpenSpec por feature
 ## Flujo de una request
 
 ```text
-HTTP ──▶ Controller ──▶ UseCaseService ──▶ Port (Symbol) ──▶ Service Adapter
-        (infrastructure)  (application)    (domain)         (infrastructure)
+HTTP ──▶ Controller ──▶ UseCase#execute() ──▶ Port (Symbol) ──▶ Service Adapter
+        (infrastructure)  (application)       (domain)         (infrastructure)
 ```
 
 ## Reglas de arquitectura
@@ -70,16 +82,39 @@ HTTP ──▶ Controller ──▶ UseCaseService ──▶ Port (Symbol) ─�
 @Module({
   controllers: [ProductsController, BrandsController, CategoriesController],
   providers: [
-    ProductUseCaseService,
+    // 15 casos de uso, uno por operación
+    CreateProductUseCase,
+    FindAllProductsUseCase,
+    FindOneProductUseCase,
+    UpdateProductUseCase,
+    DeleteProductUseCase,
+    // ... 10 más para brands + categories
     { provide: PRODUCTS_SERVICE_PORT, useClass: ProductsService },
     // ...
   ],
-  exports: [ProductUseCaseService /* ... */],
+  exports: [CreateProductUseCase, FindAllProductsUseCase, /* ... */],
 })
 export class ProductsModule {}
 ```
 
-## Contrato base reutilizable
+## Patrón de casos de uso
+
+Cada caso de uso es una **clase individual con un único método `execute()`**.
+Un controlador inyecta varios casos de uso en lugar de un servicio monolítico.
+
+```ts
+// src/products/application/create-product.use-case.ts
+@Injectable()
+export class CreateProductUseCase {
+  constructor(@Inject(PRODUCTS_SERVICE_PORT) private readonly repo: ProductsServicePort) {}
+
+  async execute(payload: CreateProductDto): Promise<Product> {
+    return this.repo.create(payload);
+  }
+}
+```
+
+### Contrato base para adaptadores
 
 ```ts
 // src/common/domain/interfaces/base-crud.interface.ts

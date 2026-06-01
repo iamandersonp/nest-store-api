@@ -76,6 +76,8 @@ Topic key para upserts: `sdd-init/{project}`, `sdd/{change-name}/{phase}`.
 ### Hacer
 
 - Respetar la arquitectura hexagonal: la dirección de dependencias va `infrastructure → application → domain`.
+- Cada **caso de uso** es una clase individual con un único método `execute()` (patrón Command), no servicios CRUD monolíticos.
+- Nombrar los casos de uso como `kebab-case-operation.entity-name.use-case.ts` (ej: `create-product.use-case.ts`).
 - Inyectar siempre por el **token** (`Symbol`), nunca por la clase concreta del adaptador.
 - Mantener `domain/` libre de imports de NestJS o de cualquier adaptador.
 - Escribir el test antes que la implementación (Strict TDD — ver WORKFLOW.md).
