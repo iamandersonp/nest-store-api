@@ -11,8 +11,13 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { UserUseCaseService } from '@users/application/user-use-case.service';
-import { Order } from '@users/domain/models/order.entity';
+import { CreateUserUseCase } from '@users/application/create-user.use-case';
+import { FindAllUsersUseCase } from '@users/application/find-all-users.use-case';
+import { FindOneUserUseCase } from '@users/application/find-one-user.use-case';
+import { UpdateUserUseCase } from '@users/application/update-user.use-case';
+import { DeleteUserUseCase } from '@users/application/delete-user.use-case';
+import { GetOrdersByUserUseCase } from '@users/application/get-orders-by-user.use-case';
+import type { Order } from '@users/domain/models/order.entity';
 import type { User } from '../../../../../domain/models/user.entity';
 import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 
@@ -29,10 +34,16 @@ import { CreateUserDto, UpdateUserDto } from '../dtos/user.dto';
 export class UsersController {
   /**
    * Creates an instance of UsersController.
-   * @param {UserUseCaseService} service
    * @memberof UsersController
    */
-  constructor(private readonly useCase: UserUseCaseService) {}
+  constructor(
+    private readonly createUserUseCase: CreateUserUseCase,
+    private readonly findAllUsersUseCase: FindAllUsersUseCase,
+    private readonly findOneUserUseCase: FindOneUserUseCase,
+    private readonly updateUserUseCase: UpdateUserUseCase,
+    private readonly deleteUserUseCase: DeleteUserUseCase,
+    private readonly getOrdersByUserUseCase: GetOrdersByUserUseCase,
+  ) {}
 
   /**
    * Get all users
@@ -42,7 +53,7 @@ export class UsersController {
    */
   @Get()
   getAll(): User[] | Promise<User[]> {
-    return this.useCase.findAll();
+    return this.findAllUsersUseCase.execute();
   }
 
   /**
@@ -54,7 +65,7 @@ export class UsersController {
    */
   @Get(':userId')
   getOne(@Param('userId', ParseIntPipe) userId: number): User | Promise<User> {
-    return this.useCase.findOne(userId);
+    return this.findOneUserUseCase.execute(userId);
   }
 
   /**
@@ -66,7 +77,7 @@ export class UsersController {
    */
   @Get(':userId/orders')
   getOrders(@Param('userId', ParseIntPipe) userId: number): Order | Promise<Order> {
-    return this.useCase.getOrdersByUser(userId);
+    return this.getOrdersByUserUseCase.execute(userId);
   }
 
   /**
@@ -78,7 +89,7 @@ export class UsersController {
    */
   @Post()
   create(@Body() payload: CreateUserDto): User | Promise<User> {
-    return this.useCase.create(payload);
+    return this.createUserUseCase.execute(payload);
   }
 
   /**
@@ -94,7 +105,7 @@ export class UsersController {
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateUserDto,
   ): User | Promise<User> {
-    return this.useCase.update(id, payload);
+    return this.updateUserUseCase.execute(id, payload);
   }
 
   /**
@@ -106,6 +117,6 @@ export class UsersController {
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id', ParseIntPipe) id: number): void | Promise<void> {
-    return this.useCase.delete(id);
+    return this.deleteUserUseCase.execute(id);
   }
 }
