@@ -11,7 +11,11 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { CustomerUseCaseService } from '@users/application/customer-use-case.service';
+import { CreateCustomerUseCase } from '@users/application/create-customer.use-case';
+import { FindAllCustomersUseCase } from '@users/application/find-all-customers.use-case';
+import { FindOneCustomerUseCase } from '@users/application/find-one-customer.use-case';
+import { UpdateCustomerUseCase } from '@users/application/update-customer.use-case';
+import { DeleteCustomerUseCase } from '@users/application/delete-customer.use-case';
 import type { Customer } from '../../../../../domain/models/customer.entity';
 import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto';
 
@@ -22,10 +26,15 @@ import { CreateCustomerDto, UpdateCustomerDto } from '../dtos/customers.dto';
 export class CustomersController {
   /**
    * Creates an instance of CustomersController.
-   * @param {CustomerUseCaseService} service
    * @memberof CustomersController
    */
-  constructor(private readonly service: CustomerUseCaseService) {}
+  constructor(
+    private readonly createCustomerUseCase: CreateCustomerUseCase,
+    private readonly findAllCustomersUseCase: FindAllCustomersUseCase,
+    private readonly findOneCustomerUseCase: FindOneCustomerUseCase,
+    private readonly updateCustomerUseCase: UpdateCustomerUseCase,
+    private readonly deleteCustomerUseCase: DeleteCustomerUseCase,
+  ) {}
 
   /**
    * Get all Customers
@@ -35,7 +44,7 @@ export class CustomersController {
    */
   @Get()
   getAll(): Customer[] | Promise<Customer[]> {
-    return this.service.findAll();
+    return this.findAllCustomersUseCase.execute();
   }
 
   /**
@@ -47,7 +56,7 @@ export class CustomersController {
    */
   @Get(':customerId')
   getOne(@Param('customerId', ParseIntPipe) customerId: number): Customer | Promise<Customer> {
-    return this.service.findOne(customerId);
+    return this.findOneCustomerUseCase.execute(customerId);
   }
 
   /**
@@ -59,7 +68,7 @@ export class CustomersController {
    */
   @Post()
   create(@Body() payload: CreateCustomerDto): Customer | Promise<Customer> {
-    return this.service.create(payload);
+    return this.createCustomerUseCase.execute(payload);
   }
 
   /**
@@ -75,7 +84,7 @@ export class CustomersController {
     @Param('id', ParseIntPipe) id: number,
     @Body() payload: UpdateCustomerDto,
   ): Customer | Promise<Customer> {
-    return this.service.update(id, payload);
+    return this.updateCustomerUseCase.execute(id, payload);
   }
 
   /**
@@ -87,6 +96,6 @@ export class CustomersController {
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)
   delete(@Param('id', ParseIntPipe) id: number): void | Promise<void> {
-    return this.service.delete(id);
+    return this.deleteCustomerUseCase.execute(id);
   }
 }
