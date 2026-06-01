@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-import type { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
+import type { BaseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import { Category } from '@products/domain/models/category.entity';
 import { CATEGORIES_SERVICE_PORT } from '@products/domain/ports/category.port';
 import {
@@ -12,12 +12,12 @@ import {
 export class CategoryUseCaseService {
   /**
    * Creates an instance of ProductUseCaseService.
-   * @param {BasseCrudService<Category, CreateCategoryDto, UpdateCategoryDtoDto>} service
+   * @param {BaseCrudService<Category, CreateCategoryDto, UpdateCategoryDtoDto>} service
    * @memberof ProductUseCaseService
    */
   constructor(
     @Inject(CATEGORIES_SERVICE_PORT)
-    private readonly service: BasseCrudService<Category, CreateCategoryDto, UpdateCategoryDtoDto>,
+    private readonly service: BaseCrudService<Category, CreateCategoryDto, UpdateCategoryDtoDto>,
   ) {}
 
   /**

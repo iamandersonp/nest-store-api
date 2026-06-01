@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { BrandNotFoundError } from '@products/domain/errors/brand-not-found.error';
 
-import { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
+import { BaseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import { Brand } from '@products/domain/models/brand.entity';
 import {
   CreateBrandDto,
@@ -9,7 +9,7 @@ import {
 } from '@products/infrastructure/adapters/in/v1/dtos/brands.dto';
 
 @Injectable()
-export class BrandsService implements BasseCrudService<Brand, CreateBrandDto, UpdateBrandDto> {
+export class BrandsService implements BaseCrudService<Brand, CreateBrandDto, UpdateBrandDto> {
   /**
    * Counter to generate the id
    *

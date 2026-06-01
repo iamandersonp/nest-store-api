@@ -7,7 +7,7 @@
  * @template C - Create DTO
  * @template U - Update DT0
  */
-export interface BasseCrudService<T, C extends object, U extends object> {
+export interface BaseCrudService<T, C extends object, U extends object> {
   /**
    * Find All elements
    *
