@@ -1,4 +1,4 @@
-import type { BasseCrudService } from '@common/domain/interfaces/base-crud.interface';
+import type { BaseCrudService } from '@common/domain/interfaces/base-crud.interface';
 import { Inject, Injectable } from '@nestjs/common';
 import { Customer } from '@users/domain/models/customer.entity';
 import { CUSTOMERS_SERVICE_PORT } from '@users/domain/ports/customer.port';
@@ -11,12 +11,12 @@ import {
 export class CustomerUseCaseService {
   /**
    * Creates an instance of CustomerCaseService.
-   * @param {BasseCrudService<Customer, CreateCustomerDto, UpdateCustomerDto>} service
+   * @param {BaseCrudService<Customer, CreateCustomerDto, UpdateCustomerDto>} service
    * @memberof CustomerCaseService
    */
   constructor(
     @Inject(CUSTOMERS_SERVICE_PORT)
-    private readonly service: BasseCrudService<Customer, CreateCustomerDto, UpdateCustomerDto>,
+    private readonly service: BaseCrudService<Customer, CreateCustomerDto, UpdateCustomerDto>,
   ) {}
 
   /**

@@ -1,13 +1,11 @@
 strict_tdd: true
 context: |
-  nest-store-v2 is a Node.js/TypeScript project.
-  Detected markers: package.json, tsconfig.json, npm package manager.
-  Package managers: npm.
-  Additional evidence: Test-like files detected (18); examples: src/products/application/brand-use-case.service.spec.ts, src/products/application/category-use-case.service.spec.ts, src/products/application/product-use-case.service.spec.ts, src/products/infrastructure/adapters/in/v1/controllers/brands.controller.spec.ts, src/products/infrastructure/adapters/in/v1/controllers/categories.controller.spec.ts.
-  Primary test command: npm test.
-  Unit tests: Jest (npm test).
-  Integration tests: Supertest (npm test).
-  E2E tests: Playwright (npm run test:e2e).
+  nest-store-api is a NestJS 11 + TypeScript 5.7 HTTP API that follows Hexagonal Architecture.
+  Detected markers: package.json, tsconfig.json, nest-cli.json, Jest test configuration, and versioned Nest controllers.
+  Package manager: npm.
+  Main quality commands: npm run lint, npm run format.
+  Main test commands: npm test (unit/integration) and npm run test:e2e (HTTP e2e with Jest).
+  API versioning is URI-based under /v1.
 rules:
   proposal:
     require_problem_statement: true
@@ -18,46 +16,46 @@ rules:
   tasks:
     protect_review_workload: true
   apply:
-    test_command: "npm test"
+    test_command: 'npm test'
   verify:
-    test_command: "npm test"
+    test_command: 'npm test'
 testing:
-  detected: "2026-05-31"
+  detected: '2026-06-01'
   runner:
-    command: "npm test"
-    framework: "Jest"
+    command: 'npm test'
+    framework: 'Jest'
   layers:
-    unit: "Jest"
-    integration: "Supertest"
-    e2e: "Playwright"
+    unit: 'Jest'
+    integration: 'Jest + Supertest'
+    e2e: 'Jest + Supertest'
   commands:
     unit:
-      - scope: "."
-        command: "npm test"
-        framework: "Jest"
+      - scope: '.'
+        command: 'npm test'
+        framework: 'Jest'
     integration:
-      - scope: "."
-        command: "npm test"
-        framework: "Supertest"
+      - scope: '.'
+        command: 'npm test'
+        framework: 'Jest + Supertest'
     e2e:
-      - scope: "."
-        command: "npm run test:e2e"
-        framework: "Playwright"
+      - scope: '.'
+        command: 'npm run test:e2e'
+        framework: 'Jest + Supertest'
   coverage:
-    command: ""
+    command: 'npm run test:cov'
     commands:
-      []
+      - scope: '.'
+        command: 'npm run test:cov'
 quality:
-  lint: "npm run lint"
+  lint: 'npm run lint'
   lint_commands:
-    - scope: "."
-      command: "npm run lint"
-      framework: "linter"
-  typecheck: ""
-  typecheck_commands:
-    []
-  format: "npm run format"
+    - scope: '.'
+      command: 'npm run lint'
+      framework: 'ESLint'
+  typecheck: ''
+  typecheck_commands: []
+  format: 'npm run format'
   format_commands:
-    - scope: "."
-      command: "npm run format"
-      framework: "formatter"
+    - scope: '.'
+      command: 'npm run format'
+      framework: 'Prettier'

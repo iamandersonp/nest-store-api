@@ -17,6 +17,12 @@ Guía operativa para agentes de IA (y humanos) que trabajen en **nest-store-api*
 | [TESTING](./docs/agents/TESTING.md) | Testing patterns y ejemplos                  |
 | [COMMANDS](./docs/agents/COMMANDS.md) | Comandos npm                               |
 | [CONFIG](./docs/agents/CONFIG.md) | Variables de entorno + OpenSpec config        |
+| [Products](./docs/products/products.md) | Spec OpenSpec: productos CRUD                |
+| [Brands](./docs/products/brands.md) | Spec OpenSpec: marcas CRUD                   |
+| [Categories](./docs/products/categories.md) | Spec OpenSpec: categorías CRUD            |
+| [Users](./docs/users/users.md) | Spec OpenSpec: usuarios CRUD + órdenes         |
+| [Customers](./docs/users/customers.md) | Spec OpenSpec: clientes CRUD                |
+| [Orders](./docs/users/orders.md) | Spec OpenSpec: órdenes por usuario            |
 
 ---
 
