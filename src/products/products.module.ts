@@ -25,7 +25,13 @@ import { BrandsService } from './infrastructure/adapters/in/v1/services/brands.s
 import { CategoriesService } from './infrastructure/adapters/in/v1/services/categories.service';
 import { ProductsService } from './infrastructure/adapters/in/v1/services/products.service';
 import { PRISMA_SERVICE_PORT } from './domain/ports/prisma-service.port';
+import { PRODUCTS_PRISMA_PORT } from './domain/ports/products-prisma.port';
+import { BRANDS_PRISMA_PORT } from './domain/ports/brands-prisma.port';
+import { CATEGORIES_PRISMA_PORT } from './domain/ports/categories-prisma.port';
 import { PrismaService } from './infrastructure/prisma/prisma.service';
+import { ProductsPrismaAdapter } from './infrastructure/prisma/adapters/products-prisma.adapter.service';
+import { BrandsPrismaAdapter } from './infrastructure/prisma/adapters/brands-prisma.adapter.service';
+import { CategoriesPrismaAdapter } from './infrastructure/prisma/adapters/categories-prisma.adapter.service';
 
 @Module({
   controllers: [ProductsController, BrandsController, CategoriesController],
@@ -61,6 +67,18 @@ import { PrismaService } from './infrastructure/prisma/prisma.service';
       provide: PRISMA_SERVICE_PORT,
       useClass: PrismaService,
     },
+    {
+      provide: PRODUCTS_PRISMA_PORT,
+      useClass: ProductsPrismaAdapter,
+    },
+    {
+      provide: BRANDS_PRISMA_PORT,
+      useClass: BrandsPrismaAdapter,
+    },
+    {
+      provide: CATEGORIES_PRISMA_PORT,
+      useClass: CategoriesPrismaAdapter,
+    },
   ],
   exports: [
     CreateBrandUseCase,
@@ -75,6 +93,9 @@ import { PrismaService } from './infrastructure/prisma/prisma.service';
     DeleteCategoryUseCase,
     FindAllProductsUseCase,
     PRISMA_SERVICE_PORT,
+    PRODUCTS_PRISMA_PORT,
+    BRANDS_PRISMA_PORT,
+    CATEGORIES_PRISMA_PORT,
   ],
 })
 export class ProductsModule {}
