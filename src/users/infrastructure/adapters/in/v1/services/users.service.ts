@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 
-import { FindAllProductsUseCase } from '@products/application/find-all-products.use-case';
+import { FindAllProductsUseCase } from '@products/application/find-all-products.use-case.service';
 import { Product } from '@products/domain/models/product.entity';
 import { Order } from '@users/domain/models/order.entity';
 import { User } from '@users/domain/models/user.entity';

@@ -3,6 +3,7 @@ import {
   CreateProductsDto,
   UpdateProductsDto,
 } from '@products/infrastructure/adapters/in/v1/dtos/products.dto';
+import { CreateProductCommand, UpdateProductCommand } from '@products/application/commands';
 
 /**
  * Mapper de Product <-> DTOs HTTP
@@ -10,25 +11,27 @@ import {
  */
 export class ProductMapper {
   /**
-   * Convierte CreateProductsDto a Product (sin id)
+   * Convierte CreateProductsDto a CreateProductCommand
    */
-  static fromCreateDto(dto: CreateProductsDto): Omit<Product, 'id'> {
-    // El id se asigna en infraestructura, no desde el DTO
-    const { name, description, price, stock, image } = dto;
-    return { name, description, price, stock, image };
+  static fromCreateDto(dto: CreateProductsDto): CreateProductCommand {
+    return new CreateProductCommand({
+      ...dto,
+      brandId: 0,
+      categoryId: 0,
+    });
   }
 
   /**
-   * Convierte UpdateProductsDto a Partial<Product>
+   * Convierte UpdateProductsDto a UpdateProductCommand
    */
-  static fromUpdateDto(dto: UpdateProductsDto): Partial<Product> {
-    const out: Partial<Product> = {};
-    if (dto.name !== undefined) out.name = dto.name;
-    if (dto.description !== undefined) out.description = dto.description;
-    if (dto.price !== undefined) out.price = dto.price;
-    if (dto.stock !== undefined) out.stock = dto.stock;
-    if (dto.image !== undefined) out.image = dto.image;
-    return out;
+  static fromUpdateDto(dto: UpdateProductsDto): UpdateProductCommand {
+    return new UpdateProductCommand({
+      ...(dto.name !== undefined && { name: dto.name }),
+      ...(dto.description !== undefined && { description: dto.description }),
+      ...(dto.price !== undefined && { price: dto.price }),
+      ...(dto.stock !== undefined && { stock: dto.stock }),
+      ...(dto.image !== undefined && { image: dto.image }),
+    });
   }
 
   /**

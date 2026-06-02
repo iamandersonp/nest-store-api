@@ -6,6 +6,7 @@ import {
   CreateBrandDto,
   UpdateBrandDto,
 } from '@products/infrastructure/adapters/in/v1/dtos/brands.dto';
+import { UpdateBrandCommand } from '@products/application/commands';
 
 @Injectable()
 export class UpdateBrandUseCase {
@@ -14,7 +15,7 @@ export class UpdateBrandUseCase {
     private readonly service: BaseCrudService<Brand, CreateBrandDto, UpdateBrandDto>,
   ) {}
 
-  execute(id: number, payload: UpdateBrandDto): Brand | Promise<Brand> {
+  execute(id: number, payload: UpdateBrandCommand): Brand | Promise<Brand> {
     return this.service.update(id, payload);
   }
 }

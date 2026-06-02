@@ -13,11 +13,11 @@ import {
 } from '@nestjs/common';
 import { ProductNotFoundError } from '@products/domain/errors/product-not-found.error';
 
-import { CreateProductUseCase } from '@products/application/create-product.use-case';
-import { FindAllProductsUseCase } from '@products/application/find-all-products.use-case';
-import { FindOneProductUseCase } from '@products/application/find-one-product.use-case';
-import { UpdateProductUseCase } from '@products/application/update-product.use-case';
-import { DeleteProductUseCase } from '@products/application/delete-product.use-case';
+import { CreateProductUseCase } from '@products/application/create-product.use-case.service';
+import { FindAllProductsUseCase } from '@products/application/find-all-products.use-case.service';
+import { FindOneProductUseCase } from '@products/application/find-one-product.use-case.service';
+import { UpdateProductUseCase } from '@products/application/update-product.use-case.service';
+import { DeleteProductUseCase } from '@products/application/delete-product.use-case.service';
 import type { Product } from '@products/domain/models/product.entity';
 import {
   CreateProductsDto,

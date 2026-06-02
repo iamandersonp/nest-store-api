@@ -3,6 +3,7 @@ import type { BaseCrudService } from '@common/domain/interfaces/base-crud.interf
 import { Category } from '@products/domain/models/category.entity';
 import { CATEGORIES_SERVICE_PORT } from '@products/domain/ports/category.port';
 import { CreateCategoryDto } from '@products/infrastructure/adapters/in/v1/dtos/categories.dto';
+import { CreateCategoryCommand } from '@products/application/commands';
 
 @Injectable()
 export class CreateCategoryUseCase {
@@ -11,7 +12,7 @@ export class CreateCategoryUseCase {
     private readonly service: BaseCrudService<Category, CreateCategoryDto, any>,
   ) {}
 
-  execute(payload: CreateCategoryDto): Category | Promise<Category> {
+  execute(payload: CreateCategoryCommand): Category | Promise<Category> {
     return this.service.create(payload);
   }
 }

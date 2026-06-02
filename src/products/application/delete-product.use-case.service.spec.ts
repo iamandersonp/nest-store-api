@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PRODUCTS_SERVICE_PORT } from '@products/domain/ports/product.port';
-import { DeleteProductUseCase } from './delete-product.use-case';
+import { DeleteProductUseCase } from './delete-product.use-case.service';
 
 describe('DeleteProductUseCase', () => {
   let useCase: DeleteProductUseCase;

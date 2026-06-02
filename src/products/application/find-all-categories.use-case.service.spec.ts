@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CATEGORIES_SERVICE_PORT } from '@products/domain/ports/category.port';
-import { FindAllCategoriesUseCase } from './find-all-categories.use-case';
+import { FindAllCategoriesUseCase } from './find-all-categories.use-case.service';
 
 describe('FindAllCategoriesUseCase', () => {
   let useCase: FindAllCategoriesUseCase;

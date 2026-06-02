@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { CreateBrandUseCase } from '@products/application/create-brand.use-case';
-import { FindAllBrandsUseCase } from '@products/application/find-all-brands.use-case';
-import { FindOneBrandUseCase } from '@products/application/find-one-brand.use-case';
-import { UpdateBrandUseCase } from '@products/application/update-brand.use-case';
-import { DeleteBrandUseCase } from '@products/application/delete-brand.use-case';
+import { CreateBrandUseCase } from '@products/application/create-brand.use-case.service';
+import { FindAllBrandsUseCase } from '@products/application/find-all-brands.use-case.service';
+import { FindOneBrandUseCase } from '@products/application/find-one-brand.use-case.service';
+import { UpdateBrandUseCase } from '@products/application/update-brand.use-case.service';
+import { DeleteBrandUseCase } from '@products/application/delete-brand.use-case.service';
 import { Brand } from '@products/domain/models/brand.entity';
 import { UpdateBrandDto } from '@products/infrastructure/adapters/in/v1/dtos/brands.dto';
 

@@ -23,7 +23,7 @@ describe('PrismaService', () => {
 
   describe('onModuleInit', () => {
     it('should call $connect on the prisma client', async () => {
-      const connectSpy = jest.spyOn(service.prisma, '$connect').mockResolvedValue();
+      const connectSpy = jest.spyOn(service.prisma, '$connect').mockResolvedValue(undefined);
 
       await service.onModuleInit();
 
@@ -33,7 +33,7 @@ describe('PrismaService', () => {
 
   describe('onModuleDestroy', () => {
     it('should call $disconnect on the prisma client', async () => {
-      const disconnectSpy = jest.spyOn(service.prisma, '$disconnect').mockResolvedValue();
+      const disconnectSpy = jest.spyOn(service.prisma, '$disconnect').mockResolvedValue(undefined);
 
       await service.onModuleDestroy();
 

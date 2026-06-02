@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CATEGORIES_SERVICE_PORT } from '@products/domain/ports/category.port';
-import { CreateCategoryUseCase } from './create-category.use-case';
+import { CreateCategoryCommand } from '@products/application/commands';
+import { CreateCategoryUseCase } from './create-category.use-case.service';
 
 describe('CreateCategoryUseCase', () => {
   let useCase: CreateCategoryUseCase;
@@ -15,10 +16,11 @@ describe('CreateCategoryUseCase', () => {
   });
 
   it('should delegate create to the port', async () => {
-    const payload = { name: 'Category' };
-    const expected = { id: 1, ...payload };
+    const dto = { name: 'Category' };
+    const command = new CreateCategoryCommand(dto);
+    const expected = { id: 1, ...dto };
     port.create.mockResolvedValue(expected);
-    await expect(useCase.execute(payload)).resolves.toEqual(expected);
-    expect(port.create).toHaveBeenCalledWith(payload);
+    await expect(useCase.execute(command)).resolves.toEqual(expected);
+    expect(port.create).toHaveBeenCalledWith(command);
   });
 });

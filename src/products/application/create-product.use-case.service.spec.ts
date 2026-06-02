@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PRODUCTS_SERVICE_PORT } from '@products/domain/ports/product.port';
-import { CreateProductUseCase } from './create-product.use-case';
+import { CreateProductCommand } from '@products/application/commands';
+import { CreateProductUseCase } from './create-product.use-case.service';
 
 describe('CreateProductUseCase', () => {
   let useCase: CreateProductUseCase;
@@ -15,10 +16,11 @@ describe('CreateProductUseCase', () => {
   });
 
   it('should delegate create to the port', async () => {
-    const payload = { name: 'Test', description: 'desc', price: 10, stock: 5, image: 'img' };
-    const expected = { id: 1, ...payload };
+    const dto = { name: 'Test', description: 'desc', price: 10, stock: 5, image: 'img' };
+    const command = new CreateProductCommand({ ...dto, brandId: 1, categoryId: 1 });
+    const expected = { id: 1, ...dto, brandId: 1, categoryId: 1 };
     port.create.mockResolvedValue(expected);
-    await expect(useCase.execute(payload)).resolves.toEqual(expected);
-    expect(port.create).toHaveBeenCalledWith(payload);
+    await expect(useCase.execute(command)).resolves.toEqual(expected);
+    expect(port.create).toHaveBeenCalledWith(command);
   });
 });

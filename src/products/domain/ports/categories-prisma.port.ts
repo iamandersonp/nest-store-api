@@ -1,3 +1,1 @@
-import { InjectionToken } from '@nestjs/common';
-
-export const CATEGORIES_PRISMA_PORT: InjectionToken = Symbol('CATEGORIES_PRISMA_PORT');
+export const CATEGORIES_PRISMA_PORT: symbol = Symbol('CATEGORIES_PRISMA_PORT');

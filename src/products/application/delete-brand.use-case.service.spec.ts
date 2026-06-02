@@ -1,17 +1,17 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { CATEGORIES_SERVICE_PORT } from '@products/domain/ports/category.port';
-import { DeleteCategoryUseCase } from './delete-category.use-case';
+import { BRANDS_SERVICE_PORT } from '@products/domain/ports/brand.port';
+import { DeleteBrandUseCase } from './delete-brand.use-case.service';
 
-describe('DeleteCategoryUseCase', () => {
-  let useCase: DeleteCategoryUseCase;
+describe('DeleteBrandUseCase', () => {
+  let useCase: DeleteBrandUseCase;
   let port: { delete: jest.Mock };
 
   beforeEach(async () => {
     port = { delete: jest.fn() };
     const module: TestingModule = await Test.createTestingModule({
-      providers: [DeleteCategoryUseCase, { provide: CATEGORIES_SERVICE_PORT, useValue: port }],
+      providers: [DeleteBrandUseCase, { provide: BRANDS_SERVICE_PORT, useValue: port }],
     }).compile();
-    useCase = module.get(DeleteCategoryUseCase);
+    useCase = module.get(DeleteBrandUseCase);
   });
 
   it('should delegate delete to the port', async () => {

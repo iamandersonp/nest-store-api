@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PRODUCTS_SERVICE_PORT } from '@products/domain/ports/product.port';
-import { UpdateProductUseCase } from './update-product.use-case';
+import { UpdateProductCommand } from '@products/application/commands';
+import { UpdateProductUseCase } from './update-product.use-case.service';
 
 describe('UpdateProductUseCase', () => {
   let useCase: UpdateProductUseCase;
@@ -15,7 +16,7 @@ describe('UpdateProductUseCase', () => {
   });
 
   it('should delegate update to the port', async () => {
-    const payload = { name: 'Updated' };
+    const command = new UpdateProductCommand({ name: 'Updated' });
     const expected = {
       id: 1,
       name: 'Updated',
@@ -25,7 +26,7 @@ describe('UpdateProductUseCase', () => {
       image: 'img',
     };
     port.update.mockResolvedValue(expected);
-    await expect(useCase.execute(1, payload)).resolves.toEqual(expected);
-    expect(port.update).toHaveBeenCalledWith(1, payload);
+    await expect(useCase.execute(1, command)).resolves.toEqual(expected);
+    expect(port.update).toHaveBeenCalledWith(1, command);
   });
 });

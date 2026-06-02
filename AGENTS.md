@@ -38,6 +38,10 @@ Ver [STACK.md](./docs/agents/STACK.md).
 Hexagonal (Puertos y Adaptadores). Las dependencias van `infrastructure → application → domain`.
 Ver [ARCHITECTURE.md](./docs/agents/ARCHITECTURE.md).
 
+Patrón adicional no documentado en los agent docs:
+- **Mappers** estáticos en `infrastructure/.../mappers/` convierten DTOs HTTP ↔ entidades de dominio (ej: `ProductMapper.fromCreateDto()`, `.toDto()`).
+- **Errores de dominio** en `domain/errors/*.error.ts` (ej: `ProductNotFoundError`). Controllers los capturan y traducen a excepciones HTTP.
+
 ## Convenciones
 
 Conventional Commits, TDD, OpenSpec docs, naming estricto.
@@ -70,6 +74,19 @@ Formato `mem_save`:
 ```
 
 Topic key para upserts: `sdd-init/{project}`, `sdd/{change-name}/{phase}`.
+
+---
+
+## Contexto duro (fácil de errar si no se revisa)
+
+- **Sin `typecheck`**: No existe `npm run typecheck`. TypeScript errors se detectan via `nest build` o ESLint type-checked rules.
+- **Cobertura extrema**: `jest.coverageThreshold` exige 97% branches, 100% functions/lines/statements. Solo `users.service.ts` tiene una excepción (88% branches).
+- **Swagger UI** en `/api`, JSON spec en `/api/json` (generado por `@nestjs/swagger` + plugin en `nest-cli.json`).
+- **`engine-strict=true`** en `.npmrc`: npm falla si la versión de Node no coincide.
+- **`npm install`** ejecuta `prepare` → `setup:git-hooks` que configura `.git-hooks/` automáticamente.
+- **Mappers**: los controladores NO pasan DTOs directo a casos de uso — usan mappers estáticos (ej: `ProductMapper.fromCreateDto(dto)`).
+- **Errores de dominio**: los use-cases lanzan errores custom (`ProductNotFoundError`), los controllers los capturan y lanzan `NotFoundException` HTTP.
+- **Compodoc** disponible: `npm run compodoc:build` para documentación de código desde JSDoc.
 
 ---
 

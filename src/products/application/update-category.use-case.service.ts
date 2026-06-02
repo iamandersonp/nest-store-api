@@ -6,6 +6,7 @@ import {
   CreateCategoryDto,
   UpdateCategoryDtoDto,
 } from '@products/infrastructure/adapters/in/v1/dtos/categories.dto';
+import { UpdateCategoryCommand } from '@products/application/commands';
 
 @Injectable()
 export class UpdateCategoryUseCase {
@@ -14,7 +15,7 @@ export class UpdateCategoryUseCase {
     private readonly service: BaseCrudService<Category, CreateCategoryDto, UpdateCategoryDtoDto>,
   ) {}
 
-  execute(id: number, payload: UpdateCategoryDtoDto): Category | Promise<Category> {
+  execute(id: number, payload: UpdateCategoryCommand): Category | Promise<Category> {
     return this.service.update(id, payload);
   }
 }

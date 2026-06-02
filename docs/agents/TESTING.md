@@ -18,7 +18,7 @@ npm run test:e2e      # Tests e2e (Jest + Supertest)
 ```ts
 import { Test, TestingModule } from '@nestjs/testing';
 import { ProductsController } from './products.controller';
-import { ProductUseCaseService } from '@products/application/product-use-case.service';
+import { CreateProductUseCase } from '@products/application/create-product.use-case';
 import { PRODUCTS_SERVICE_PORT } from '@products/domain/ports/product.port';
 
 describe('ProductsController', () => {

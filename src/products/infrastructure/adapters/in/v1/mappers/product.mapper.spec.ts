@@ -3,11 +3,12 @@ import {
   CreateProductsDto,
   UpdateProductsDto,
 } from '@products/infrastructure/adapters/in/v1/dtos/products.dto';
+import { CreateProductCommand, UpdateProductCommand } from '@products/application/commands';
 import { Product } from '@products/domain/models/product.entity';
 
 describe('ProductMapper', () => {
   describe('fromCreateDto', () => {
-    it('should map a full dto to a Product without id', () => {
+    it('should map a full dto to a CreateProductCommand', () => {
       const dto: CreateProductsDto = {
         name: 'N',
         description: 'D',
@@ -16,13 +17,18 @@ describe('ProductMapper', () => {
         image: 'http://img',
       };
       const model = ProductMapper.fromCreateDto(dto);
-      expect(model).toEqual({
-        name: 'N',
-        description: 'D',
-        price: 123,
-        stock: 10,
-        image: 'http://img',
-      });
+      expect(model).toBeInstanceOf(CreateProductCommand);
+      expect(model).toEqual(
+        new CreateProductCommand({
+          name: 'N',
+          description: 'D',
+          price: 123,
+          stock: 10,
+          image: 'http://img',
+          brandId: 0,
+          categoryId: 0,
+        }),
+      );
     });
   });
 
@@ -35,18 +41,24 @@ describe('ProductMapper', () => {
         stock: 2,
         image: 'zz',
       };
-      expect(ProductMapper.fromUpdateDto(dto)).toEqual(dto);
+      const result = ProductMapper.fromUpdateDto(dto);
+      expect(result).toBeInstanceOf(UpdateProductCommand);
+      expect(result).toEqual(new UpdateProductCommand({ ...dto }));
     });
 
     it('should skip fields set to undefined', () => {
       const dto = new UpdateProductsDto();
       Object.defineProperty(dto, 'description', { value: 'a', configurable: true });
-      expect(ProductMapper.fromUpdateDto(dto)).toEqual({ description: 'a' });
+      const result = ProductMapper.fromUpdateDto(dto);
+      expect(result).toBeInstanceOf(UpdateProductCommand);
+      expect(result).toEqual(new UpdateProductCommand({ description: 'a' }));
     });
 
-    it('should return empty object if all fields undefined', () => {
+    it('should return empty command if all fields undefined', () => {
       const dto = new UpdateProductsDto();
-      expect(ProductMapper.fromUpdateDto(dto)).toEqual({});
+      const result = ProductMapper.fromUpdateDto(dto);
+      expect(result).toBeInstanceOf(UpdateProductCommand);
+      expect(result).toEqual(new UpdateProductCommand({}));
     });
   });
 

@@ -20,7 +20,7 @@ describe('productsService dependency', () => {
 
 import { NotFoundException } from '@nestjs/common';
 import { Test, TestingModule } from '@nestjs/testing';
-import { FindAllProductsUseCase } from '@products/application/find-all-products.use-case';
+import { FindAllProductsUseCase } from '@products/application/find-all-products.use-case.service';
 import { CreateUserDto } from '../dtos/user.dto';
 import { UsersService } from './users.service';
 

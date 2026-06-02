@@ -6,6 +6,7 @@ import {
   CreateProductsDto,
   UpdateProductsDto,
 } from '@products/infrastructure/adapters/in/v1/dtos/products.dto';
+import { UpdateProductCommand } from '@products/application/commands';
 
 @Injectable()
 export class UpdateProductUseCase {
@@ -14,7 +15,7 @@ export class UpdateProductUseCase {
     private readonly service: BaseCrudService<Product, CreateProductsDto, UpdateProductsDto>,
   ) {}
 
-  execute(id: number, payload: UpdateProductsDto): Product | Promise<Product> {
+  execute(id: number, payload: UpdateProductCommand): Product | Promise<Product> {
     return this.service.update(id, payload);
   }
 }

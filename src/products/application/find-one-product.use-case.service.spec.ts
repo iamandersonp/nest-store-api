@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { PRODUCTS_SERVICE_PORT } from '@products/domain/ports/product.port';
-import { FindOneProductUseCase } from './find-one-product.use-case';
+import { FindOneProductUseCase } from './find-one-product.use-case.service';
 
 describe('FindOneProductUseCase', () => {
   let useCase: FindOneProductUseCase;

@@ -12,11 +12,11 @@ import {
   Put,
 } from '@nestjs/common';
 
-import { CreateBrandUseCase } from '@products/application/create-brand.use-case';
-import { FindAllBrandsUseCase } from '@products/application/find-all-brands.use-case';
-import { FindOneBrandUseCase } from '@products/application/find-one-brand.use-case';
-import { UpdateBrandUseCase } from '@products/application/update-brand.use-case';
-import { DeleteBrandUseCase } from '@products/application/delete-brand.use-case';
+import { CreateBrandUseCase } from '@products/application/create-brand.use-case.service';
+import { FindAllBrandsUseCase } from '@products/application/find-all-brands.use-case.service';
+import { FindOneBrandUseCase } from '@products/application/find-one-brand.use-case.service';
+import { UpdateBrandUseCase } from '@products/application/update-brand.use-case.service';
+import { DeleteBrandUseCase } from '@products/application/delete-brand.use-case.service';
 import type { Brand } from '../../../../../domain/models/brand.entity';
 import { CreateBrandDto, UpdateBrandDto } from '../dtos/brands.dto';
 import { BrandMapper } from '../mappers/brand.mapper';
@@ -61,7 +61,7 @@ export class BrandsController {
    *
    * @param {number} categoryId - brand id
    * @return {*} {Brand}
-   * @memberof BrandsService
+   * @memberof BrandsUseCase
    */
   @Get(':brandId')
   async getOne(@Param('brandId', ParseIntPipe) brandId: number): Promise<Brand> {
@@ -81,7 +81,7 @@ export class BrandsController {
    *
    * @param {CreateBrandDto} payload - Brand data
    * @return {*} {Brand}
-   * @memberof BrandsService
+   * @memberof BrandsUseCase
    */
   @Post()
   async create(@Body() payload: CreateBrandDto): Promise<Brand> {
@@ -96,7 +96,7 @@ export class BrandsController {
    * @param {number} id - Brand id
    * @param {UpdateBrandDto} payload - Brand data
    * @return {*} {Brand | undefined}
-   * @memberof BrandsService
+   * @memberof BrandsUseCase
    */
   @Put(':id')
   async update(
@@ -119,7 +119,7 @@ export class BrandsController {
    * Delete a Category
    *
    * @param {number} id - Category id
-   * @memberof BrandsService
+   * @memberof BrandsUseCase
    */
   @Delete()
   @HttpCode(HttpStatus.NO_CONTENT)

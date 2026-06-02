@@ -1,15 +1,17 @@
 import { CategoryMapper } from './category.mapper';
 import { UpdateCategoryDtoDto } from '@products/infrastructure/adapters/in/v1/dtos/categories.dto';
+import { CreateCategoryCommand, UpdateCategoryCommand } from '@products/application/commands';
 import { Category } from '@products/domain/models/category.entity';
 
 describe('CategoryMapper', () => {
   describe('fromCreateDto', () => {
-    it('should map a full dto to a Category without id', () => {
+    it('should map a full dto to a CreateCategoryCommand', () => {
       const dto = {
         name: 'A',
       };
       const model = CategoryMapper.fromCreateDto(dto);
-      expect(model).toEqual({ name: 'A' });
+      expect(model).toBeInstanceOf(CreateCategoryCommand);
+      expect(model).toEqual(new CreateCategoryCommand({ name: 'A' }));
     });
   });
 
@@ -18,18 +20,16 @@ describe('CategoryMapper', () => {
       const dto: UpdateCategoryDtoDto = {
         name: 'X',
       };
-      expect(CategoryMapper.fromUpdateDto(dto)).toEqual(dto);
+      const result = CategoryMapper.fromUpdateDto(dto);
+      expect(result).toBeInstanceOf(UpdateCategoryCommand);
+      expect(result).toEqual(new UpdateCategoryCommand({ name: 'X' }));
     });
 
-    it('should skip fields set to undefined', () => {
+    it('should return empty command if all fields undefined', () => {
       const dto = new UpdateCategoryDtoDto();
-      // campo description no existe, así que simplemente vacío
-      expect(CategoryMapper.fromUpdateDto(dto)).toEqual({});
-    });
-
-    it('should return empty object if all fields undefined', () => {
-      const dto = new UpdateCategoryDtoDto();
-      expect(CategoryMapper.fromUpdateDto(dto)).toEqual({});
+      const result = CategoryMapper.fromUpdateDto(dto);
+      expect(result).toBeInstanceOf(UpdateCategoryCommand);
+      expect(result).toEqual(new UpdateCategoryCommand({}));
     });
   });
 

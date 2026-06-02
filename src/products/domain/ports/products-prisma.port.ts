@@ -1,3 +1,1 @@
-import { InjectionToken } from '@nestjs/common';
-
-export const PRODUCTS_PRISMA_PORT: InjectionToken = Symbol('PRODUCTS_PRISMA_PORT');
+export const PRODUCTS_PRISMA_PORT: symbol = Symbol('PRODUCTS_PRISMA_PORT');

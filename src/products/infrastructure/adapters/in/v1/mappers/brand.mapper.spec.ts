@@ -1,19 +1,18 @@
 import { BrandMapper } from './brand.mapper';
 import { UpdateBrandDto } from '@products/infrastructure/adapters/in/v1/dtos/brands.dto';
+import { CreateBrandCommand, UpdateBrandCommand } from '@products/application/commands';
 import { Brand } from '@products/domain/models/brand.entity';
 
 describe('BrandMapper', () => {
   describe('fromCreateDto', () => {
-    it('should map a full dto to a Brand without id', () => {
+    it('should map a full dto to a CreateBrandCommand', () => {
       const dto = {
         name: 'N',
         image: 'http://img',
       };
       const model = BrandMapper.fromCreateDto(dto);
-      expect(model).toEqual({
-        name: 'N',
-        image: 'http://img',
-      });
+      expect(model).toBeInstanceOf(CreateBrandCommand);
+      expect(model).toEqual(new CreateBrandCommand({ name: 'N', image: 'http://img' }));
     });
   });
 
@@ -23,18 +22,24 @@ describe('BrandMapper', () => {
         name: 'X',
         image: 'img',
       };
-      expect(BrandMapper.fromUpdateDto(dto)).toEqual(dto);
+      const result = BrandMapper.fromUpdateDto(dto);
+      expect(result).toBeInstanceOf(UpdateBrandCommand);
+      expect(result).toEqual(new UpdateBrandCommand({ name: 'X', image: 'img' }));
     });
 
     it('should skip fields set to undefined', () => {
       const dto = new UpdateBrandDto();
       Object.defineProperty(dto, 'image', { value: 'x', configurable: true });
-      expect(BrandMapper.fromUpdateDto(dto)).toEqual({ image: 'x' });
+      const result = BrandMapper.fromUpdateDto(dto);
+      expect(result).toBeInstanceOf(UpdateBrandCommand);
+      expect(result).toEqual(new UpdateBrandCommand({ image: 'x' }));
     });
 
-    it('should return empty object if all fields undefined', () => {
+    it('should return empty command if all fields undefined', () => {
       const dto = new UpdateBrandDto();
-      expect(BrandMapper.fromUpdateDto(dto)).toEqual({});
+      const result = BrandMapper.fromUpdateDto(dto);
+      expect(result).toBeInstanceOf(UpdateBrandCommand);
+      expect(result).toEqual(new UpdateBrandCommand({}));
     });
   });
 

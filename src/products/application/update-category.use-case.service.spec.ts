@@ -1,6 +1,7 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { CATEGORIES_SERVICE_PORT } from '@products/domain/ports/category.port';
-import { UpdateCategoryUseCase } from './update-category.use-case';
+import { UpdateCategoryCommand } from '@products/application/commands';
+import { UpdateCategoryUseCase } from './update-category.use-case.service';
 
 describe('UpdateCategoryUseCase', () => {
   let useCase: UpdateCategoryUseCase;
@@ -15,10 +16,10 @@ describe('UpdateCategoryUseCase', () => {
   });
 
   it('should delegate update to the port', async () => {
-    const payload = { name: 'Updated' };
+    const command = new UpdateCategoryCommand({ name: 'Updated' });
     const expected = { id: 1, name: 'Updated' };
     port.update.mockResolvedValue(expected);
-    await expect(useCase.execute(1, payload)).resolves.toEqual(expected);
-    expect(port.update).toHaveBeenCalledWith(1, payload);
+    await expect(useCase.execute(1, command)).resolves.toEqual(expected);
+    expect(port.update).toHaveBeenCalledWith(1, command);
   });
 });
