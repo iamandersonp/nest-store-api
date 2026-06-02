@@ -8,21 +8,23 @@ Guía operativa para agentes de IA (y humanos) que trabajen en **nest-store-api*
 
 ## Referencia rápida
 
-| Archivo                    | Contenido                                        |
-| -------------------------- | ------------------------------------------------ |
-| [STACK](./docs/agents/STACK.md) | Stack tecnológico detallado                   |
-| [ARCHITECTURE](./docs/agents/ARCHITECTURE.md) | Estructura de carpetas + hexagonal      |
-| [CONVENTIONS](./docs/agents/CONVENTIONS.md) | Naming, DTOs, DI, estilo, commits, OpenSpec |
-| [WORKFLOW](./docs/agents/WORKFLOW.md) | SDD workflow + Strict TDD + nuevo recurso  |
-| [TESTING](./docs/agents/TESTING.md) | Testing patterns y ejemplos                  |
-| [COMMANDS](./docs/agents/COMMANDS.md) | Comandos npm                               |
-| [CONFIG](./docs/agents/CONFIG.md) | Variables de entorno + OpenSpec config        |
-| [Products](./docs/products/products.md) | Spec OpenSpec: productos CRUD                |
-| [Brands](./docs/products/brands.md) | Spec OpenSpec: marcas CRUD                   |
-| [Categories](./docs/products/categories.md) | Spec OpenSpec: categorías CRUD            |
-| [Users](./docs/users/users.md) | Spec OpenSpec: usuarios CRUD + órdenes         |
-| [Customers](./docs/users/customers.md) | Spec OpenSpec: clientes CRUD                |
-| [Orders](./docs/users/orders.md) | Spec OpenSpec: órdenes por usuario            |
+| Archivo                                                          | Contenido                                           |
+| ---------------------------------------------------------------- | --------------------------------------------------- |
+| [STACK](./docs/agents/STACK.md)                                  | Stack tecnológico detallado                         |
+| [ARCHITECTURE](./docs/agents/ARCHITECTURE.md)                    | Estructura de carpetas + hexagonal                  |
+| [CONVENTIONS](./docs/agents/CONVENTIONS.md)                      | Naming, DTOs, DI, estilo, commits, OpenSpec         |
+| [WORKFLOW](./docs/agents/WORKFLOW.md)                            | SDD workflow + Strict TDD + nuevo recurso           |
+| [TESTING](./docs/agents/TESTING.md)                              | Testing patterns y ejemplos                         |
+| [COMMANDS](./docs/agents/COMMANDS.md)                            | Comandos npm                                        |
+| [CONFIG](./docs/agents/CONFIG.md)                                | Variables de entorno + OpenSpec config              |
+| [Products](./docs/products/products.md)                          | Spec OpenSpec: productos CRUD                       |
+| [Brands](./docs/products/brands.md)                              | Spec OpenSpec: marcas CRUD                          |
+| [Categories](./docs/products/categories.md)                      | Spec OpenSpec: categorías CRUD                      |
+| [Users](./docs/users/users.md)                                   | Spec OpenSpec: usuarios CRUD + órdenes              |
+| [Customers](./docs/users/customers.md)                           | Spec OpenSpec: clientes CRUD                        |
+| [Orders](./docs/users/orders.md)                                 | Spec OpenSpec: órdenes por usuario                  |
+| [typescript-strict](./skills/typescript-strict/SKILL.md)         | Skill: reglas estrictas de TypeScript               |
+| [nestjs-best-practices](./skills/nestjs-best-practices/SKILL.md) | Skill: mejores prácticas de NestJS para el proyecto |
 
 ---
 
