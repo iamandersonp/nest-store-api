@@ -30,7 +30,7 @@
 
 # PROVIDER="github:deepseek-r1"
 
-PROVIDER="gemini"
+PROVIDER="github:gpt-4o"
 
 # File patterns to include in review (comma-separated)
 
@@ -38,13 +38,13 @@ PROVIDER="gemini"
 
 # Examples:
 
-# FILE_PATTERNS="*.ts,\_.tsx"
+# FILE_PATTERNS="\*.ts,\_.tsx"
 
 # FILE_PATTERNS="\*.py"
 
-# FILE_PATTERNS="*.go,\_.mod"
+# FILE_PATTERNS="\*.go,\_.mod"
 
-FILE_PATTERNS="*.ts"
+FILE_PATTERNS="\*.ts"
 
 # File patterns to exclude from review (comma-separated)
 
@@ -52,11 +52,11 @@ FILE_PATTERNS="*.ts"
 
 # Examples:
 
-# EXCLUDE_PATTERNS="*.test.ts,\_.spec.ts"
+# EXCLUDE_PATTERNS="\*.test.ts,\_.spec.ts"
 
-# EXCLUDE_PATTERNS="*\_test.go,\_.mock.ts"
+# EXCLUDE_PATTERNS="\*\_test.go,\_.mock.ts"
 
-EXCLUDE_PATTERNS="*.test.ts,_.spec.ts,_.test.tsx,\_.spec.tsx,\*.d.ts"
+EXCLUDE_PATTERNS="\*.test.ts,\*.spec.ts,\_.test.tsx,\_.spec.tsx,\*.d.ts"
 
 # File containing code review rules
 
