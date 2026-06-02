@@ -12,4 +12,5 @@ export interface EnvConfig {
   DB_PASSWORD: string;
   DB_HOST: string;
   DB_PORT: number;
+  DATABASE_URL: string;
 }
