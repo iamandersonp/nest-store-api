@@ -103,3 +103,15 @@ Usar `SHALL` / `MUST` para requisitos normativos y al menos un `Scenario` Given/
 ## JSDoc
 
 Todas las clases públicas, métodos y propiedades de DTOs/entidades llevan JSDoc con `@param`, `@return`, `@type`, `@memberof`. Compodoc consume estos comentarios.
+
+## TypeScript Strict Skill
+
+Este proyecto incluye la skill **[typescript-strict](../../skills/typescript-strict/SKILL.md)** de uso general con reglas estrictas de tipado. Se aplica a toda la base de código:
+
+- TSConfig strict mode, `noImplicitAny`, `strictBindCallApply`
+- Prohibido el uso de `any` (salvo excepciones en tests)
+- Const types pattern, flat interfaces, discriminated unions
+- Type guards, branded types, `import type`
+- Tipado específico para hexagonal: domain entities, ports, use-cases, DTOs, DI tokens
+
+Cargala automáticamente al escribir o modificar cualquier tipo, interfaz, DTO, entidad, puerto o caso de uso.
