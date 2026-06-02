@@ -24,6 +24,8 @@ import { ProductsController } from './infrastructure/adapters/in/v1/controllers/
 import { BrandsService } from './infrastructure/adapters/in/v1/services/brands.service';
 import { CategoriesService } from './infrastructure/adapters/in/v1/services/categories.service';
 import { ProductsService } from './infrastructure/adapters/in/v1/services/products.service';
+import { PRISMA_SERVICE_PORT } from './domain/ports/prisma-service.port';
+import { PrismaService } from './infrastructure/prisma/prisma.service';
 
 @Module({
   controllers: [ProductsController, BrandsController, CategoriesController],
@@ -55,6 +57,10 @@ import { ProductsService } from './infrastructure/adapters/in/v1/services/produc
       provide: CATEGORIES_SERVICE_PORT,
       useClass: CategoriesService,
     },
+    {
+      provide: PRISMA_SERVICE_PORT,
+      useClass: PrismaService,
+    },
   ],
   exports: [
     CreateBrandUseCase,
@@ -68,6 +74,7 @@ import { ProductsService } from './infrastructure/adapters/in/v1/services/produc
     UpdateCategoryUseCase,
     DeleteCategoryUseCase,
     FindAllProductsUseCase,
+    PRISMA_SERVICE_PORT,
   ],
 })
 export class ProductsModule {}
