@@ -36,6 +36,9 @@ import { PRODUCTS_SERVICE_PORT } from './domain/ports/product.port';
 import { BrandsController } from './infrastructure/adapters/in/v1/controllers/brands.controller';
 import { CategoriesController } from './infrastructure/adapters/in/v1/controllers/categories.controller';
 import { ProductsController } from './infrastructure/adapters/in/v1/controllers/products.controller';
+import { ProductsV2Controller } from './infrastructure/adapters/in/v2/controllers/products-v2.controller';
+import { BrandsV2Controller } from './infrastructure/adapters/in/v2/controllers/brands-v2.controller';
+import { CategoriesV2Controller } from './infrastructure/adapters/in/v2/controllers/categories-v2.controller';
 import { BrandsService } from './infrastructure/adapters/in/v1/services/brands.service';
 import { CategoriesService } from './infrastructure/adapters/in/v1/services/categories.service';
 import { ProductsService } from './infrastructure/adapters/in/v1/services/products.service';
@@ -49,7 +52,14 @@ import { BrandsPrismaAdapter } from './infrastructure/prisma/adapters/brands-pri
 import { CategoriesPrismaAdapter } from './infrastructure/prisma/adapters/categories-prisma.adapter.service';
 
 @Module({
-  controllers: [ProductsController, BrandsController, CategoriesController],
+  controllers: [
+    ProductsController,
+    BrandsController,
+    CategoriesController,
+    ProductsV2Controller,
+    BrandsV2Controller,
+    CategoriesV2Controller,
+  ],
   providers: [
     CreateBrandUseCase,
     FindAllBrandsUseCase,
