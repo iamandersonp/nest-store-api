@@ -15,6 +15,21 @@ import { FindAllProductsUseCase } from './application/find-all-products.use-case
 import { FindOneProductUseCase } from './application/find-one-product.use-case.service';
 import { UpdateProductUseCase } from './application/update-product.use-case.service';
 import { DeleteProductUseCase } from './application/delete-product.use-case.service';
+import { CreateBrandV2UseCase } from './application/create-brand-v2.use-case.service';
+import { GetAllBrandsV2UseCase } from './application/get-all-brands-v2.use-case.service';
+import { GetBrandV2UseCase } from './application/get-brand-v2.use-case.service';
+import { UpdateBrandV2UseCase } from './application/update-brand-v2.use-case.service';
+import { DeleteBrandV2UseCase } from './application/delete-brand-v2.use-case.service';
+import { CreateCategoryV2UseCase } from './application/create-category-v2.use-case.service';
+import { GetAllCategoriesV2UseCase } from './application/get-all-categories-v2.use-case.service';
+import { GetCategoryV2UseCase } from './application/get-category-v2.use-case.service';
+import { UpdateCategoryV2UseCase } from './application/update-category-v2.use-case.service';
+import { DeleteCategoryV2UseCase } from './application/delete-category-v2.use-case.service';
+import { CreateProductV2UseCase } from './application/create-product-v2.use-case.service';
+import { GetAllProductsV2UseCase } from './application/get-all-products-v2.use-case.service';
+import { GetProductV2UseCase } from './application/get-product-v2.use-case.service';
+import { UpdateProductV2UseCase } from './application/update-product-v2.use-case.service';
+import { DeleteProductV2UseCase } from './application/delete-product-v2.use-case.service';
 import { BRANDS_SERVICE_PORT } from './domain/ports/brand.port';
 import { CATEGORIES_SERVICE_PORT } from './domain/ports/category.port';
 import { PRODUCTS_SERVICE_PORT } from './domain/ports/product.port';
@@ -51,6 +66,21 @@ import { CategoriesPrismaAdapter } from './infrastructure/prisma/adapters/catego
     FindOneProductUseCase,
     UpdateProductUseCase,
     DeleteProductUseCase,
+    CreateBrandV2UseCase,
+    GetAllBrandsV2UseCase,
+    GetBrandV2UseCase,
+    UpdateBrandV2UseCase,
+    DeleteBrandV2UseCase,
+    CreateCategoryV2UseCase,
+    GetAllCategoriesV2UseCase,
+    GetCategoryV2UseCase,
+    UpdateCategoryV2UseCase,
+    DeleteCategoryV2UseCase,
+    CreateProductV2UseCase,
+    GetAllProductsV2UseCase,
+    GetProductV2UseCase,
+    UpdateProductV2UseCase,
+    DeleteProductV2UseCase,
     {
       provide: PRODUCTS_SERVICE_PORT,
       useClass: ProductsService,
