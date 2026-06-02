@@ -112,3 +112,4 @@ Topic key para upserts: `sdd-init/{project}`, `sdd/{change-name}/{phase}`.
 - No crear archivos `.md` extra para "documentar cambios" — usar `docs/<module>/<feature>.md` cuando aplique.
 - No usar `it.only` / `describe.only` (ESLint lo bloquea).
 - No deshabilitar reglas de ESLint sin justificación local.
+- **NUNCA usar `--no-verify` para saltar el pre-commit hook.** Si el hook falla, se debe arreglar la causa raíz antes de commitear. Las violaciones del code review (GGA) son deuda técnica que se paga antes de avanzar, no se esquivan.
