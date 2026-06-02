@@ -1,10 +1,10 @@
 import { Test, TestingModule } from '@nestjs/testing';
 
-import { CreateCategoryUseCase } from '@products/application/create-category.use-case';
-import { FindAllCategoriesUseCase } from '@products/application/find-all-categories.use-case';
-import { FindOneCategoryUseCase } from '@products/application/find-one-category.use-case';
-import { UpdateCategoryUseCase } from '@products/application/update-category.use-case';
-import { DeleteCategoryUseCase } from '@products/application/delete-category.use-case';
+import { CreateCategoryUseCase } from '@products/application/create-category.use-case.service';
+import { FindAllCategoriesUseCase } from '@products/application/find-all-categories.use-case.service';
+import { FindOneCategoryUseCase } from '@products/application/find-one-category.use-case.service';
+import { UpdateCategoryUseCase } from '@products/application/update-category.use-case.service';
+import { DeleteCategoryUseCase } from '@products/application/delete-category.use-case.service';
 import { Category } from '@products/domain/models/category.entity';
 import {
   CreateCategoryDto,

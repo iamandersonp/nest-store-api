@@ -38,9 +38,7 @@
     ]
   },
   "include": [
-    "src/**/*",
-    "scripts/**/*.js",
-    "test/**/*"
+    "src/**/*"
   ],
   "exclude": [
     "node_modules",

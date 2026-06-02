@@ -6,7 +6,7 @@
 | ------------------ | ----------------------- | ----------------------------------------------------- |
 | Entidad de dominio | `*.entity.ts`           | `<module>/domain/models/`                             |
 | Puerto / token DI  | `*.port.ts`             | `<module>/domain/ports/`                              |
-| Caso de uso        | `*-use-case.service.ts` | `<module>/application/`                               |
+| Caso de uso        | `*-use-case.ts`         | `<module>/application/`                               |
 | Controlador HTTP   | `*.controller.ts`       | `<module>/infrastructure/adapters/in/v1/controllers/` |
 | Service adapter    | `*.service.ts`          | `<module>/infrastructure/adapters/in/v1/services/`    |
 | DTO                | `*.dto.ts`              | `<module>/infrastructure/adapters/in/v1/dtos/`        |

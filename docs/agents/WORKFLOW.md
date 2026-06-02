@@ -53,7 +53,7 @@ El proyecto tiene `strict_tdd: true` configurado en `openspec/config.yaml`. Esto
 ### Cuándo aplica
 
 Strict TDD aplica a:
-- Use-cases (`application/*-use-case.service.ts`)
+- Use-cases (`application/*-use-case.ts`)
 - Controllers (`infrastructure/.../controllers/*.controller.ts`)
 - Service adapters (`infrastructure/.../services/*.service.ts`)
 
@@ -65,7 +65,7 @@ Checklist en orden (TDD + SDD):
 2. Define la entidad en `<module>/domain/models/<name>.entity.ts`.
 3. Define el puerto en `<module>/domain/ports/<name>.port.ts` (`Symbol` `_PORT`).
 4. Escribe los DTOs (`Create*Dto`, `Update*Dto extends PartialType`) en `infrastructure/.../dtos/`.
-5. Escribe el test del use-case **primero** (Red) → implementa el use-case `application/<name>-use-case.service.ts` (Green).
+5. Escribe el test del use-case **primero** (Red) → implementa el use-case `application/<name>-use-case.ts` (Green).
 6. Escribe el test del service adapter **primero** (Red) → implementa el adapter (Green).
 7. Escribe el test del controller **primero** (Red) → implementa el controller versionado (Green).
 8. Registra en `*.module.ts`: controller en `controllers`, use-case y `{ provide: PORT, useClass }` en `providers`.

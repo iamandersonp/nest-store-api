@@ -3,21 +3,20 @@ import {
   CreateBrandDto,
   UpdateBrandDto,
 } from '@products/infrastructure/adapters/in/v1/dtos/brands.dto';
+import { CreateBrandCommand, UpdateBrandCommand } from '@products/application/commands';
 
 /**
  * Mapper de Brand <-> DTOs HTTP
  */
 export class BrandMapper {
-  static fromCreateDto(dto: CreateBrandDto): Omit<Brand, 'id'> {
-    // id es generado en infraestructura si corresponde
-    const { name, image } = dto;
-    return { name, image };
+  static fromCreateDto(dto: CreateBrandDto): CreateBrandCommand {
+    return new CreateBrandCommand({ name: dto.name, image: dto.image });
   }
-  static fromUpdateDto(dto: UpdateBrandDto): Partial<Brand> {
-    const out: Partial<Brand> = {};
-    if (dto.name !== undefined) out.name = dto.name;
-    if (dto.image !== undefined) out.image = dto.image;
-    return out;
+  static fromUpdateDto(dto: UpdateBrandDto): UpdateBrandCommand {
+    return new UpdateBrandCommand({
+      ...(dto.name !== undefined && { name: dto.name }),
+      ...(dto.image !== undefined && { image: dto.image }),
+    });
   }
   static toDto(model: Brand): Brand {
     return model;

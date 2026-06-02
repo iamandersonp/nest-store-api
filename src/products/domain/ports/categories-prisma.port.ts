@@ -1,0 +1,1 @@
+export const CATEGORIES_PRISMA_PORT: symbol = Symbol('CATEGORIES_PRISMA_PORT');
