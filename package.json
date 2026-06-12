@@ -25,6 +25,7 @@
     "compodoc:serve": "compodoc -s",
     "setup:git-hooks": "git config core.hooksPath .git-hooks || true && chmod +x ./.git-hooks/*",
     "prettier:staged": "prettier-staged",
+    "postinstall": "prisma generate",
     "prepare": "npm run setup:git-hooks",
     "prettier-staged": "prettier-staged"
   },
