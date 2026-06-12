@@ -24,6 +24,14 @@
       "sessions": 3,
       "memories": 21,
       "prompts": 38
+    },
+    {
+      "id": "3b7e5fce",
+      "created_by": "iam_anderson",
+      "created_at": "2026-06-12T07:36:45Z",
+      "sessions": 2,
+      "memories": 3,
+      "prompts": 8
     }
   ]
 }
